@@ -22,5 +22,5 @@ func main() {
 	if *percent > 0 {
 		debug.SetGCPercent(*percent)
 	}
-	cli.RunChain33("OCIA", testchainconfig)
+	cli.RunChain33("ocia", testchainconfig)
 }

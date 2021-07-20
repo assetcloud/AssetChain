@@ -4,8 +4,6 @@ package main
 var testchainconfig = `
 TestNet=false
 version="1.0.0"
-CoinSymbol="SC"
-ChainID=10001
 
 [blockchain]
 defCacheSize=128
