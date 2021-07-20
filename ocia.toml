@@ -26,7 +26,8 @@ callerFunction = false
 
 [blockchain]
 batchsync = false
-dbCache = 64
+defCacheSize=512
+dbCache = 512
 dbPath = "datadir"
 enableTxQuickIndex = true
 isRecordBlockSequence = false
@@ -34,6 +35,17 @@ isRecordBlockSequence = false
 enableReExecLocal = false
 # 使能精简localdb
 enableReduceLocaldb = true
+singleMode = false
+
+[mempool]
+poolCacheSize=102400
+minTxFeeRate=0
+#minTxFeeRate=100000
+disableExecCheck=true
+maxTxNumPerAccount = 10000
+name="price"
+maxTxFee=0
+isLevelFee=true
 
 [p2p]
 dbCache = 4
@@ -55,8 +67,13 @@ useGithub = false
 #可以自定义设置连接节点
 channel = 10001
 port = 13801
+
 seeds = [] # TODO
 #限定连接数
+
+seeds = [
+]
+#暂时限定较小的连接数
 maxConnectNum = 50
 #区块轻广播最低区块大小，1k
 minLtBlockSize = 1
@@ -64,6 +81,7 @@ minLtBlockSize = 1
 isFullNode = true
 #设为1为屏蔽默认设置5
 maxBroadcastPeers = 1
+psk="4ea6f2c3d924ff5882f840aba0230c4fa422c33a061af002654f076ed25f86d4"
 
 [p2p.sub.dht.pubsub]
 gossipSubD = 10
@@ -91,13 +109,12 @@ forwardServers = [] # TODO
 listenPort = 10901
 onlyVoter = false
 
-
-[mempool]
-maxTxNumPerAccount = 10000
-
 [store]
-dbCache = 128
+dbCache = 512
 dbPath = "datadir/mavltree"
+name="kvmvccmavl"
+driver="leveldb"
+storedbVersion="2.0.0"
 
 [store.sub.mavl]
 enableMVCC = false
@@ -125,10 +142,14 @@ tkCloseCacheLen = 200000
 [wallet]
 dbCache = 16
 dbPath = "wallet"
+minFee=100000
+driver="leveldb"
+signType="secp256k1"
 
 [exec]
 enableMVCC = false
 enableStat = false
+disableAddrIndex=true
 
 [exec.sub.token]
 saveTokenTxList = false
