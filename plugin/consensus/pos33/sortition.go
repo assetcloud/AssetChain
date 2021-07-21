@@ -13,7 +13,7 @@ import (
 	"github.com/33cn/chain33/common/crypto"
 	vrf "github.com/33cn/chain33/common/vrf/secp256k1"
 	"github.com/33cn/chain33/types"
-	pt "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types"
+	pt "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 	secp256k1 "github.com/btcsuite/btcd/btcec"
 	"github.com/golang/protobuf/proto"
 )

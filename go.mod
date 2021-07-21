@@ -1,4 +1,4 @@
-module github.com/assetcloud/OCIAChain
+module github.com/assetcloud/AssetChain
 
 go 1.15
 

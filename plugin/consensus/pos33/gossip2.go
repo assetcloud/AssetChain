@@ -11,7 +11,7 @@ import (
 
 	ccrypto "github.com/33cn/chain33/common/crypto"
 	"github.com/33cn/chain33/types"
-	pt "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types"
+	pt "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 
 	"github.com/libp2p/go-libp2p"
 	autonat "github.com/libp2p/go-libp2p-autonat"

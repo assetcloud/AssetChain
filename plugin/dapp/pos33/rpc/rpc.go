@@ -8,7 +8,7 @@ import (
 	"github.com/33cn/chain33/common"
 	rpctypes "github.com/33cn/chain33/rpc/types"
 	"github.com/33cn/chain33/types"
-	ty "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 	"golang.org/x/net/context"
 )
 

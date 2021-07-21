@@ -1,7 +1,7 @@
 syntax = "proto3";
 package types;
 // option go_package =
-// "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types;types";
+// "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types;types";
 
 import "common.proto";
 import "transaction.proto";

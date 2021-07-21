@@ -12,7 +12,7 @@ import (
 	driver "github.com/33cn/chain33/system/dapp"
 	ct "github.com/33cn/chain33/system/dapp/coins/types"
 	"github.com/33cn/chain33/types"
-	pt "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types"
+	pt "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 )
 
 func init() {

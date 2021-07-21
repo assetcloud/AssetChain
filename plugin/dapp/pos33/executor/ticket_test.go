@@ -11,7 +11,7 @@ import (
 	"github.com/33cn/chain33/types"
 	"github.com/33cn/chain33/util"
 	"github.com/33cn/chain33/util/testnode"
-	ty "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 	"github.com/golang/protobuf/proto"
 	"github.com/stretchr/testify/assert"
 

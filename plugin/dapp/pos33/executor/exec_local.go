@@ -6,7 +6,7 @@ package executor
 
 import (
 	"github.com/33cn/chain33/types"
-	ty "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 )
 
 func (t *Pos33Ticket) execLocal(receiptData *types.ReceiptData) (*types.LocalDBSet, error) {

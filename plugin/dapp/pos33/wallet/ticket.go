@@ -20,7 +20,7 @@ import (
 	"github.com/33cn/chain33/common/log/log15"
 	"github.com/33cn/chain33/types"
 	wcom "github.com/33cn/chain33/wallet/common"
-	ty "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 )
 
 var (

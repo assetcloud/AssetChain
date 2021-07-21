@@ -6,13 +6,13 @@ package pos33
 
 import (
 	"github.com/33cn/chain33/pluginmgr"
-	"github.com/assetcloud/OCIAChain/plugin/dapp/pos33/commands"
-	"github.com/assetcloud/OCIAChain/plugin/dapp/pos33/executor"
-	"github.com/assetcloud/OCIAChain/plugin/dapp/pos33/rpc"
-	"github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types"
+	"github.com/assetcloud/AssetChain/plugin/dapp/pos33/commands"
+	"github.com/assetcloud/AssetChain/plugin/dapp/pos33/executor"
+	"github.com/assetcloud/AssetChain/plugin/dapp/pos33/rpc"
+	"github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 
 	// init wallet
-	_ "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/wallet"
+	_ "github.com/assetcloud/AssetChain/plugin/dapp/pos33/wallet"
 )
 
 func init() {

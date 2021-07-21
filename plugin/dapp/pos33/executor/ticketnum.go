@@ -8,7 +8,7 @@ import (
 	"github.com/33cn/chain33/common"
 	"github.com/33cn/chain33/types"
 
-	tickettypes "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types"
+	tickettypes "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 )
 
 func (ticket *Pos33Ticket) getTxActions(blockHash []byte, blockNum int64) ([]*tickettypes.Pos33TicketAction, error) {

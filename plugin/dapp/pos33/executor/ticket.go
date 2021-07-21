@@ -20,7 +20,7 @@ import (
 	log "github.com/33cn/chain33/common/log/log15"
 	drivers "github.com/33cn/chain33/system/dapp"
 	"github.com/33cn/chain33/types"
-	ty "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 )
 
 var clog = log.New("module", "execs.pos33")

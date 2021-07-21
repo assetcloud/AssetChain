@@ -13,8 +13,8 @@ default: build
 all:  build
 
 build: toolimport
-	go build ${BUILD_FLAGS} -v  -o ocia
-	go build ${BUILD_FLAGS} -v  -o ocia-cli github.com/assetcloud/OCIAChain/cli
+	go build ${BUILD_FLAGS} -v  -o assetchain
+	go build ${BUILD_FLAGS} -v  -o assetchain-cli github.com/assetcloud/AssetChain/cli
 
 
 
@@ -68,7 +68,7 @@ buildtool: ## chain33 tool
 	@go build -o tool `go list -f {{.Dir}} github.com/33cn/chain33`/cmd/tools
 
 toolimport: buildtool ## update plugin import
-	@./tool import --path "plugin" --packname "github.com/assetcloud/OCIAChain/plugin" --conf "plugin/plugin.toml"
+	@./tool import --path "plugin" --packname "github.com/assetcloud/AssetChain/plugin" --conf "plugin/plugin.toml"
 
 clean:
 	@rm -rf datadir

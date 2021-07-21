@@ -9,8 +9,8 @@ import (
 	"testing"
 
 	"github.com/33cn/chain33/util/testnode"
-	ty "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types"
-	ticketwallet "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/wallet"
+	ty "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
+	ticketwallet "github.com/assetcloud/AssetChain/plugin/dapp/pos33/wallet"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 

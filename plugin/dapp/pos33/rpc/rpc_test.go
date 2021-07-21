@@ -19,7 +19,7 @@ import (
 	"github.com/33cn/chain33/util/testnode"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	ty "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )

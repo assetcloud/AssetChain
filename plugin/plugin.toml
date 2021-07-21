@@ -1,9 +1,9 @@
 # type字段仅支持 consensus  dapp store
 [dapp-pos33]
-gitrepo = "github.com/assetcloud/OCIAChain/plugin/dapp/pos33"
+gitrepo = "github.com/assetcloud/AssetChain/plugin/dapp/pos33"
 
 [consensus-pos33]
-gitrepo = "github.com/assetcloud/OCIAChain/plugin/consensus/pos33"
+gitrepo = "github.com/assetcloud/AssetChain/plugin/consensus/pos33"
 
 [dapp-evm]
 gitrepo = "github.com/33cn/plugin/plugin/dapp/evm"

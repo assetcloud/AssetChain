@@ -15,7 +15,7 @@ import (
 
 	wcom "github.com/33cn/chain33/wallet/common"
 	"github.com/stretchr/testify/assert"
-	ty "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 
 	_ "github.com/33cn/chain33/system"
 

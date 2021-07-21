@@ -7,7 +7,7 @@ package wallet
 import (
 	"github.com/33cn/chain33/common/address"
 	"github.com/33cn/chain33/types"
-	ty "github.com/assetcloud/OCIAChain/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 )
 
 // On_ClosePos33Tickets close ticket
