@@ -1,7 +1,8 @@
 FixTime = false
 Title = "assetchain-test"
-CoinSymbol="OCIA"
 ChainID=10001
+version="1.0.0"
+CoinSymbol="OCIA"
 
 [log]
 # 日志级别，支持debug(dbug)/info/warn/error(eror)/crit
@@ -143,6 +144,100 @@ dbPath = "wallet"
 minFee=100000
 driver="leveldb"
 signType="secp256k1"
+
+[fork.system]
+ForkChainParamV1=0
+ForkCheckTxDup=0
+ForkBlockHash=10000000000000000
+ForkMinerTime=0
+ForkTransferExec=0
+ForkExecKey=0
+ForkTxGroup=0
+ForkResetTx0=0
+ForkWithdraw=0
+ForkExecRollback=0
+ForkCheckBlockTime=0
+ForkTxHeight=0
+ForkTxGroupPara=0
+ForkChainParamV2=0
+ForkMultiSignAddress=0
+ForkStateDBSet=0
+ForkLocalDBAccess=0
+ForkBlockCheck=0
+ForkBase58AddressCheck=0
+#平行链上使能平行链执行器如user.p.x.coins执行器的注册，缺省为0，对已有的平行链需要设置一个fork高度
+ForkEnableParaRegExec=0
+ForkCacheDriver=0
+ForkTicketFundAddrV1=-1 #fork6.3
+#主链和平行链都使用同一个fork高度
+ForkRootHash=0 
+
+[fork.sub.coins]
+Enable=0
+
+[fork.sub.pos33]
+Enable=0
+
+[fork.sub.ticket]
+Enable=0
+ForkTicketId = 0 
+ForkTicketVrf = 0
+
+[fork.sub.retrieve]
+Enable=0
+ForkRetrive=0
+ForkRetriveAsset=0
+
+[fork.sub.hashlock]
+Enable=0
+ForkBadRepeatSecret=0
+
+[fork.sub.manage]
+Enable=0
+ForkManageExec=0
+
+[fork.sub.token]
+Enable=0
+ForkTokenBlackList=0
+ForkBadTokenSymbol=0
+ForkTokenPrice=300000
+ForkTokenSymbolWithNumber=0
+ForkTokenCheck=0
+
+[fork.sub.trade]
+Enable=0
+ForkTradeBuyLimit=0
+ForkTradeAsset=0
+ForkTradeID=0
+ForkTradeFixAssetDB=0
+ForkTradePrice=0
+
+
+[fork.sub.paracross]
+Enable=1600000
+ForkParacrossWithdrawFromParachain=1600000
+ForkParacrossCommitTx=2270000
+ForkLoopCheckCommitTxDone=4320000
+#fork for 6.4
+ForkParaAssetTransferRbk=7200000    
+ForkParaSelfConsStages=7200000
+#仅平行链适用
+ForkParaFullMinerHeight=-1
+
+[fork.sub.multisig]
+Enable=0
+
+[fork.sub.autonomy]
+Enable=0
+
+[fork.sub.unfreeze]
+Enable=0
+ForkTerminatePart=0
+ForkUnfreezeIDX=0
+
+[fork.sub.store-kvmvccmavl]
+ForkKvmvccmavl=0
+
 
 [exec]
 enableMVCC = false
