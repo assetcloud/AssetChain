@@ -265,8 +265,8 @@ func (client *Client) CreateGenesisTx() (ret []*types.Transaction) {
 	tx0.Execer = []byte("coins")
 	tx0.To = client.Cfg.Genesis
 	g := &ct.CoinsAction_Genesis{}
-	// 发行 100 亿
-	g.Genesis = &types.AssetsGenesis{Amount: types.MaxCoin * 10}
+	// 发行 20200520
+	g.Genesis = &types.AssetsGenesis{Amount: 20200520 * types.Coin}
 	tx0.Payload = types.Encode(&ct.CoinsAction{Value: g, Ty: ct.CoinsActionGenesis})
 	ret = append(ret, &tx0)
 
