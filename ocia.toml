@@ -1,6 +1,6 @@
 FixTime = false
-Title = "ocia-test"
-CoinSymbol="SC"
+Title = "assetchain-test"
+CoinSymbol="OCIA"
 ChainID=10001
 
 [log]

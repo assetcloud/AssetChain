@@ -15,5 +15,5 @@ func main() {
 	if buildflags.RPCAddr == "" {
 		buildflags.RPCAddr = "http://localhost:9901"
 	}
-	cli.Run(buildflags.RPCAddr, buildflags.ParaName, "ocia")
+	cli.Run(buildflags.RPCAddr, buildflags.ParaName, "assetchain")
 }

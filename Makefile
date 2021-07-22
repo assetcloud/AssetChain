@@ -75,6 +75,6 @@ clean:
 	@rm -rf logs
 	@rm -rf wallet
 	@rm -rf grpc33.log
-	@rm -rf ocia
-	@rm -rf ocia-cli
+	@rm -rf assetchain
+	@rm -rf assetchain-cli
 	@rm -rf tool
