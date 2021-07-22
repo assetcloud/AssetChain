@@ -71,8 +71,6 @@ port = 13801
 seeds = [] # TODO
 #限定连接数
 
-seeds = [
-]
 #暂时限定较小的连接数
 maxConnectNum = 50
 #区块轻广播最低区块大小，1k
