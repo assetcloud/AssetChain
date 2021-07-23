@@ -92,7 +92,7 @@ ForkTicketVrf=0
 
 [exec.sub.token]
 #配置一个空值，防止配置文件被覆盖
-tokenApprs=[13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd]
+tokenApprs=["13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd"]
 [exec.sub.relay]
 genesis="13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd"
 
