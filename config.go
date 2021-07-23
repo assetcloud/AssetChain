@@ -43,7 +43,7 @@ poolCacheSize=102400
 name="pos33"
 minerstart=true
 genesisBlockTime=1604449783
-genesis="14KEKbYtKKQm4wMthSK9J4La4nAiidGozt"
+genesis="163eimvjqQacXh6evrmRpRxXRCxKqHUT88"
 minerExecs=["pos33"]
 
 [consensus.sub.pos33]
@@ -53,12 +53,12 @@ checkFutureBlockHeight=1500000
 # bootPeers=["/ip4/183.129.226.76/tcp/10901/p2p/16Uiu2HAmErmNhtS145Lv5fe9FWrHSrNjPkp1eMLeLgi6t3sdr1of"]
 
 [[consensus.sub.pos33.genesis]]
-minerAddr="12qyocayNF7Lv6C9qW4avxs2E7U41fKSfv"
-returnAddr="14KEKbYtKKQm4wMthSK9J4La4nAiidGozt"
+minerAddr="19AqkFqEEB4kRxfnYomuAx4TgxeHw53X99"
+returnAddr="163eimvjqQacXh6evrmRpRxXRCxKqHUT88"
 count=10000
 
 [mver.consensus]
-fundKeyAddr="1Wj2mPoBwJMVwAQLKPNDseGpDNibDt9Vq"
+fundKeyAddr="14wDnMse45jomBWx1AuHB6KDhVz662YJMx"
 powLimitBits="0x1f00ffff"
 maxTxNumber=6000
 
@@ -69,7 +69,7 @@ maxTxNumber=6000
 powLimitBits="0x1f2fffff"
 
 [mver.consensus.ForkTicketFundAddrV1]
-fundKeyAddr="1Wj2mPoBwJMVwAQLKPNDseGpDNibDt9Vq"
+fundKeyAddr="14wDnMse45jomBWx1AuHB6KDhVz662YJMx"
 
 [mver.consensus.pos33]
 coinReward=18
@@ -85,9 +85,6 @@ targetTimePerBlock=15
 
 [store]
 
-
-
-
 [exec]
 [exec.sub.pos33]
 ForkTicketId=0
@@ -95,13 +92,13 @@ ForkTicketVrf=0
 
 [exec.sub.token]
 #配置一个空值，防止配置文件被覆盖
-tokenApprs=[]
+tokenApprs=[13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd]
 [exec.sub.relay]
-genesis="14KEKbYtKKQm4wMthSK9J4La4nAiidGozt"
+genesis="13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd"
 
 [exec.sub.manage]
 superManager=[
-    "1EbDHAXpoiewjPLX9uqoz38HsKqMXayZrF", 
+    "13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd", 
 ]
 
 [exec.sub.paracross]
@@ -110,7 +107,7 @@ nodeGroupFrozenCoins=0
 paraConsensusStopBlocks=30000
 
 [exec.sub.autonomy]
-total="16htvcBNSEA7fZhAdLJphDwQRQJaHpyHTp"
+total="13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd"
 useBalance=false
 
 [health]
