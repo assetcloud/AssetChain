@@ -12,11 +12,14 @@ default: build
 
 all:  build
 
-build: toolimport
+build:
 	go build ${BUILD_FLAGS} -v  -o assetchain
 	go build ${BUILD_FLAGS} -v  -o assetchain-cli github.com/assetcloud/AssetChain/cli
 
-
+pkg:
+	mkdir assetchain-pkg
+	cp assetchain assetchain-cli assetchain.toml tools/wallet-init.sh assetchain-pkg
+	tar zcfv assetchain-pkg.tgz assetchain-pkg
 
 #make updateplugin version=xxx
 #单独更新plugin或chain33, version可以是tag或者commit哈希(tag必须是--vMajor.Minor.Patch--规范格式)
