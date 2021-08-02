@@ -17,6 +17,7 @@ build:
 	go build ${BUILD_FLAGS} -v  -o assetchain-cli github.com/assetcloud/AssetChain/cli
 
 pkg:
+	rm assetchain-pkg assetchain-pkg.tgz -rf
 	mkdir assetchain-pkg
 	cp assetchain assetchain-cli assetchain.toml tools/wallet-init.sh assetchain-pkg
 	tar zcfv assetchain-pkg.tgz assetchain-pkg
