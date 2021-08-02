@@ -104,7 +104,8 @@ keyFile = "key.pem"
 whitelist = ["127.0.0.1"]
 
 [consensus.sub.pos33]
-bootPeers = ["/ip4/10.89.3.5/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
+bootPeers = ["/ip4/218.75.123.183/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
+# bootPeers = ["/ip4/10.89.3.5/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
 forwardServers = [] 
 listenPort = 10901
 onlyVoter = false
