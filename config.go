@@ -60,10 +60,10 @@ count=10000
 [mver.consensus]
 fundKeyAddr="14wDnMse45jomBWx1AuHB6KDhVz662YJMx"
 powLimitBits="0x1f00ffff"
-maxTxNumber=6000
+maxTxNumber=10000
 
 [mver.consensus.ForkChainParamV1]
-maxTxNumber=6000
+maxTxNumber=10000
 
 [mver.consensus.ForkChainParamV2]
 powLimitBits="0x1f2fffff"
