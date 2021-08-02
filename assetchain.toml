@@ -31,11 +31,12 @@ defCacheSize=512
 dbCache = 512
 dbPath = "datadir"
 enableTxQuickIndex = true
-isRecordBlockSequence = false
+isRecordBlockSequence = true
 # 升级storedb是否重新执行localdb，主链升级不需要开启，平行链升级需要开启
 enableReExecLocal = false
 # 使能精简localdb
-enableReduceLocaldb = true
+enableReduceLocaldb = false
+enablePushSubscribe = true
 singleMode = false
 
 [mempool]
@@ -58,7 +59,7 @@ waitPid = false
 
 [p2p.sub.gossip]
 innerBounds = 300
-innerSeedEnable = true
+innerSeedEnable = false
 isSeed = false
 port = 13802
 seeds = []
@@ -103,7 +104,7 @@ keyFile = "key.pem"
 whitelist = ["127.0.0.1"]
 
 [consensus.sub.pos33]
-bootPeers = ["/ip4/10.89.3.5/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM5"]
+bootPeers = ["/ip4/10.89.3.5/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
 forwardServers = [] 
 listenPort = 10901
 onlyVoter = false
