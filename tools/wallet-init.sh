@@ -4,7 +4,7 @@ function init() {
     echo "=========== # start set wallet 1 ============="
     echo "=========== # save seed to wallet ============="
     result=$(./assetchain-cli seed generate -l 0)
-    result=$(./assetchain-cli seed save -p 1314fuzamei -s "${result}" | jq ".isok")
+    result=$(./assetchain-cli seed save -p asset1314 -s "${result}" | jq ".isok")
     if [ "${result}" = "false" ]; then
         echo "save seed to wallet error seed, result: ${result}"
         exit 1
@@ -13,7 +13,7 @@ function init() {
     sleep 1
 
     echo "=========== # unlock wallet ============="
-    result=$(./assetchain-cli wallet unlock -p 1314fuzamei -t 0 | jq ".isok")
+    result=$(./assetchain-cli wallet unlock -p asset1314 -t 0 | jq ".isok")
     if [ "${result}" = "false" ]; then
         exit 1
     fi
