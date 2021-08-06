@@ -216,13 +216,13 @@ ForkTradePrice=0
 
 
 [fork.sub.paracross]
-Enable=1600000
-ForkParacrossWithdrawFromParachain=1600000
-ForkParacrossCommitTx=2270000
-ForkLoopCheckCommitTxDone=4320000
+Enable=0
+ForkParacrossWithdrawFromParachain=0
+ForkParacrossCommitTx=0
+ForkLoopCheckCommitTxDone=0
 #fork for 6.4
-ForkParaAssetTransferRbk=7200000    
-ForkParaSelfConsStages=7200000
+ForkParaAssetTransferRbk=0
+ForkParaSelfConsStages=0
 #仅平行链适用
 ForkParaFullMinerHeight=-1
 
