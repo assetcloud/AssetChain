@@ -5,6 +5,9 @@ gitrepo = "github.com/assetcloud/AssetChain/plugin/dapp/pos33"
 [consensus-pos33]
 gitrepo = "github.com/assetcloud/AssetChain/plugin/consensus/pos33"
 
+[consensus-para]
+gitrepo = "github.com/33cn/plugin/plugin/consensus/para"
+
 [dapp-evm]
 gitrepo = "github.com/33cn/plugin/plugin/dapp/evm"
 
@@ -37,6 +40,9 @@ gitrepo = "github.com/33cn/plugin/plugin/mempool/score"
 
 [mempool-price]
 gitrepo = "github.com/33cn/plugin/plugin/mempool/price"
+
+[mempool-para]
+gitrepo = "github.com/33cn/plugin/plugin/mempool/para"
 
 [store-kvmvccmavl]
 gitrepo = "github.com/33cn/plugin/plugin/store/kvmvccmavl"

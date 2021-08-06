@@ -41,8 +41,8 @@ singleMode = false
 
 [mempool]
 poolCacheSize=102400
-minTxFeeRate=0
-#minTxFeeRate=100000
+#minTxFeeRate=0
+minTxFeeRate=100000
 disableExecCheck=true
 maxTxNumPerAccount = 10000
 name="price"
