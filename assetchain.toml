@@ -150,7 +150,8 @@ signType="secp256k1"
 [fork.system]
 ForkChainParamV1=0
 ForkCheckTxDup=0
-ForkBlockHash=10000000000000000
+# TODO 正式链配置为 1
+ForkBlockHash=175000
 ForkMinerTime=0
 ForkTransferExec=0
 ForkExecKey=0
