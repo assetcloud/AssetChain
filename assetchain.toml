@@ -50,6 +50,7 @@ maxTxFee=0
 isLevelFee=true
 
 [p2p]
+enable=true
 dbCache = 4
 dbPath = "datadir/addrbook"
 grpcLogFile = "grpc33.log"
@@ -102,6 +103,13 @@ jrpcBindAddr = "localhost:8801"
 jrpcFuncWhitelist = ["*"]
 keyFile = "key.pem"
 whitelist = ["127.0.0.1"]
+
+[consensus]
+name="pos33"
+minerstart=true
+genesisBlockTime=1604449783
+genesis="163eimvjqQacXh6evrmRpRxXRCxKqHUT88"
+minerExecs=["pos33"]
 
 [consensus.sub.pos33]
 bootPeers = ["/ip4/218.75.123.183/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
@@ -273,3 +281,9 @@ namespace = ""
 password = ""
 url = "http://influxdb:8086"
 username = ""
+
+[pprof]
+listenAddr=":8903"
+
+[health]
+listenAddr="localhost:8809"

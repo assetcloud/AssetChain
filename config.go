@@ -15,7 +15,6 @@ disableShard=true
 onChainTimeout=1
 
 [p2p]
-enable=true
 msgCacheSize=10240
 driver="leveldb"
 
@@ -40,11 +39,6 @@ pricePower=1     #常量比例
 poolCacheSize=102400
 
 [consensus]
-name="pos33"
-minerstart=true
-genesisBlockTime=1604449783
-genesis="163eimvjqQacXh6evrmRpRxXRCxKqHUT88"
-minerExecs=["pos33"]
 
 [consensus.sub.pos33]
 genesisBlockTime=1611627559
@@ -111,7 +105,6 @@ total="13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd"
 useBalance=false
 
 [health]
-listenAddr="localhost:8809"
 checkInterval=1
 unSyncMaxTimes=2
 `
