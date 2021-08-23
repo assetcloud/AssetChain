@@ -68,7 +68,7 @@ pricePower=1     #常量比例
 poolCacheSize=102400
 
 [p2p]
-enable=true
+enable=false
 dbCache = 4
 driver="leveldb"
 dbPath = "datadir/addrbook"
@@ -92,7 +92,7 @@ serverStart=true
 channel = 10001
 port = 13801
 
-seeds = ["/ip4/218.75.123.183/tcp/13801/p2p/16Uiu2HAmDJ6PUMSsD7cz5FQJp2KmDMcZ2EqB6XN4D4zKZc6ky8J6"]
+seeds = []
 # seeds = ["/ip4/10.89.3.5/tcp/13801/p2p/16Uiu2HAmDJ6PUMSsD7cz5FQJp2KmDMcZ2EqB6XN4D4zKZc6ky8J6"]
 
 #限定连接数
