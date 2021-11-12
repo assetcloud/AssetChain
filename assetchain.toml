@@ -30,7 +30,7 @@ callerFunction = false
 batchsync = false
 defCacheSize=512
 dbCache = 512
-dbPath = "datadir"
+dbPath = "/data/assetchaindatadir"
 enableTxQuickIndex = true
 isRecordBlockSequence = true
 # 升级storedb是否重新执行localdb，主链升级不需要开启，平行链升级需要开启
@@ -73,7 +73,7 @@ poolCacheSize=102400
 enable=true
 dbCache = 4
 driver="leveldb"
-dbPath = "datadir/addrbook"
+dbPath = "/data/assetchaindatadir/addrbook"
 grpcLogFile = "grpc33.log"
 types = ["dht"]
 #waitPid 等待seed导入
@@ -94,8 +94,8 @@ serverStart=true
 channel = 10001
 port = 13801
 
-seeds = ["/ip4/218.75.123.183/tcp/13801/p2p/16Uiu2HAmDJ6PUMSsD7cz5FQJp2KmDMcZ2EqB6XN4D4zKZc6ky8J6"]
-# seeds = ["/ip4/10.89.3.5/tcp/13801/p2p/16Uiu2HAmDJ6PUMSsD7cz5FQJp2KmDMcZ2EqB6XN4D4zKZc6ky8J6"]
+seeds = ["/ip4/218.75.123.183/tcp/13801/p2p/16Uiu2HAkzFQ5BVEQKXPbMqga6wkmtb1Rh2bH5sXaWtVyuR5GeLxv"]
+# seeds = ["/ip4/10.89.3.10/tcp/13801/p2p/16Uiu2HAkzFQ5BVEQKXPbMqga6wkmtb1Rh2bH5sXaWtVyuR5GeLxv"]
 
 #限定连接数
 #暂时限定较小的连接数
@@ -135,7 +135,7 @@ minerExecs=["pos33"]
 
 [consensus.sub.pos33]
 bootPeers = ["/ip4/218.75.123.183/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
-# bootPeers = ["/ip4/10.89.3.5/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
+#bootPeers = ["/ip4/10.89.3.10/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
 forwardServers = [] 
 listenPort = 10901
 onlyVoter = false
@@ -175,7 +175,7 @@ targetTimePerBlock=15
 
 [store]
 dbCache = 512
-dbPath = "datadir/mavltree"
+dbPath = "/data/assetchaindatadir/mavltree"
 name="kvmvccmavl"
 driver="leveldb"
 storedbVersion="2.0.0"
@@ -208,7 +208,7 @@ enableTypes = ["secp256k1", "none", "bls"]
 
 [wallet]
 dbCache = 16
-dbPath = "wallet"
+dbPath = "/data/assetchainwallet"
 minFee=10
 driver="leveldb"
 signType="secp256k1"
@@ -217,7 +217,7 @@ signType="secp256k1"
 ForkChainParamV1=0
 ForkCheckTxDup=0
 # TODO 正式链配置为 1
-ForkBlockHash=175000
+ForkBlockHash=1
 ForkMinerTime=0
 ForkTransferExec=0
 ForkExecKey=0
