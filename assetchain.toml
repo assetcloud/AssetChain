@@ -51,6 +51,7 @@ onChainTimeout=1
 poolCacheSize=102400
 #minTxFeeRate=0
 minTxFeeRate=10
+maxTxFeeRate=1000
 disableExecCheck=true
 maxTxNumPerAccount = 30000
 name="price"
@@ -208,7 +209,7 @@ enableTypes = ["secp256k1", "none", "bls"]
 [wallet]
 dbCache = 16
 dbPath = "wallet"
-minFee=100000
+minFee=10
 driver="leveldb"
 signType="secp256k1"
 
