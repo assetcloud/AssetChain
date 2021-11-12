@@ -104,7 +104,6 @@ minLtBlockSize = 1
 isFullNode = true
 #设为1为屏蔽默认设置5
 maxBroadcastPeers = 1
-psk="4ea6f2c3d924ff5882f840aba0230c4fa422c33a061af002654f076ed25f86d4"
 
 [p2p.sub.dht.pubsub]
 gossipSubD = 10
@@ -149,10 +148,10 @@ count=10000
 [mver.consensus]
 fundKeyAddr="14wDnMse45jomBWx1AuHB6KDhVz662YJMx"
 powLimitBits="0x1f00ffff"
-maxTxNumber=10000
+maxTxNumber=30000
 
 [mver.consensus.ForkChainParamV1]
-maxTxNumber=10000
+maxTxNumber=30000
 
 [mver.consensus.ForkChainParamV2]
 powLimitBits="0x1f2fffff"
@@ -201,6 +200,9 @@ pruneMVCCHeight = 10000
 pruneMavlHeight = 10000
 # 缓存close ticket数目，该缓存越大同步速度越快，最大设置到1500000,默认200000
 tkCloseCacheLen = 200000
+
+[crypto]
+enableTypes = ["secp256k1", "none", "bls"]
 
 [wallet]
 dbCache = 16
@@ -288,12 +290,15 @@ ForkParaAssetTransferRbk=0
 ForkParaSelfConsStages=0
 #仅平行链适用
 ForkParaFullMinerHeight=-1
+ForkParaRootHash=0
+ForkParaSupervision=0
 
 [fork.sub.multisig]
 Enable=0
 
 [fork.sub.autonomy]
 Enable=0
+ForkAutonomyDelRule=0
 
 [fork.sub.unfreeze]
 Enable=0
@@ -316,7 +321,7 @@ ForkEVMTxGroup=0
 [exec]
 enableMVCC = false
 enableStat = false
-disableAddrIndex=true
+#disableAddrIndex=true
 
 [exec.sub.pos33]
 ForkTicketId=0
