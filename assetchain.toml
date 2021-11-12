@@ -3,6 +3,7 @@ Title = "assetchain-test"
 ChainID=10001
 version="1.0.0"
 CoinSymbol="OCIA"
+CoinPrecision=10000
 
 [log]
 # 日志级别，支持debug(dbug)/info/warn/error(eror)/crit
@@ -49,17 +50,17 @@ onChainTimeout=1
 [mempool]
 poolCacheSize=102400
 #minTxFeeRate=0
-minTxFeeRate=100000
+minTxFeeRate=10
 disableExecCheck=true
-maxTxNumPerAccount = 10000
+maxTxNumPerAccount = 30000
 name="price"
-maxTxFee=0
+maxTxFee=100000
 isLevelFee=true
 
 [mempool.sub.score]
 poolCacheSize=102400
-minTxFee=100000
-maxTxNumPerAccount=100
+minTxFee=10
+maxTxNumPerAccount=30000
 timeParam=1      #时间占价格比例
 priceConstant=1544  #手续费相对于时间的一个合适的常量,取当前unxi时间戳前四位数,排序时手续费高1e-5~=快1s
 pricePower=1     #常量比例
