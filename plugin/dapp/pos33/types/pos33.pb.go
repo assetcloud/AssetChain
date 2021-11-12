@@ -3,15 +3,14 @@
 
 package types
 
+import proto "github.com/golang/protobuf/proto"
+import fmt "fmt"
+import math "math"
+import types "github.com/33cn/chain33/types"
+
 import (
-	context "context"
-	fmt "fmt"
-	types "github.com/33cn/chain33/types"
-	proto "github.com/golang/protobuf/proto"
+	context "golang.org/x/net/context"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
-	math "math"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -23,7 +22,7 @@ var _ = math.Inf
 // is compatible with the proto package it is being compiled against.
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
+const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 type Pos33Msg_Ty int32
 
@@ -33,7 +32,7 @@ const (
 	Pos33Msg_B  Pos33Msg_Ty = 2
 	Pos33Msg_MS Pos33Msg_Ty = 3
 	Pos33Msg_VS Pos33Msg_Ty = 4
-	Pos33Msg_SV Pos33Msg_Ty = 5
+	Pos33Msg_CV Pos33Msg_Ty = 5
 )
 
 var Pos33Msg_Ty_name = map[int32]string{
@@ -42,24 +41,22 @@ var Pos33Msg_Ty_name = map[int32]string{
 	2: "B",
 	3: "MS",
 	4: "VS",
-	5: "SV",
+	5: "CV",
 }
-
 var Pos33Msg_Ty_value = map[string]int32{
 	"MV": 0,
 	"BV": 1,
 	"B":  2,
 	"MS": 3,
 	"VS": 4,
-	"SV": 5,
+	"CV": 5,
 }
 
 func (x Pos33Msg_Ty) String() string {
 	return proto.EnumName(Pos33Msg_Ty_name, int32(x))
 }
-
 func (Pos33Msg_Ty) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{2, 0}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{2, 0}
 }
 
 type Pos33Ticket struct {
@@ -72,7 +69,7 @@ type Pos33Ticket struct {
 	OpenHeight int64 `protobuf:"varint,4,opt,name=openHeight,proto3" json:"openHeight,omitempty"`
 	// 关闭的高度
 	CloseHeight int64 `protobuf:"varint,5,opt,name=closeHeight,proto3" json:"closeHeight,omitempty"`
-	//挖到的币的数目
+	// 挖到的币的数目
 	MinerValue   int64  `protobuf:"varint,8,opt,name=minerValue,proto3" json:"minerValue,omitempty"`
 	MinerAddress string `protobuf:"bytes,6,opt,name=minerAddress,proto3" json:"minerAddress,omitempty"`
 	// return wallet
@@ -88,17 +85,16 @@ func (m *Pos33Ticket) Reset()         { *m = Pos33Ticket{} }
 func (m *Pos33Ticket) String() string { return proto.CompactTextString(m) }
 func (*Pos33Ticket) ProtoMessage()    {}
 func (*Pos33Ticket) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{0}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{0}
 }
-
 func (m *Pos33Ticket) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33Ticket.Unmarshal(m, b)
 }
 func (m *Pos33Ticket) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33Ticket.Marshal(b, m, deterministic)
 }
-func (m *Pos33Ticket) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33Ticket.Merge(m, src)
+func (dst *Pos33Ticket) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33Ticket.Merge(dst, src)
 }
 func (m *Pos33Ticket) XXX_Size() int {
 	return xxx_messageInfo_Pos33Ticket.Size(m)
@@ -191,17 +187,16 @@ func (m *Pos33TicketAction) Reset()         { *m = Pos33TicketAction{} }
 func (m *Pos33TicketAction) String() string { return proto.CompactTextString(m) }
 func (*Pos33TicketAction) ProtoMessage()    {}
 func (*Pos33TicketAction) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{1}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{1}
 }
-
 func (m *Pos33TicketAction) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33TicketAction.Unmarshal(m, b)
 }
 func (m *Pos33TicketAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33TicketAction.Marshal(b, m, deterministic)
 }
-func (m *Pos33TicketAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33TicketAction.Merge(m, src)
+func (dst *Pos33TicketAction) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33TicketAction.Merge(dst, src)
 }
 func (m *Pos33TicketAction) XXX_Size() int {
 	return xxx_messageInfo_Pos33TicketAction.Size(m)
@@ -295,15 +290,135 @@ func (m *Pos33TicketAction) GetTy() int32 {
 	return 0
 }
 
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*Pos33TicketAction) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
+// XXX_OneofFuncs is for the internal use of the proto package.
+func (*Pos33TicketAction) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
+	return _Pos33TicketAction_OneofMarshaler, _Pos33TicketAction_OneofUnmarshaler, _Pos33TicketAction_OneofSizer, []interface{}{
 		(*Pos33TicketAction_Tbind)(nil),
 		(*Pos33TicketAction_Topen)(nil),
 		(*Pos33TicketAction_Genesis)(nil),
 		(*Pos33TicketAction_Tclose)(nil),
 		(*Pos33TicketAction_Miner)(nil),
 	}
+}
+
+func _Pos33TicketAction_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
+	m := msg.(*Pos33TicketAction)
+	// value
+	switch x := m.Value.(type) {
+	case *Pos33TicketAction_Tbind:
+		b.EncodeVarint(5<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.Tbind); err != nil {
+			return err
+		}
+	case *Pos33TicketAction_Topen:
+		b.EncodeVarint(1<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.Topen); err != nil {
+			return err
+		}
+	case *Pos33TicketAction_Genesis:
+		b.EncodeVarint(2<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.Genesis); err != nil {
+			return err
+		}
+	case *Pos33TicketAction_Tclose:
+		b.EncodeVarint(3<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.Tclose); err != nil {
+			return err
+		}
+	case *Pos33TicketAction_Miner:
+		b.EncodeVarint(6<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.Miner); err != nil {
+			return err
+		}
+	case nil:
+	default:
+		return fmt.Errorf("Pos33TicketAction.Value has unexpected type %T", x)
+	}
+	return nil
+}
+
+func _Pos33TicketAction_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
+	m := msg.(*Pos33TicketAction)
+	switch tag {
+	case 5: // value.tbind
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(Pos33TicketBind)
+		err := b.DecodeMessage(msg)
+		m.Value = &Pos33TicketAction_Tbind{msg}
+		return true, err
+	case 1: // value.topen
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(Pos33TicketOpen)
+		err := b.DecodeMessage(msg)
+		m.Value = &Pos33TicketAction_Topen{msg}
+		return true, err
+	case 2: // value.genesis
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(Pos33TicketGenesis)
+		err := b.DecodeMessage(msg)
+		m.Value = &Pos33TicketAction_Genesis{msg}
+		return true, err
+	case 3: // value.tclose
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(Pos33TicketClose)
+		err := b.DecodeMessage(msg)
+		m.Value = &Pos33TicketAction_Tclose{msg}
+		return true, err
+	case 6: // value.miner
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(Pos33TicketMiner)
+		err := b.DecodeMessage(msg)
+		m.Value = &Pos33TicketAction_Miner{msg}
+		return true, err
+	default:
+		return false, nil
+	}
+}
+
+func _Pos33TicketAction_OneofSizer(msg proto.Message) (n int) {
+	m := msg.(*Pos33TicketAction)
+	// value
+	switch x := m.Value.(type) {
+	case *Pos33TicketAction_Tbind:
+		s := proto.Size(x.Tbind)
+		n += 1 // tag and wire
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case *Pos33TicketAction_Topen:
+		s := proto.Size(x.Topen)
+		n += 1 // tag and wire
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case *Pos33TicketAction_Genesis:
+		s := proto.Size(x.Genesis)
+		n += 1 // tag and wire
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case *Pos33TicketAction_Tclose:
+		s := proto.Size(x.Tclose)
+		n += 1 // tag and wire
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case *Pos33TicketAction_Miner:
+		s := proto.Size(x.Miner)
+		n += 1 // tag and wire
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case nil:
+	default:
+		panic(fmt.Sprintf("proto: unexpected type %T in oneof", x))
+	}
+	return n
 }
 
 type Pos33Msg struct {
@@ -318,17 +433,16 @@ func (m *Pos33Msg) Reset()         { *m = Pos33Msg{} }
 func (m *Pos33Msg) String() string { return proto.CompactTextString(m) }
 func (*Pos33Msg) ProtoMessage()    {}
 func (*Pos33Msg) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{2}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{2}
 }
-
 func (m *Pos33Msg) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33Msg.Unmarshal(m, b)
 }
 func (m *Pos33Msg) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33Msg.Marshal(b, m, deterministic)
 }
-func (m *Pos33Msg) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33Msg.Merge(m, src)
+func (dst *Pos33Msg) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33Msg.Merge(dst, src)
 }
 func (m *Pos33Msg) XXX_Size() int {
 	return xxx_messageInfo_Pos33Msg.Size(m)
@@ -368,17 +482,16 @@ func (m *SortHash) Reset()         { *m = SortHash{} }
 func (m *SortHash) String() string { return proto.CompactTextString(m) }
 func (*SortHash) ProtoMessage()    {}
 func (*SortHash) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{3}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{3}
 }
-
 func (m *SortHash) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SortHash.Unmarshal(m, b)
 }
 func (m *SortHash) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_SortHash.Marshal(b, m, deterministic)
 }
-func (m *SortHash) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SortHash.Merge(m, src)
+func (dst *SortHash) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SortHash.Merge(dst, src)
 }
 func (m *SortHash) XXX_Size() int {
 	return xxx_messageInfo_SortHash.Size(m)
@@ -431,17 +544,16 @@ func (m *VrfInput) Reset()         { *m = VrfInput{} }
 func (m *VrfInput) String() string { return proto.CompactTextString(m) }
 func (*VrfInput) ProtoMessage()    {}
 func (*VrfInput) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{4}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{4}
 }
-
 func (m *VrfInput) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_VrfInput.Unmarshal(m, b)
 }
 func (m *VrfInput) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_VrfInput.Marshal(b, m, deterministic)
 }
-func (m *VrfInput) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_VrfInput.Merge(m, src)
+func (dst *VrfInput) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_VrfInput.Merge(dst, src)
 }
 func (m *VrfInput) XXX_Size() int {
 	return xxx_messageInfo_VrfInput.Size(m)
@@ -495,17 +607,16 @@ func (m *HashProof) Reset()         { *m = HashProof{} }
 func (m *HashProof) String() string { return proto.CompactTextString(m) }
 func (*HashProof) ProtoMessage()    {}
 func (*HashProof) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{5}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{5}
 }
-
 func (m *HashProof) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_HashProof.Unmarshal(m, b)
 }
 func (m *HashProof) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_HashProof.Marshal(b, m, deterministic)
 }
-func (m *HashProof) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_HashProof.Merge(m, src)
+func (dst *HashProof) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_HashProof.Merge(dst, src)
 }
 func (m *HashProof) XXX_Size() int {
 	return xxx_messageInfo_HashProof.Size(m)
@@ -556,17 +667,16 @@ func (m *Pos33SortMsg) Reset()         { *m = Pos33SortMsg{} }
 func (m *Pos33SortMsg) String() string { return proto.CompactTextString(m) }
 func (*Pos33SortMsg) ProtoMessage()    {}
 func (*Pos33SortMsg) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{6}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{6}
 }
-
 func (m *Pos33SortMsg) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33SortMsg.Unmarshal(m, b)
 }
 func (m *Pos33SortMsg) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33SortMsg.Marshal(b, m, deterministic)
 }
-func (m *Pos33SortMsg) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33SortMsg.Merge(m, src)
+func (dst *Pos33SortMsg) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33SortMsg.Merge(dst, src)
 }
 func (m *Pos33SortMsg) XXX_Size() int {
 	return xxx_messageInfo_Pos33SortMsg.Size(m)
@@ -602,17 +712,16 @@ func (m *Pos33Sorts) Reset()         { *m = Pos33Sorts{} }
 func (m *Pos33Sorts) String() string { return proto.CompactTextString(m) }
 func (*Pos33Sorts) ProtoMessage()    {}
 func (*Pos33Sorts) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{7}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{7}
 }
-
 func (m *Pos33Sorts) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33Sorts.Unmarshal(m, b)
 }
 func (m *Pos33Sorts) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33Sorts.Marshal(b, m, deterministic)
 }
-func (m *Pos33Sorts) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33Sorts.Merge(m, src)
+func (dst *Pos33Sorts) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33Sorts.Merge(dst, src)
 }
 func (m *Pos33Sorts) XXX_Size() int {
 	return xxx_messageInfo_Pos33Sorts.Size(m)
@@ -641,17 +750,16 @@ func (m *Pos33VoteSorts) Reset()         { *m = Pos33VoteSorts{} }
 func (m *Pos33VoteSorts) String() string { return proto.CompactTextString(m) }
 func (*Pos33VoteSorts) ProtoMessage()    {}
 func (*Pos33VoteSorts) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{8}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{8}
 }
-
 func (m *Pos33VoteSorts) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33VoteSorts.Unmarshal(m, b)
 }
 func (m *Pos33VoteSorts) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33VoteSorts.Marshal(b, m, deterministic)
 }
-func (m *Pos33VoteSorts) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33VoteSorts.Merge(m, src)
+func (dst *Pos33VoteSorts) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33VoteSorts.Merge(dst, src)
 }
 func (m *Pos33VoteSorts) XXX_Size() int {
 	return xxx_messageInfo_Pos33VoteSorts.Size(m)
@@ -681,17 +789,16 @@ func (m *Pos33Online) Reset()         { *m = Pos33Online{} }
 func (m *Pos33Online) String() string { return proto.CompactTextString(m) }
 func (*Pos33Online) ProtoMessage()    {}
 func (*Pos33Online) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{9}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{9}
 }
-
 func (m *Pos33Online) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33Online.Unmarshal(m, b)
 }
 func (m *Pos33Online) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33Online.Marshal(b, m, deterministic)
 }
-func (m *Pos33Online) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33Online.Merge(m, src)
+func (dst *Pos33Online) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33Online.Merge(dst, src)
 }
 func (m *Pos33Online) XXX_Size() int {
 	return xxx_messageInfo_Pos33Online.Size(m)
@@ -728,17 +835,16 @@ func (m *Pos33BlockMsg) Reset()         { *m = Pos33BlockMsg{} }
 func (m *Pos33BlockMsg) String() string { return proto.CompactTextString(m) }
 func (*Pos33BlockMsg) ProtoMessage()    {}
 func (*Pos33BlockMsg) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{10}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{10}
 }
-
 func (m *Pos33BlockMsg) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33BlockMsg.Unmarshal(m, b)
 }
 func (m *Pos33BlockMsg) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33BlockMsg.Marshal(b, m, deterministic)
 }
-func (m *Pos33BlockMsg) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33BlockMsg.Merge(m, src)
+func (dst *Pos33BlockMsg) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33BlockMsg.Merge(dst, src)
 }
 func (m *Pos33BlockMsg) XXX_Size() int {
 	return xxx_messageInfo_Pos33BlockMsg.Size(m)
@@ -763,6 +869,52 @@ func (m *Pos33BlockMsg) GetPid() string {
 	return ""
 }
 
+type Pos33BlockMsg2 struct {
+	B                    *types.Block    `protobuf:"bytes,1,opt,name=b,proto3" json:"b,omitempty"`
+	Vs                   []*Pos33VoteMsg `protobuf:"bytes,2,rep,name=vs,proto3" json:"vs,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *Pos33BlockMsg2) Reset()         { *m = Pos33BlockMsg2{} }
+func (m *Pos33BlockMsg2) String() string { return proto.CompactTextString(m) }
+func (*Pos33BlockMsg2) ProtoMessage()    {}
+func (*Pos33BlockMsg2) Descriptor() ([]byte, []int) {
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{11}
+}
+func (m *Pos33BlockMsg2) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Pos33BlockMsg2.Unmarshal(m, b)
+}
+func (m *Pos33BlockMsg2) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Pos33BlockMsg2.Marshal(b, m, deterministic)
+}
+func (dst *Pos33BlockMsg2) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33BlockMsg2.Merge(dst, src)
+}
+func (m *Pos33BlockMsg2) XXX_Size() int {
+	return xxx_messageInfo_Pos33BlockMsg2.Size(m)
+}
+func (m *Pos33BlockMsg2) XXX_DiscardUnknown() {
+	xxx_messageInfo_Pos33BlockMsg2.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Pos33BlockMsg2 proto.InternalMessageInfo
+
+func (m *Pos33BlockMsg2) GetB() *types.Block {
+	if m != nil {
+		return m.B
+	}
+	return nil
+}
+
+func (m *Pos33BlockMsg2) GetVs() []*Pos33VoteMsg {
+	if m != nil {
+		return m.Vs
+	}
+	return nil
+}
+
 type Pos33VoteMsg struct {
 	Sort                 *Pos33SortMsg    `protobuf:"bytes,1,opt,name=sort,proto3" json:"sort,omitempty"`
 	Hash                 []byte           `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"`
@@ -777,17 +929,16 @@ func (m *Pos33VoteMsg) Reset()         { *m = Pos33VoteMsg{} }
 func (m *Pos33VoteMsg) String() string { return proto.CompactTextString(m) }
 func (*Pos33VoteMsg) ProtoMessage()    {}
 func (*Pos33VoteMsg) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{11}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{12}
 }
-
 func (m *Pos33VoteMsg) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33VoteMsg.Unmarshal(m, b)
 }
 func (m *Pos33VoteMsg) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33VoteMsg.Marshal(b, m, deterministic)
 }
-func (m *Pos33VoteMsg) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33VoteMsg.Merge(m, src)
+func (dst *Pos33VoteMsg) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33VoteMsg.Merge(dst, src)
 }
 func (m *Pos33VoteMsg) XXX_Size() int {
 	return xxx_messageInfo_Pos33VoteMsg.Size(m)
@@ -842,17 +993,16 @@ func (m *Pos33DepositMsg) Reset()         { *m = Pos33DepositMsg{} }
 func (m *Pos33DepositMsg) String() string { return proto.CompactTextString(m) }
 func (*Pos33DepositMsg) ProtoMessage()    {}
 func (*Pos33DepositMsg) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{12}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{13}
 }
-
 func (m *Pos33DepositMsg) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33DepositMsg.Unmarshal(m, b)
 }
 func (m *Pos33DepositMsg) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33DepositMsg.Marshal(b, m, deterministic)
 }
-func (m *Pos33DepositMsg) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33DepositMsg.Merge(m, src)
+func (dst *Pos33DepositMsg) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33DepositMsg.Merge(dst, src)
 }
 func (m *Pos33DepositMsg) XXX_Size() int {
 	return xxx_messageInfo_Pos33DepositMsg.Size(m)
@@ -907,7 +1057,7 @@ func (m *Pos33DepositMsg) GetReward() int64 {
 
 type Pos33SortsVote struct {
 	MySorts              []*Pos33SortMsg  `protobuf:"bytes,1,rep,name=my_sorts,json=mySorts,proto3" json:"my_sorts,omitempty"`
-	SelectSorts          []string         `protobuf:"bytes,2,rep,name=select_sorts,json=selectSorts,proto3" json:"select_sorts,omitempty"`
+	SelectSorts          [][]byte         `protobuf:"bytes,2,rep,name=select_sorts,json=selectSorts,proto3" json:"select_sorts,omitempty"`
 	Height               int64            `protobuf:"varint,3,opt,name=height,proto3" json:"height,omitempty"`
 	Round                int32            `protobuf:"varint,4,opt,name=round,proto3" json:"round,omitempty"`
 	Sig                  *types.Signature `protobuf:"bytes,5,opt,name=sig,proto3" json:"sig,omitempty"`
@@ -920,17 +1070,16 @@ func (m *Pos33SortsVote) Reset()         { *m = Pos33SortsVote{} }
 func (m *Pos33SortsVote) String() string { return proto.CompactTextString(m) }
 func (*Pos33SortsVote) ProtoMessage()    {}
 func (*Pos33SortsVote) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{13}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{14}
 }
-
 func (m *Pos33SortsVote) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33SortsVote.Unmarshal(m, b)
 }
 func (m *Pos33SortsVote) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33SortsVote.Marshal(b, m, deterministic)
 }
-func (m *Pos33SortsVote) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33SortsVote.Merge(m, src)
+func (dst *Pos33SortsVote) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33SortsVote.Merge(dst, src)
 }
 func (m *Pos33SortsVote) XXX_Size() int {
 	return xxx_messageInfo_Pos33SortsVote.Size(m)
@@ -948,7 +1097,7 @@ func (m *Pos33SortsVote) GetMySorts() []*Pos33SortMsg {
 	return nil
 }
 
-func (m *Pos33SortsVote) GetSelectSorts() []string {
+func (m *Pos33SortsVote) GetSelectSorts() [][]byte {
 	if m != nil {
 		return m.SelectSorts
 	}
@@ -987,17 +1136,16 @@ func (m *Pos33SortMap) Reset()         { *m = Pos33SortMap{} }
 func (m *Pos33SortMap) String() string { return proto.CompactTextString(m) }
 func (*Pos33SortMap) ProtoMessage()    {}
 func (*Pos33SortMap) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{14}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{15}
 }
-
 func (m *Pos33SortMap) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33SortMap.Unmarshal(m, b)
 }
 func (m *Pos33SortMap) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33SortMap.Marshal(b, m, deterministic)
 }
-func (m *Pos33SortMap) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33SortMap.Merge(m, src)
+func (dst *Pos33SortMap) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33SortMap.Merge(dst, src)
 }
 func (m *Pos33SortMap) XXX_Size() int {
 	return xxx_messageInfo_Pos33SortMap.Size(m)
@@ -1026,17 +1174,16 @@ func (m *Pos33Votes) Reset()         { *m = Pos33Votes{} }
 func (m *Pos33Votes) String() string { return proto.CompactTextString(m) }
 func (*Pos33Votes) ProtoMessage()    {}
 func (*Pos33Votes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{15}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{16}
 }
-
 func (m *Pos33Votes) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33Votes.Unmarshal(m, b)
 }
 func (m *Pos33Votes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33Votes.Marshal(b, m, deterministic)
 }
-func (m *Pos33Votes) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33Votes.Merge(m, src)
+func (dst *Pos33Votes) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33Votes.Merge(dst, src)
 }
 func (m *Pos33Votes) XXX_Size() int {
 	return xxx_messageInfo_Pos33Votes.Size(m)
@@ -1065,17 +1212,16 @@ func (m *Pos33MakerVotes) Reset()         { *m = Pos33MakerVotes{} }
 func (m *Pos33MakerVotes) String() string { return proto.CompactTextString(m) }
 func (*Pos33MakerVotes) ProtoMessage()    {}
 func (*Pos33MakerVotes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{16}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{17}
 }
-
 func (m *Pos33MakerVotes) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33MakerVotes.Unmarshal(m, b)
 }
 func (m *Pos33MakerVotes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33MakerVotes.Marshal(b, m, deterministic)
 }
-func (m *Pos33MakerVotes) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33MakerVotes.Merge(m, src)
+func (dst *Pos33MakerVotes) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33MakerVotes.Merge(dst, src)
 }
 func (m *Pos33MakerVotes) XXX_Size() int {
 	return xxx_messageInfo_Pos33MakerVotes.Size(m)
@@ -1106,17 +1252,16 @@ func (m *Pos33TicketMiner) Reset()         { *m = Pos33TicketMiner{} }
 func (m *Pos33TicketMiner) String() string { return proto.CompactTextString(m) }
 func (*Pos33TicketMiner) ProtoMessage()    {}
 func (*Pos33TicketMiner) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{17}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{18}
 }
-
 func (m *Pos33TicketMiner) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33TicketMiner.Unmarshal(m, b)
 }
 func (m *Pos33TicketMiner) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33TicketMiner.Marshal(b, m, deterministic)
 }
-func (m *Pos33TicketMiner) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33TicketMiner.Merge(m, src)
+func (dst *Pos33TicketMiner) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33TicketMiner.Merge(dst, src)
 }
 func (m *Pos33TicketMiner) XXX_Size() int {
 	return xxx_messageInfo_Pos33TicketMiner.Size(m)
@@ -1160,17 +1305,16 @@ func (m *Pos33MinerFlag) Reset()         { *m = Pos33MinerFlag{} }
 func (m *Pos33MinerFlag) String() string { return proto.CompactTextString(m) }
 func (*Pos33MinerFlag) ProtoMessage()    {}
 func (*Pos33MinerFlag) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{18}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{19}
 }
-
 func (m *Pos33MinerFlag) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33MinerFlag.Unmarshal(m, b)
 }
 func (m *Pos33MinerFlag) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33MinerFlag.Marshal(b, m, deterministic)
 }
-func (m *Pos33MinerFlag) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33MinerFlag.Merge(m, src)
+func (dst *Pos33MinerFlag) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33MinerFlag.Merge(dst, src)
 }
 func (m *Pos33MinerFlag) XXX_Size() int {
 	return xxx_messageInfo_Pos33MinerFlag.Size(m)
@@ -1206,17 +1350,16 @@ func (m *Pos33PrivMsg) Reset()         { *m = Pos33PrivMsg{} }
 func (m *Pos33PrivMsg) String() string { return proto.CompactTextString(m) }
 func (*Pos33PrivMsg) ProtoMessage()    {}
 func (*Pos33PrivMsg) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{19}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{20}
 }
-
 func (m *Pos33PrivMsg) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33PrivMsg.Unmarshal(m, b)
 }
 func (m *Pos33PrivMsg) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33PrivMsg.Marshal(b, m, deterministic)
 }
-func (m *Pos33PrivMsg) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33PrivMsg.Merge(m, src)
+func (dst *Pos33PrivMsg) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33PrivMsg.Merge(dst, src)
 }
 func (m *Pos33PrivMsg) XXX_Size() int {
 	return xxx_messageInfo_Pos33PrivMsg.Size(m)
@@ -1246,17 +1389,16 @@ func (m *Pos33TicketBind) Reset()         { *m = Pos33TicketBind{} }
 func (m *Pos33TicketBind) String() string { return proto.CompactTextString(m) }
 func (*Pos33TicketBind) ProtoMessage()    {}
 func (*Pos33TicketBind) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{20}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{21}
 }
-
 func (m *Pos33TicketBind) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33TicketBind.Unmarshal(m, b)
 }
 func (m *Pos33TicketBind) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33TicketBind.Marshal(b, m, deterministic)
 }
-func (m *Pos33TicketBind) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33TicketBind.Merge(m, src)
+func (dst *Pos33TicketBind) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33TicketBind.Merge(dst, src)
 }
 func (m *Pos33TicketBind) XXX_Size() int {
 	return xxx_messageInfo_Pos33TicketBind.Size(m)
@@ -1282,11 +1424,11 @@ func (m *Pos33TicketBind) GetReturnAddress() string {
 }
 
 type Pos33TicketOpen struct {
-	//用户挖矿的ticket 地址
+	// 用户挖矿的ticket 地址
 	MinerAddress string `protobuf:"bytes,1,opt,name=minerAddress,proto3" json:"minerAddress,omitempty"`
-	//购买ticket的数目
+	// 购买ticket的数目
 	Count int32 `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
-	//币实际存储的地址
+	// 币实际存储的地址
 	ReturnAddress        string   `protobuf:"bytes,3,opt,name=returnAddress,proto3" json:"returnAddress,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -1297,17 +1439,16 @@ func (m *Pos33TicketOpen) Reset()         { *m = Pos33TicketOpen{} }
 func (m *Pos33TicketOpen) String() string { return proto.CompactTextString(m) }
 func (*Pos33TicketOpen) ProtoMessage()    {}
 func (*Pos33TicketOpen) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{21}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{22}
 }
-
 func (m *Pos33TicketOpen) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33TicketOpen.Unmarshal(m, b)
 }
 func (m *Pos33TicketOpen) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33TicketOpen.Marshal(b, m, deterministic)
 }
-func (m *Pos33TicketOpen) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33TicketOpen.Merge(m, src)
+func (dst *Pos33TicketOpen) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33TicketOpen.Merge(dst, src)
 }
 func (m *Pos33TicketOpen) XXX_Size() int {
 	return xxx_messageInfo_Pos33TicketOpen.Size(m)
@@ -1352,17 +1493,16 @@ func (m *Pos33TicketGenesis) Reset()         { *m = Pos33TicketGenesis{} }
 func (m *Pos33TicketGenesis) String() string { return proto.CompactTextString(m) }
 func (*Pos33TicketGenesis) ProtoMessage()    {}
 func (*Pos33TicketGenesis) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{22}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{23}
 }
-
 func (m *Pos33TicketGenesis) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33TicketGenesis.Unmarshal(m, b)
 }
 func (m *Pos33TicketGenesis) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33TicketGenesis.Marshal(b, m, deterministic)
 }
-func (m *Pos33TicketGenesis) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33TicketGenesis.Merge(m, src)
+func (dst *Pos33TicketGenesis) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33TicketGenesis.Merge(dst, src)
 }
 func (m *Pos33TicketGenesis) XXX_Size() int {
 	return xxx_messageInfo_Pos33TicketGenesis.Size(m)
@@ -1407,17 +1547,16 @@ func (m *Pos33TicketClose) Reset()         { *m = Pos33TicketClose{} }
 func (m *Pos33TicketClose) String() string { return proto.CompactTextString(m) }
 func (*Pos33TicketClose) ProtoMessage()    {}
 func (*Pos33TicketClose) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{23}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{24}
 }
-
 func (m *Pos33TicketClose) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33TicketClose.Unmarshal(m, b)
 }
 func (m *Pos33TicketClose) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33TicketClose.Marshal(b, m, deterministic)
 }
-func (m *Pos33TicketClose) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33TicketClose.Merge(m, src)
+func (dst *Pos33TicketClose) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33TicketClose.Merge(dst, src)
 }
 func (m *Pos33TicketClose) XXX_Size() int {
 	return xxx_messageInfo_Pos33TicketClose.Size(m)
@@ -1454,17 +1593,16 @@ func (m *Pos33TicketReward) Reset()         { *m = Pos33TicketReward{} }
 func (m *Pos33TicketReward) String() string { return proto.CompactTextString(m) }
 func (*Pos33TicketReward) ProtoMessage()    {}
 func (*Pos33TicketReward) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{24}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{25}
 }
-
 func (m *Pos33TicketReward) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33TicketReward.Unmarshal(m, b)
 }
 func (m *Pos33TicketReward) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33TicketReward.Marshal(b, m, deterministic)
 }
-func (m *Pos33TicketReward) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33TicketReward.Merge(m, src)
+func (dst *Pos33TicketReward) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33TicketReward.Merge(dst, src)
 }
 func (m *Pos33TicketReward) XXX_Size() int {
 	return xxx_messageInfo_Pos33TicketReward.Size(m)
@@ -1501,17 +1639,16 @@ func (m *Pos33TicketList) Reset()         { *m = Pos33TicketList{} }
 func (m *Pos33TicketList) String() string { return proto.CompactTextString(m) }
 func (*Pos33TicketList) ProtoMessage()    {}
 func (*Pos33TicketList) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{25}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{26}
 }
-
 func (m *Pos33TicketList) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Pos33TicketList.Unmarshal(m, b)
 }
 func (m *Pos33TicketList) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Pos33TicketList.Marshal(b, m, deterministic)
 }
-func (m *Pos33TicketList) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Pos33TicketList.Merge(m, src)
+func (dst *Pos33TicketList) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Pos33TicketList.Merge(dst, src)
 }
 func (m *Pos33TicketList) XXX_Size() int {
 	return xxx_messageInfo_Pos33TicketList.Size(m)
@@ -1548,17 +1685,16 @@ func (m *ReplyPos33TicketReward) Reset()         { *m = ReplyPos33TicketReward{}
 func (m *ReplyPos33TicketReward) String() string { return proto.CompactTextString(m) }
 func (*ReplyPos33TicketReward) ProtoMessage()    {}
 func (*ReplyPos33TicketReward) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{26}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{27}
 }
-
 func (m *ReplyPos33TicketReward) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReplyPos33TicketReward.Unmarshal(m, b)
 }
 func (m *ReplyPos33TicketReward) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_ReplyPos33TicketReward.Marshal(b, m, deterministic)
 }
-func (m *ReplyPos33TicketReward) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReplyPos33TicketReward.Merge(m, src)
+func (dst *ReplyPos33TicketReward) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReplyPos33TicketReward.Merge(dst, src)
 }
 func (m *ReplyPos33TicketReward) XXX_Size() int {
 	return xxx_messageInfo_ReplyPos33TicketReward.Size(m)
@@ -1595,17 +1731,16 @@ func (m *ReplyWalletPos33Count) Reset()         { *m = ReplyWalletPos33Count{} }
 func (m *ReplyWalletPos33Count) String() string { return proto.CompactTextString(m) }
 func (*ReplyWalletPos33Count) ProtoMessage()    {}
 func (*ReplyWalletPos33Count) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{27}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{28}
 }
-
 func (m *ReplyWalletPos33Count) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReplyWalletPos33Count.Unmarshal(m, b)
 }
 func (m *ReplyWalletPos33Count) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_ReplyWalletPos33Count.Marshal(b, m, deterministic)
 }
-func (m *ReplyWalletPos33Count) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReplyWalletPos33Count.Merge(m, src)
+func (dst *ReplyWalletPos33Count) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReplyWalletPos33Count.Merge(dst, src)
 }
 func (m *ReplyWalletPos33Count) XXX_Size() int {
 	return xxx_messageInfo_ReplyWalletPos33Count.Size(m)
@@ -1642,17 +1777,16 @@ func (m *ReceiptPos33Deposit) Reset()         { *m = ReceiptPos33Deposit{} }
 func (m *ReceiptPos33Deposit) String() string { return proto.CompactTextString(m) }
 func (*ReceiptPos33Deposit) ProtoMessage()    {}
 func (*ReceiptPos33Deposit) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{28}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{29}
 }
-
 func (m *ReceiptPos33Deposit) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReceiptPos33Deposit.Unmarshal(m, b)
 }
 func (m *ReceiptPos33Deposit) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_ReceiptPos33Deposit.Marshal(b, m, deterministic)
 }
-func (m *ReceiptPos33Deposit) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReceiptPos33Deposit.Merge(m, src)
+func (dst *ReceiptPos33Deposit) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReceiptPos33Deposit.Merge(dst, src)
 }
 func (m *ReceiptPos33Deposit) XXX_Size() int {
 	return xxx_messageInfo_ReceiptPos33Deposit.Size(m)
@@ -1689,17 +1823,16 @@ func (m *ReceiptPos33Miner) Reset()         { *m = ReceiptPos33Miner{} }
 func (m *ReceiptPos33Miner) String() string { return proto.CompactTextString(m) }
 func (*ReceiptPos33Miner) ProtoMessage()    {}
 func (*ReceiptPos33Miner) Descriptor() ([]byte, []int) {
-	return fileDescriptor_f8d3cfebaf15bc9b, []int{29}
+	return fileDescriptor_pos33_b267db6d30a458c7, []int{30}
 }
-
 func (m *ReceiptPos33Miner) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReceiptPos33Miner.Unmarshal(m, b)
 }
 func (m *ReceiptPos33Miner) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_ReceiptPos33Miner.Marshal(b, m, deterministic)
 }
-func (m *ReceiptPos33Miner) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReceiptPos33Miner.Merge(m, src)
+func (dst *ReceiptPos33Miner) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReceiptPos33Miner.Merge(dst, src)
 }
 func (m *ReceiptPos33Miner) XXX_Size() int {
 	return xxx_messageInfo_ReceiptPos33Miner.Size(m)
@@ -1725,7 +1858,6 @@ func (m *ReceiptPos33Miner) GetReward() int64 {
 }
 
 func init() {
-	proto.RegisterEnum("types.Pos33Msg_Ty", Pos33Msg_Ty_name, Pos33Msg_Ty_value)
 	proto.RegisterType((*Pos33Ticket)(nil), "types.Pos33Ticket")
 	proto.RegisterType((*Pos33TicketAction)(nil), "types.Pos33TicketAction")
 	proto.RegisterType((*Pos33Msg)(nil), "types.Pos33Msg")
@@ -1737,6 +1869,7 @@ func init() {
 	proto.RegisterType((*Pos33VoteSorts)(nil), "types.Pos33VoteSorts")
 	proto.RegisterType((*Pos33Online)(nil), "types.Pos33Online")
 	proto.RegisterType((*Pos33BlockMsg)(nil), "types.Pos33BlockMsg")
+	proto.RegisterType((*Pos33BlockMsg2)(nil), "types.Pos33BlockMsg2")
 	proto.RegisterType((*Pos33VoteMsg)(nil), "types.Pos33VoteMsg")
 	proto.RegisterType((*Pos33DepositMsg)(nil), "types.Pos33DepositMsg")
 	proto.RegisterType((*Pos33SortsVote)(nil), "types.Pos33SortsVote")
@@ -1757,130 +1890,36 @@ func init() {
 	proto.RegisterType((*ReplyWalletPos33Count)(nil), "types.ReplyWalletPos33Count")
 	proto.RegisterType((*ReceiptPos33Deposit)(nil), "types.ReceiptPos33Deposit")
 	proto.RegisterType((*ReceiptPos33Miner)(nil), "types.ReceiptPos33Miner")
-}
-
-func init() {
-	proto.RegisterFile("pos33.proto", fileDescriptor_f8d3cfebaf15bc9b)
-}
-
-var fileDescriptor_f8d3cfebaf15bc9b = []byte{
-	// 1384 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x57, 0xdd, 0x6f, 0x1b, 0x45,
-	0x10, 0xcf, 0xdd, 0xe5, 0xfc, 0x31, 0x76, 0x5a, 0x67, 0xdb, 0x06, 0x37, 0x7c, 0xc8, 0x5d, 0xbe,
-	0x82, 0x84, 0x0c, 0x4d, 0x4a, 0x41, 0xa0, 0x52, 0x35, 0x05, 0x9a, 0x8a, 0x86, 0x96, 0x75, 0x64,
-	0x24, 0x40, 0x58, 0x17, 0x7b, 0xe3, 0x9c, 0x62, 0xdf, 0x5d, 0x77, 0xd7, 0x2e, 0x7e, 0xe1, 0x01,
-	0x89, 0xff, 0x82, 0x17, 0x9e, 0x78, 0xe0, 0x99, 0x7f, 0x83, 0xbf, 0x09, 0xcd, 0xec, 0x5e, 0x7c,
-	0xae, 0xdd, 0xd0, 0x07, 0x9e, 0x6e, 0x67, 0x76, 0x76, 0x3e, 0x7e, 0x3b, 0x33, 0x3b, 0x07, 0xb5,
-	0x2c, 0xd5, 0x7b, 0x7b, 0xed, 0x4c, 0xa5, 0x26, 0x65, 0xa1, 0x99, 0x65, 0x52, 0x6f, 0xd7, 0xfb,
-	0xe9, 0x78, 0x9c, 0x26, 0x96, 0xb9, 0xbd, 0x69, 0x54, 0x94, 0xe8, 0xa8, 0x6f, 0xe2, 0x73, 0x56,
-	0xe3, 0x78, 0x94, 0xf6, 0xcf, 0xfa, 0xa7, 0x51, 0xec, 0x38, 0xfc, 0x0f, 0x1f, 0x6a, 0x4f, 0x50,
-	0xd3, 0x51, 0xdc, 0x3f, 0x93, 0x86, 0x6d, 0x43, 0xc5, 0xd0, 0xea, 0xe1, 0xa0, 0xe9, 0xb5, 0xbc,
-	0x9d, 0xaa, 0x38, 0xa7, 0xd9, 0x16, 0x94, 0xb4, 0x89, 0xcc, 0x44, 0x37, 0xfd, 0x96, 0xb7, 0x13,
-	0x0a, 0x47, 0xb1, 0xd7, 0xa0, 0x1a, 0xeb, 0x07, 0x32, 0x91, 0x3a, 0xd6, 0xcd, 0xa0, 0xe5, 0xed,
-	0x54, 0xc4, 0x9c, 0xc1, 0xde, 0x00, 0x48, 0x33, 0x99, 0x1c, 0xc8, 0x78, 0x78, 0x6a, 0x9a, 0xeb,
-	0x2d, 0x6f, 0x27, 0x10, 0x05, 0x0e, 0x6b, 0x41, 0xad, 0x3f, 0x4a, 0xb5, 0x74, 0x02, 0x21, 0x09,
-	0x14, 0x59, 0xa8, 0x61, 0x1c, 0x27, 0x52, 0x75, 0xa3, 0xd1, 0x44, 0x36, 0x2b, 0x56, 0xc3, 0x9c,
-	0xc3, 0x38, 0xd4, 0x89, 0xba, 0x37, 0x18, 0x28, 0xa9, 0x75, 0xb3, 0x44, 0x7e, 0x2f, 0xf0, 0xd8,
-	0x5b, 0xb0, 0xa1, 0xa4, 0x99, 0xa8, 0x24, 0x17, 0x2a, 0x93, 0xd0, 0x22, 0x93, 0x5d, 0x85, 0x30,
-	0x53, 0x71, 0x5f, 0x36, 0xab, 0x64, 0xc4, 0x12, 0xfc, 0x4f, 0x1f, 0x36, 0x0b, 0x18, 0xdd, 0x23,
-	0x44, 0x59, 0x1b, 0x42, 0x73, 0x1c, 0x27, 0x03, 0xf2, 0xb8, 0xb6, 0xbb, 0xd5, 0xa6, 0x3b, 0x68,
-	0x17, 0x04, 0xf7, 0xe3, 0x64, 0x70, 0xb0, 0x26, 0xac, 0x18, 0xc9, 0x63, 0xd8, 0x04, 0xeb, 0x4a,
-	0xf9, 0xc7, 0x08, 0x0a, 0xca, 0xa3, 0x18, 0xfb, 0x08, 0xca, 0x43, 0x87, 0xa9, 0x4f, 0x27, 0xae,
-	0x2f, 0x9f, 0x70, 0x18, 0x1f, 0xac, 0x89, 0x5c, 0x96, 0xdd, 0x84, 0x92, 0x21, 0xf0, 0xe8, 0x26,
-	0x6a, 0xbb, 0xaf, 0x2c, 0x9f, 0xba, 0x4f, 0xd8, 0xae, 0x09, 0x27, 0xc8, 0x3e, 0x80, 0x90, 0xb0,
-	0x22, 0xe0, 0x56, 0x9e, 0x38, 0xc4, 0x6d, 0x74, 0x8d, 0xe4, 0xd8, 0x25, 0xf0, 0xcd, 0xac, 0x09,
-	0x94, 0x04, 0xbe, 0x99, 0xed, 0x97, 0x21, 0x9c, 0xe2, 0x4d, 0xf0, 0x67, 0x50, 0xa1, 0x53, 0x87,
-	0x7a, 0xc8, 0x18, 0xac, 0x0f, 0x22, 0x13, 0x51, 0xb8, 0x75, 0x41, 0x6b, 0xc6, 0xe9, 0x20, 0x86,
-	0x73, 0x69, 0x97, 0x15, 0xcd, 0x1c, 0xea, 0x61, 0xfb, 0x68, 0x86, 0xca, 0xf8, 0x1e, 0xf8, 0x47,
-	0x33, 0x56, 0x02, 0xff, 0xb0, 0xdb, 0x58, 0xc3, 0xef, 0x7e, 0xb7, 0xe1, 0xb1, 0x10, 0xbc, 0xfd,
-	0x86, 0x4f, 0xec, 0x4e, 0x23, 0xc0, 0x6f, 0xb7, 0xd3, 0x58, 0xc7, 0x6f, 0xa7, 0xdb, 0x08, 0xf9,
-	0xf7, 0x50, 0xe9, 0xa4, 0xca, 0x1c, 0x44, 0xfa, 0x14, 0x2f, 0x31, 0x4e, 0x06, 0xf2, 0x67, 0xb2,
-	0x1c, 0x08, 0x4b, 0xa0, 0x3b, 0xa7, 0x91, 0x3e, 0x25, 0xe3, 0x75, 0x41, 0x6b, 0xd6, 0x80, 0x20,
-	0x99, 0x8c, 0x09, 0xa8, 0x50, 0xe0, 0x12, 0xa5, 0x4c, 0x3c, 0x96, 0x2e, 0x4d, 0x69, 0xcd, 0x7f,
-	0x84, 0x4a, 0x57, 0x9d, 0x3c, 0x4c, 0xb2, 0x89, 0xc1, 0x12, 0x38, 0xb5, 0x79, 0x6a, 0x95, 0x3b,
-	0x0a, 0x6d, 0xaa, 0x74, 0x92, 0x0c, 0x5c, 0x65, 0x58, 0xc2, 0xe1, 0x14, 0xe4, 0x38, 0xa1, 0x76,
-	0x2d, 0xe5, 0x80, 0xb4, 0xd7, 0x05, 0xad, 0xf9, 0xaf, 0x1e, 0x54, 0xd1, 0xed, 0x27, 0x2a, 0x4d,
-	0x4f, 0xd8, 0xdb, 0xe8, 0x7b, 0x36, 0x31, 0x2e, 0x49, 0x2e, 0x3b, 0x8c, 0x72, 0xfb, 0xc2, 0xee,
-	0xb2, 0xeb, 0x50, 0x99, 0xaa, 0x93, 0x1e, 0x05, 0x14, 0x92, 0xb2, 0xf2, 0x54, 0x9d, 0x50, 0xf4,
-	0xaf, 0x42, 0x15, 0xb7, 0x32, 0x54, 0x47, 0x17, 0x5a, 0x17, 0x28, 0x6b, 0xd5, 0x6f, 0x41, 0x29,
-	0x9b, 0x1c, 0x9f, 0xc9, 0x19, 0xa5, 0x7f, 0x5d, 0x38, 0x8a, 0x0f, 0xa0, 0x4e, 0xd7, 0x80, 0x18,
-	0xe2, 0xdd, 0xbd, 0x0f, 0x55, 0x9d, 0x2a, 0x63, 0x0d, 0x2c, 0xba, 0x92, 0xc3, 0x2c, 0x2a, 0x3a,
-	0x07, 0xfc, 0x1d, 0xac, 0x1a, 0x34, 0x67, 0xf3, 0xb4, 0xe1, 0x24, 0xcf, 0xa3, 0x12, 0x76, 0x9b,
-	0x7f, 0x0c, 0x70, 0x6e, 0x45, 0xb3, 0xf7, 0x20, 0x44, 0x0d, 0xba, 0xe9, 0xb5, 0x82, 0x9d, 0xda,
-	0xee, 0x95, 0x62, 0x3a, 0x38, 0x3f, 0x84, 0x95, 0xe0, 0xfb, 0x70, 0x89, 0xd8, 0xdd, 0xd4, 0x48,
-	0x7b, 0xf8, 0x43, 0x80, 0x69, 0x6a, 0x64, 0xaf, 0xa8, 0x61, 0xf3, 0x79, 0x0d, 0x5a, 0x54, 0xa7,
-	0xf9, 0x09, 0xfe, 0xb5, 0xeb, 0x73, 0x8f, 0x93, 0x51, 0x9c, 0x48, 0xd6, 0x84, 0x72, 0x4a, 0x2b,
-	0x7b, 0x65, 0x15, 0x91, 0x93, 0x8c, 0x43, 0xd0, 0x89, 0x87, 0xae, 0x7a, 0xf2, 0x58, 0x3a, 0xf1,
-	0x30, 0x89, 0xcc, 0x44, 0x49, 0x81, 0x9b, 0xfc, 0x0e, 0x6c, 0x90, 0xb2, 0x7d, 0x6c, 0xa7, 0x08,
-	0xd8, 0x36, 0x78, 0xc7, 0x0e, 0xa8, 0xba, 0x3b, 0x42, 0x7b, 0xc2, 0x3b, 0xc6, 0x2c, 0xcb, 0x62,
-	0x6b, 0xa6, 0x2a, 0x70, 0xc9, 0x7f, 0xf3, 0x1c, 0xde, 0x18, 0x10, 0x1e, 0x7f, 0x17, 0xd6, 0x31,
-	0x12, 0xa7, 0x61, 0x25, 0x14, 0x24, 0xb0, 0x32, 0x8b, 0xcf, 0x73, 0x6f, 0xbd, 0x98, 0x7b, 0x1c,
-	0x02, 0x7d, 0x51, 0x18, 0x3a, 0x1e, 0xf2, 0xbf, 0x3c, 0xb8, 0x4c, 0x46, 0xbe, 0x90, 0x59, 0xaa,
-	0x63, 0xba, 0xfa, 0xab, 0x10, 0x8e, 0xa3, 0xc1, 0x40, 0xb9, 0xee, 0x6f, 0x09, 0xb2, 0x41, 0xdc,
-	0x75, 0xcb, 0x55, 0x39, 0xb7, 0x9f, 0x4e, 0x12, 0x43, 0xee, 0x04, 0xc2, 0x12, 0x98, 0x81, 0x99,
-	0x92, 0x3d, 0xbb, 0x63, 0xdb, 0x79, 0x25, 0x53, 0xf2, 0x3e, 0x6d, 0xde, 0x80, 0x3a, 0x35, 0x9d,
-	0x9e, 0x2b, 0xa3, 0xd2, 0x72, 0xbb, 0xdf, 0x82, 0x92, 0x92, 0xcf, 0x22, 0x35, 0x20, 0xe7, 0x03,
-	0xe1, 0x28, 0xfe, 0xb7, 0xe7, 0xd2, 0x80, 0x2e, 0x14, 0xa1, 0x63, 0x6d, 0xa8, 0x8c, 0x67, 0xbd,
-	0xff, 0x4c, 0xa3, 0xf2, 0x78, 0x66, 0xd3, 0xe6, 0x06, 0xd4, 0xb5, 0x1c, 0xc9, 0xbe, 0x71, 0x67,
-	0xfc, 0x56, 0xb0, 0x53, 0x15, 0x35, 0xcb, 0xb3, 0x22, 0xf3, 0x0a, 0x0f, 0x56, 0x57, 0xf8, 0x2a,
-	0x94, 0xc3, 0x8b, 0x50, 0xfe, 0xdd, 0x2b, 0x56, 0x57, 0x94, 0xb1, 0xcf, 0x80, 0x6a, 0xa7, 0x37,
-	0x8e, 0x32, 0xe7, 0x75, 0x6b, 0xc9, 0xeb, 0x28, 0x6b, 0xbb, 0xef, 0x97, 0x89, 0x51, 0x33, 0x51,
-	0xd6, 0x96, 0xda, 0x7e, 0x0c, 0xf5, 0xe2, 0x06, 0x66, 0x17, 0xd6, 0xb3, 0xbd, 0x2d, 0x5c, 0x62,
-	0x61, 0x51, 0x37, 0x76, 0xe5, 0xb8, 0xba, 0xb0, 0x48, 0xe2, 0x53, 0xff, 0x13, 0x8f, 0xdf, 0x74,
-	0x55, 0x89, 0x80, 0x6a, 0xf6, 0x26, 0xf8, 0xd3, 0x95, 0x58, 0xba, 0x54, 0x15, 0xfe, 0x54, 0xf3,
-	0xdb, 0x2e, 0x6d, 0x0e, 0xa3, 0x33, 0xa9, 0xf2, 0x73, 0xc1, 0x78, 0xba, 0xb2, 0x12, 0x69, 0x5f,
-	0xe0, 0x2e, 0xff, 0x05, 0x1a, 0xcf, 0x3f, 0x2a, 0x2f, 0x9f, 0xfa, 0xd6, 0x33, 0xff, 0x42, 0xcf,
-	0x70, 0x14, 0xa1, 0x11, 0xe7, 0x68, 0xde, 0xc4, 0xe7, 0x0c, 0xfe, 0xb9, 0x4b, 0x20, 0xb2, 0xfc,
-	0xd5, 0x28, 0xa2, 0x47, 0xea, 0x64, 0x14, 0x0d, 0xc9, 0x7a, 0x28, 0x68, 0x8d, 0xad, 0x41, 0x49,
-	0x2d, 0xd5, 0x54, 0xba, 0xbc, 0xce, 0x49, 0xce, 0xdd, 0x45, 0x3e, 0x51, 0xf1, 0xd4, 0x3d, 0x71,
-	0x99, 0x8a, 0xa7, 0xf9, 0x13, 0x87, 0x6b, 0xfe, 0x83, 0xc3, 0x66, 0x3e, 0x02, 0x2c, 0xcd, 0x27,
-	0xde, 0xcb, 0xcc, 0x27, 0xfe, 0x8a, 0xf9, 0x84, 0x3f, 0x5d, 0x50, 0x8e, 0xf3, 0xc2, 0x4b, 0x29,
-	0x5f, 0xa8, 0xd3, 0x30, 0xaf, 0xd3, 0x25, 0x93, 0xc1, 0x2a, 0x93, 0x06, 0xd8, 0xf2, 0xc0, 0xf1,
-	0xff, 0x85, 0x34, 0xf7, 0x2d, 0x28, 0xf8, 0xc6, 0x1f, 0x2d, 0x64, 0x0a, 0x0d, 0x2c, 0x4b, 0x36,
-	0xfd, 0x8b, 0x22, 0x5d, 0xd0, 0x76, 0x77, 0x61, 0x7e, 0x13, 0xd4, 0x4e, 0xf0, 0xf2, 0x0a, 0x7d,
-	0x8e, 0xd6, 0x85, 0xe2, 0xf7, 0x8b, 0xc5, 0xcf, 0xef, 0x2c, 0xe0, 0xfe, 0x28, 0xd6, 0xe6, 0x45,
-	0xc7, 0xdd, 0x80, 0x1c, 0x14, 0x07, 0x64, 0xfe, 0x13, 0x6c, 0x09, 0x99, 0x8d, 0x66, 0xcb, 0x4e,
-	0xdc, 0x80, 0x3a, 0x3e, 0x51, 0xaa, 0xe7, 0x3a, 0x9e, 0x9d, 0x2a, 0x6a, 0xc4, 0x9b, 0x8b, 0x50,
-	0x88, 0xb9, 0x88, 0xf5, 0xac, 0x46, 0x3c, 0x2b, 0xc2, 0x1f, 0xc0, 0x35, 0xd2, 0xff, 0x5d, 0x34,
-	0x1a, 0x49, 0x43, 0x56, 0x6c, 0xb7, 0x6d, 0x42, 0x19, 0x93, 0x12, 0x1b, 0x84, 0x7d, 0x31, 0x72,
-	0x72, 0x0e, 0x94, 0x57, 0x68, 0xdd, 0xfc, 0x2e, 0x5c, 0x11, 0xb2, 0x2f, 0xe3, 0xcc, 0x14, 0x9f,
-	0x85, 0x95, 0xb1, 0x2e, 0x20, 0x5d, 0x50, 0xb0, 0x59, 0x54, 0x60, 0x4b, 0xfc, 0x05, 0x50, 0xad,
-	0x6a, 0xf2, 0xbb, 0xff, 0x78, 0xee, 0xcf, 0xc6, 0xfd, 0x8f, 0xdc, 0x82, 0x2b, 0x0f, 0x5c, 0x48,
-	0x2e, 0x17, 0x28, 0xb0, 0x0d, 0xd7, 0x00, 0x84, 0x7c, 0xfa, 0x4d, 0x3c, 0xda, 0xce, 0xdf, 0xdc,
-	0x87, 0x89, 0xb9, 0x7d, 0x8b, 0xaf, 0xb1, 0xdb, 0xb0, 0xd1, 0x91, 0xe6, 0xde, 0xc4, 0xa4, 0x87,
-	0x71, 0x12, 0x27, 0x43, 0x76, 0x6d, 0x61, 0xd8, 0xcc, 0xcb, 0xff, 0xfc, 0x1c, 0xa1, 0xc7, 0xd7,
-	0xd8, 0xb7, 0x70, 0x75, 0xd1, 0x9a, 0xbb, 0x83, 0xe6, 0xf2, 0x48, 0x6c, 0x77, 0xb6, 0x5f, 0x2f,
-	0x6a, 0x58, 0xda, 0xe6, 0x6b, 0xc7, 0x25, 0xfa, 0xcf, 0xda, 0xfb, 0x37, 0x00, 0x00, 0xff, 0xff,
-	0x5a, 0xe8, 0x92, 0x79, 0xb0, 0x0d, 0x00, 0x00,
+	proto.RegisterEnum("types.Pos33Msg_Ty", Pos33Msg_Ty_name, Pos33Msg_Ty_value)
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ context.Context
-var _ grpc.ClientConnInterface
+var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion6
+const _ = grpc.SupportPackageIsVersion4
 
 // Pos33TicketClient is the client API for Pos33Ticket service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type Pos33TicketClient interface {
-	//创建绑定挖矿
+	// 创建绑定挖矿
 	// rpc CreateBindMiner(ReqBindPos33Miner) returns(ReplyBindPos33Miner) {}
-	//查询钱包票数
+	// 查询钱包票数
 	GetPos33TicketCount(ctx context.Context, in *types.ReqNil, opts ...grpc.CallOption) (*types.Int64, error)
-	//设置自动挖矿
+	// 设置自动挖矿
 	SetAutoMining(ctx context.Context, in *Pos33MinerFlag, opts ...grpc.CallOption) (*types.Reply, error)
-	//查询奖励
+	// 查询奖励
 	GetPos33TicketReward(ctx context.Context, in *Pos33TicketReward, opts ...grpc.CallOption) (*ReplyPos33TicketReward, error)
 }
 
 type pos33TicketClient struct {
-	cc grpc.ClientConnInterface
+	cc *grpc.ClientConn
 }
 
-func NewPos33TicketClient(cc grpc.ClientConnInterface) Pos33TicketClient {
+func NewPos33TicketClient(cc *grpc.ClientConn) Pos33TicketClient {
 	return &pos33TicketClient{cc}
 }
 
@@ -1913,28 +1952,14 @@ func (c *pos33TicketClient) GetPos33TicketReward(ctx context.Context, in *Pos33T
 
 // Pos33TicketServer is the server API for Pos33Ticket service.
 type Pos33TicketServer interface {
-	//创建绑定挖矿
+	// 创建绑定挖矿
 	// rpc CreateBindMiner(ReqBindPos33Miner) returns(ReplyBindPos33Miner) {}
-	//查询钱包票数
+	// 查询钱包票数
 	GetPos33TicketCount(context.Context, *types.ReqNil) (*types.Int64, error)
-	//设置自动挖矿
+	// 设置自动挖矿
 	SetAutoMining(context.Context, *Pos33MinerFlag) (*types.Reply, error)
-	//查询奖励
+	// 查询奖励
 	GetPos33TicketReward(context.Context, *Pos33TicketReward) (*ReplyPos33TicketReward, error)
-}
-
-// UnimplementedPos33TicketServer can be embedded to have forward compatible implementations.
-type UnimplementedPos33TicketServer struct {
-}
-
-func (*UnimplementedPos33TicketServer) GetPos33TicketCount(ctx context.Context, req *types.ReqNil) (*types.Int64, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetPos33TicketCount not implemented")
-}
-func (*UnimplementedPos33TicketServer) SetAutoMining(ctx context.Context, req *Pos33MinerFlag) (*types.Reply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetAutoMining not implemented")
-}
-func (*UnimplementedPos33TicketServer) GetPos33TicketReward(ctx context.Context, req *Pos33TicketReward) (*ReplyPos33TicketReward, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetPos33TicketReward not implemented")
 }
 
 func RegisterPos33TicketServer(s *grpc.Server, srv Pos33TicketServer) {
@@ -2014,4 +2039,98 @@ var _Pos33Ticket_serviceDesc = grpc.ServiceDesc{
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "pos33.proto",
+}
+
+func init() { proto.RegisterFile("pos33.proto", fileDescriptor_pos33_b267db6d30a458c7) }
+
+var fileDescriptor_pos33_b267db6d30a458c7 = []byte{
+	// 1398 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x57, 0x5b, 0x6f, 0x1b, 0xc5,
+	0x17, 0xcf, 0xee, 0x66, 0x7d, 0x39, 0xde, 0xb4, 0xce, 0xb4, 0xcd, 0xdf, 0xcd, 0xff, 0xa2, 0x74,
+	0xfe, 0x5c, 0x82, 0x84, 0x0c, 0x4d, 0x4a, 0x41, 0xa0, 0x52, 0x35, 0x05, 0x9a, 0x8a, 0x86, 0xb6,
+	0x93, 0xc8, 0x48, 0x80, 0xb0, 0x36, 0xf6, 0xc4, 0x59, 0xc5, 0xde, 0xdd, 0xce, 0x8c, 0x5d, 0xfc,
+	0xc2, 0x03, 0x12, 0xdf, 0x82, 0x17, 0x9e, 0x78, 0xe0, 0x99, 0xaf, 0xc1, 0x67, 0x42, 0xe7, 0xcc,
+	0x6c, 0xbc, 0xae, 0xdd, 0x90, 0x07, 0x9e, 0x76, 0xe6, 0xcc, 0xb9, 0xcd, 0xef, 0x5c, 0xe6, 0x2c,
+	0x34, 0xf2, 0x4c, 0xef, 0xee, 0xb6, 0x73, 0x95, 0x99, 0x8c, 0x85, 0x66, 0x9a, 0x4b, 0xbd, 0x19,
+	0xf5, 0xb2, 0xd1, 0x28, 0x4b, 0x2d, 0x71, 0x73, 0xdd, 0xa8, 0x38, 0xd5, 0x71, 0xcf, 0x24, 0xe7,
+	0xa4, 0xe6, 0xf1, 0x30, 0xeb, 0x9d, 0xf5, 0x4e, 0xe3, 0xc4, 0x51, 0xf8, 0xaf, 0x3e, 0x34, 0x9e,
+	0xa1, 0xa6, 0xa3, 0xa4, 0x77, 0x26, 0x0d, 0xdb, 0x84, 0x9a, 0xa1, 0xd5, 0xe3, 0x7e, 0xcb, 0xdb,
+	0xf2, 0xb6, 0xeb, 0xe2, 0x7c, 0xcf, 0x36, 0xa0, 0xa2, 0x4d, 0x6c, 0xc6, 0xba, 0xe5, 0x6f, 0x79,
+	0xdb, 0xa1, 0x70, 0x3b, 0xf6, 0x1f, 0xa8, 0x27, 0xfa, 0x91, 0x4c, 0xa5, 0x4e, 0x74, 0x2b, 0xd8,
+	0xf2, 0xb6, 0x6b, 0x62, 0x46, 0x60, 0xff, 0x03, 0xc8, 0x72, 0x99, 0xee, 0xcb, 0x64, 0x70, 0x6a,
+	0x5a, 0xab, 0x5b, 0xde, 0x76, 0x20, 0x4a, 0x14, 0xb6, 0x05, 0x8d, 0xde, 0x30, 0xd3, 0xd2, 0x31,
+	0x84, 0xc4, 0x50, 0x26, 0xa1, 0x86, 0x51, 0x92, 0x4a, 0xd5, 0x89, 0x87, 0x63, 0xd9, 0xaa, 0x59,
+	0x0d, 0x33, 0x0a, 0xe3, 0x10, 0xd1, 0xee, 0x41, 0xbf, 0xaf, 0xa4, 0xd6, 0xad, 0x0a, 0xf9, 0x3d,
+	0x47, 0x63, 0x6f, 0xc0, 0x9a, 0x92, 0x66, 0xac, 0xd2, 0x82, 0xa9, 0x4a, 0x4c, 0xf3, 0x44, 0x76,
+	0x1d, 0xc2, 0x5c, 0x25, 0x3d, 0xd9, 0xaa, 0x93, 0x11, 0xbb, 0xe1, 0xbf, 0xf9, 0xb0, 0x5e, 0xc2,
+	0xe8, 0x01, 0x21, 0xca, 0xda, 0x10, 0x9a, 0xe3, 0x24, 0xed, 0x93, 0xc7, 0x8d, 0x9d, 0x8d, 0x36,
+	0xc5, 0xa0, 0x5d, 0x62, 0xdc, 0x4b, 0xd2, 0xfe, 0xfe, 0x8a, 0xb0, 0x6c, 0xc4, 0x8f, 0xd7, 0x26,
+	0x58, 0x97, 0xf2, 0x3f, 0x45, 0x50, 0x90, 0x1f, 0xd9, 0xd8, 0x07, 0x50, 0x1d, 0x38, 0x4c, 0x7d,
+	0x92, 0xb8, 0xb9, 0x28, 0xe1, 0x30, 0xde, 0x5f, 0x11, 0x05, 0x2f, 0xbb, 0x0d, 0x15, 0x43, 0xe0,
+	0x51, 0x24, 0x1a, 0x3b, 0xff, 0x5a, 0x94, 0x7a, 0x48, 0xd8, 0xae, 0x08, 0xc7, 0xc8, 0xde, 0x83,
+	0x90, 0xb0, 0x22, 0xe0, 0x96, 0x4a, 0x1c, 0xe0, 0x31, 0xba, 0x46, 0x7c, 0xec, 0x0a, 0xf8, 0x66,
+	0xda, 0x02, 0x4a, 0x02, 0xdf, 0x4c, 0xf7, 0xaa, 0x10, 0x4e, 0x30, 0x12, 0xfc, 0x25, 0xd4, 0x48,
+	0xea, 0x40, 0x0f, 0x18, 0x83, 0xd5, 0x7e, 0x6c, 0x62, 0xba, 0x6e, 0x24, 0x68, 0xcd, 0x38, 0x09,
+	0xe2, 0x75, 0xae, 0xec, 0xb0, 0xb2, 0x99, 0x03, 0x3d, 0x68, 0x1f, 0x4d, 0x51, 0x19, 0xdf, 0x05,
+	0xff, 0x68, 0xca, 0x2a, 0xe0, 0x1f, 0x74, 0x9a, 0x2b, 0xf8, 0xdd, 0xeb, 0x34, 0x3d, 0x16, 0x82,
+	0xb7, 0xd7, 0xf4, 0x89, 0x7c, 0xd8, 0x0c, 0xf0, 0xdb, 0x39, 0x6c, 0xae, 0xe2, 0xf7, 0x61, 0xa7,
+	0x19, 0xf2, 0x6f, 0xa0, 0x76, 0x98, 0x29, 0xb3, 0x1f, 0xeb, 0x53, 0x0c, 0x62, 0x92, 0xf6, 0xe5,
+	0x0f, 0x64, 0x39, 0x10, 0x76, 0x83, 0xee, 0x9c, 0xc6, 0xfa, 0x94, 0x8c, 0x47, 0x82, 0xd6, 0xac,
+	0x09, 0x41, 0x3a, 0x1e, 0x11, 0x50, 0xa1, 0xc0, 0x25, 0x72, 0x99, 0x64, 0x24, 0x5d, 0x9a, 0xd2,
+	0x9a, 0x7f, 0x07, 0xb5, 0x8e, 0x3a, 0x79, 0x9c, 0xe6, 0x63, 0x83, 0x25, 0x70, 0x6a, 0xf3, 0xd4,
+	0x2a, 0x77, 0x3b, 0xb4, 0xa9, 0xb2, 0x71, 0xda, 0x77, 0x95, 0x61, 0x37, 0x0e, 0xa7, 0xa0, 0xc0,
+	0x09, 0xb5, 0x6b, 0x29, 0xfb, 0xa4, 0x3d, 0x12, 0xb4, 0xe6, 0x3f, 0x79, 0x50, 0x47, 0xb7, 0x9f,
+	0xa9, 0x2c, 0x3b, 0x61, 0x6f, 0xa2, 0xef, 0xf9, 0xd8, 0xb8, 0x24, 0xb9, 0xea, 0x30, 0x2a, 0xec,
+	0x0b, 0x7b, 0xca, 0x6e, 0x42, 0x6d, 0xa2, 0x4e, 0xba, 0x74, 0xa1, 0x90, 0x94, 0x55, 0x27, 0xea,
+	0x84, 0x6e, 0xff, 0x6f, 0xa8, 0xe3, 0x51, 0x8e, 0xea, 0x28, 0xa0, 0x91, 0x40, 0x5e, 0xab, 0x7e,
+	0x03, 0x2a, 0xf9, 0xf8, 0xf8, 0x4c, 0x4e, 0x29, 0xfd, 0x23, 0xe1, 0x76, 0xbc, 0x0f, 0x11, 0x85,
+	0x01, 0x31, 0xc4, 0xd8, 0xbd, 0x0b, 0x75, 0x9d, 0x29, 0x63, 0x0d, 0xcc, 0xbb, 0x52, 0xc0, 0x2c,
+	0x6a, 0xba, 0x00, 0xfc, 0x2d, 0xac, 0x1a, 0x34, 0x67, 0xf3, 0xb4, 0xe9, 0x38, 0xcf, 0x6f, 0x25,
+	0xec, 0x31, 0xff, 0x10, 0xe0, 0xdc, 0x8a, 0x66, 0xef, 0x40, 0x88, 0x1a, 0x74, 0xcb, 0xdb, 0x0a,
+	0xb6, 0x1b, 0x3b, 0xd7, 0xca, 0xe9, 0xe0, 0xfc, 0x10, 0x96, 0x83, 0xef, 0xc1, 0x15, 0x22, 0x77,
+	0x32, 0x23, 0xad, 0xf0, 0xfb, 0x00, 0x93, 0xcc, 0xc8, 0x6e, 0x59, 0xc3, 0xfa, 0xab, 0x1a, 0xb4,
+	0xa8, 0x4f, 0x0a, 0x09, 0xfe, 0xa5, 0xeb, 0x73, 0x4f, 0xd3, 0x61, 0x92, 0x4a, 0xd6, 0x82, 0x6a,
+	0x46, 0x2b, 0x1b, 0xb2, 0x9a, 0x28, 0xb6, 0x8c, 0x43, 0x70, 0x98, 0x0c, 0x5c, 0xf5, 0x14, 0x77,
+	0x39, 0x4c, 0x06, 0x69, 0x6c, 0xc6, 0x4a, 0x0a, 0x3c, 0xe4, 0xf7, 0x60, 0x8d, 0x94, 0xed, 0x61,
+	0x3b, 0x45, 0xc0, 0x36, 0xc1, 0x3b, 0x76, 0x40, 0x45, 0x4e, 0x84, 0xce, 0x84, 0x77, 0x8c, 0x59,
+	0x96, 0x27, 0xd6, 0x4c, 0x5d, 0xe0, 0x92, 0x3f, 0x77, 0xf7, 0x29, 0xc4, 0x77, 0x2e, 0x94, 0xff,
+	0x3f, 0xf8, 0x13, 0xec, 0x01, 0x0b, 0x28, 0x21, 0x1c, 0x88, 0x92, 0x3f, 0xd1, 0xfc, 0x67, 0xcf,
+	0x85, 0xd0, 0x11, 0xd9, 0xdb, 0xb0, 0x8a, 0xe0, 0x38, 0xa5, 0x4b, 0xd1, 0x25, 0x86, 0xa5, 0x85,
+	0x71, 0x9e, 0xce, 0xab, 0xe5, 0x74, 0xe6, 0x10, 0xe8, 0x8b, 0x90, 0xd1, 0xc9, 0x80, 0xff, 0xee,
+	0xc1, 0x55, 0x32, 0xf2, 0x99, 0xcc, 0x33, 0x9d, 0x50, 0x36, 0x5d, 0x87, 0x70, 0x14, 0xf7, 0xfb,
+	0xca, 0x3d, 0x28, 0x76, 0x43, 0x36, 0x88, 0xba, 0x6a, 0xa9, 0xaa, 0xa0, 0xf6, 0xb2, 0x71, 0x6a,
+	0xc8, 0x9d, 0x40, 0xd8, 0x0d, 0x26, 0x75, 0xae, 0x64, 0xd7, 0x9e, 0xd8, 0x17, 0xa2, 0x96, 0x2b,
+	0xf9, 0x90, 0x0e, 0x6f, 0x41, 0x44, 0x7d, 0xac, 0xeb, 0x2a, 0xb3, 0xb2, 0xf8, 0x82, 0x6c, 0x40,
+	0x45, 0xc9, 0x97, 0xb1, 0xea, 0x93, 0xf3, 0x81, 0x70, 0x3b, 0xfe, 0x87, 0xe7, 0x22, 0x41, 0x39,
+	0x82, 0xd0, 0xb1, 0x36, 0xd4, 0x46, 0xd3, 0xee, 0xdf, 0x66, 0x66, 0x75, 0x34, 0xb5, 0x99, 0x78,
+	0x0b, 0x22, 0x2d, 0x87, 0xb2, 0x67, 0x9c, 0x0c, 0xc6, 0x29, 0x12, 0x0d, 0x4b, 0xb3, 0x2c, 0xb3,
+	0xa6, 0x11, 0x2c, 0x6f, 0x1a, 0xcb, 0x50, 0x0e, 0x2f, 0x42, 0xf9, 0x17, 0xaf, 0x5c, 0xb0, 0x71,
+	0xce, 0x3e, 0x01, 0x2a, 0xc7, 0xee, 0x28, 0xce, 0x9d, 0xd7, 0x5b, 0x0b, 0x5e, 0xc7, 0x79, 0xdb,
+	0x7d, 0x3f, 0x4f, 0x8d, 0x9a, 0x8a, 0xaa, 0xb6, 0xbb, 0xcd, 0xa7, 0x10, 0x95, 0x0f, 0x30, 0x61,
+	0xb1, 0x45, 0xd8, 0x68, 0xe1, 0x12, 0x6b, 0x95, 0x1a, 0xbc, 0xab, 0xf0, 0xe5, 0xb5, 0x4a, 0x1c,
+	0x1f, 0xfb, 0x1f, 0x79, 0xfc, 0xb6, 0x2b, 0x74, 0x04, 0x54, 0xbb, 0xfc, 0xf5, 0x2e, 0xce, 0xdf,
+	0xbb, 0x2e, 0x6d, 0x0e, 0xe2, 0x33, 0xa9, 0x0a, 0xb9, 0x60, 0x34, 0x59, 0x5a, 0xdc, 0x74, 0x2e,
+	0xf0, 0x94, 0xff, 0x08, 0xcd, 0x57, 0xdf, 0xa9, 0xcb, 0xa7, 0xfe, 0x65, 0x2a, 0x0b, 0xa7, 0x1b,
+	0x9a, 0x9a, 0x8e, 0x66, 0xef, 0xc2, 0x8c, 0xc0, 0x3f, 0x75, 0x09, 0x44, 0x96, 0xbf, 0x18, 0xc6,
+	0xf4, 0xee, 0x9d, 0x0c, 0xe3, 0x01, 0x59, 0x0f, 0x05, 0xad, 0xb1, 0xdb, 0x28, 0xa9, 0xa5, 0x9a,
+	0x48, 0x97, 0xd7, 0xc5, 0x96, 0x73, 0x17, 0xc8, 0x67, 0x2a, 0x99, 0xb8, 0x57, 0x33, 0x57, 0xc9,
+	0xa4, 0x78, 0x35, 0x71, 0xcd, 0xbf, 0x75, 0xd8, 0xcc, 0xa6, 0x8a, 0x85, 0x91, 0xc7, 0xbb, 0xcc,
+	0xc8, 0xe3, 0x2f, 0x19, 0x79, 0xf8, 0x8b, 0x39, 0xe5, 0x38, 0x82, 0x5c, 0x4a, 0xf9, 0x5c, 0x9d,
+	0x86, 0x45, 0x9d, 0x2e, 0x98, 0x0c, 0x96, 0x99, 0x34, 0xc0, 0x16, 0x67, 0x98, 0x7f, 0xee, 0x4a,
+	0x33, 0xdf, 0x82, 0x92, 0x6f, 0xfc, 0xc9, 0x5c, 0xa6, 0xd0, 0x0c, 0xb4, 0x60, 0xd3, 0xbf, 0xe8,
+	0xa6, 0x73, 0xda, 0xee, 0xcf, 0x8d, 0x84, 0x82, 0xda, 0x09, 0x06, 0xaf, 0xd4, 0xe7, 0x68, 0x5d,
+	0x2a, 0x7e, 0xbf, 0x5c, 0xfc, 0xfc, 0xde, 0x1c, 0xee, 0x4f, 0x12, 0x6d, 0x5e, 0x27, 0xee, 0x66,
+	0xee, 0xa0, 0x3c, 0x73, 0xf3, 0xef, 0x61, 0x43, 0xc8, 0x7c, 0x38, 0x5d, 0x74, 0xe2, 0x16, 0x44,
+	0xf8, 0xea, 0xa9, 0xae, 0xeb, 0x78, 0x76, 0x50, 0x69, 0x10, 0x6d, 0xc6, 0x42, 0x57, 0x2c, 0x58,
+	0xac, 0x67, 0x0d, 0xa2, 0x59, 0x16, 0xfe, 0x08, 0x6e, 0x90, 0xfe, 0xaf, 0xe3, 0xe1, 0x50, 0x1a,
+	0xb2, 0x62, 0xbb, 0x6d, 0x0b, 0xaa, 0x98, 0x94, 0xd8, 0x20, 0xec, 0x8b, 0x51, 0x6c, 0x67, 0x40,
+	0x79, 0xa5, 0xd6, 0xcd, 0xef, 0xc3, 0x35, 0x21, 0x7b, 0x32, 0xc9, 0x4d, 0xf9, 0x59, 0x58, 0x7a,
+	0xd7, 0x39, 0xa4, 0x4b, 0x0a, 0xd6, 0xcb, 0x0a, 0x6c, 0x89, 0xbf, 0x06, 0xaa, 0x65, 0x4d, 0x7e,
+	0xe7, 0x4f, 0xcf, 0xfd, 0x2c, 0xb9, 0x5f, 0x9c, 0x3b, 0x70, 0xed, 0x91, 0xbb, 0x92, 0xcb, 0x05,
+	0xba, 0xd8, 0x9a, 0x6b, 0x00, 0x42, 0xbe, 0xf8, 0x2a, 0x19, 0x6e, 0x16, 0xcf, 0xf0, 0xe3, 0xd4,
+	0xdc, 0xbd, 0xc3, 0x57, 0xd8, 0x5d, 0x58, 0x3b, 0x94, 0xe6, 0xc1, 0xd8, 0x64, 0x07, 0x49, 0x9a,
+	0xa4, 0x03, 0x76, 0x63, 0x6e, 0x7e, 0x2d, 0xca, 0xff, 0x5c, 0x8e, 0xd0, 0xe3, 0x2b, 0xec, 0x39,
+	0x5c, 0x9f, 0xb7, 0xe6, 0x62, 0xd0, 0x5a, 0x9c, 0xb2, 0xed, 0xc9, 0xe6, 0x7f, 0xcb, 0x1a, 0x16,
+	0x8e, 0xf9, 0xca, 0x71, 0x85, 0x7e, 0xdd, 0x76, 0xff, 0x0a, 0x00, 0x00, 0xff, 0xff, 0x20, 0xd9,
+	0x9a, 0x99, 0x03, 0x0e, 0x00, 0x00,
 }

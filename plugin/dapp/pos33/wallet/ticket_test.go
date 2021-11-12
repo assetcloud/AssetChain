@@ -281,8 +281,8 @@ func (_m *walletOperateMock) GetCoinType() uint32 {
 }
 
 var cfgstring = `
-Title="YCC"
-coinSymbol="YCC"
+Title="assetchain"
+coinSymbol="OCIA"
 TestNet=true
 FixTime=false
 version="6.3.0"

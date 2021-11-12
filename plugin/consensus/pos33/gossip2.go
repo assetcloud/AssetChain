@@ -20,13 +20,14 @@ import (
 	"github.com/libp2p/go-libp2p-core/host"
 	"github.com/libp2p/go-libp2p-core/network"
 	"github.com/libp2p/go-libp2p-core/peer"
+	"github.com/libp2p/go-libp2p-core/peerstore"
 	protocol "github.com/libp2p/go-libp2p-core/protocol"
+	"github.com/libp2p/go-libp2p-core/routing"
 	discovery "github.com/libp2p/go-libp2p-discovery"
 	dht "github.com/libp2p/go-libp2p-kad-dht"
-	peerstore "github.com/libp2p/go-libp2p-peerstore"
 	pubsub "github.com/libp2p/go-libp2p-pubsub"
-	routing "github.com/libp2p/go-libp2p-routing"
-	disc "github.com/libp2p/go-libp2p/p2p/discovery"
+
+	// disc "github.com/libp2p/go-libp2p/p2p/discovery"
 	pio "github.com/libp2p/go-msgio/protoio"
 	"github.com/multiformats/go-multiaddr"
 )
@@ -59,7 +60,8 @@ type gossip2 struct {
 	peersTopic string
 }
 
-const pos33Topic = "projectname-pos33"
+const projectname = "assetchain"
+const pos33Topic = projectname + "-pos33"
 const remoteAddrID = pos33Topic + "-addr"
 const pos33Peerstore = pos33Topic + "-peerstore"
 const sendtoID = pos33Topic + "-sendto"
@@ -84,13 +86,13 @@ func (g *gossip2) bootstrap(addrs ...string) error {
 		err = g.h.Connect(g.ctx, *targetInfo)
 		if err != nil {
 			plog.Error("bootstrap error", "err", err)
-			return err
+			continue
 		}
 		plog.Info("connect boot peer", "bootpeer", targetAddr.String())
 		s, err := g.h.NewStream(g.ctx, targetInfo.ID, protocol.ID(g.raddrPid))
 		if err != nil {
 			plog.Error("bootstrap error", "err", err)
-			return err
+			continue
 		}
 		s.Write([]byte(g.h.ID()))
 		s.Close()
@@ -183,6 +185,9 @@ func (g *gossip2) run(ps *pubsub.PubSub, topics, fs []string, forwardPeers bool)
 		}
 		g.tmap[t] = tp
 		sb, err := tp.Subscribe()
+		if err != nil {
+			panic(err)
+		}
 		go func(s *pubsub.Subscription) {
 			for {
 				m, err := s.Next(g.ctx)
@@ -193,7 +198,7 @@ func (g *gossip2) run(ps *pubsub.PubSub, topics, fs []string, forwardPeers bool)
 					continue
 				}
 				if t == g.peersTopic {
-					g.handlePeers(m.Data)
+					go g.handlePeers(m.Data)
 				} else {
 					g.C <- m.Data
 				}
@@ -362,7 +367,7 @@ func newHost(ctx context.Context, priv crypto.PrivKey, port int, ns string) host
 }
 
 func (g *gossip2) sendPeerstore(h host.Host) {
-	for range time.NewTicker(time.Second * 60 * 10).C {
+	for range time.NewTicker(time.Second * 60).C {
 		peers := h.Peerstore().PeersWithAddrs()
 		var ais []*peer.AddrInfo
 		for _, id := range peers {
@@ -373,7 +378,7 @@ func (g *gossip2) sendPeerstore(h host.Host) {
 		}
 		data, err := json.Marshal(ais)
 		if err != nil {
-			plog.Info("pid marshal error", "err", err)
+			plog.Error("pid marshal error", "err", err)
 			return
 		}
 		g.gossip(g.peersTopic, data)
@@ -395,13 +400,13 @@ func discover(ctx context.Context, h host.Host, idht *dht.IpfsDHT, ns string) {
 	if err != nil {
 		panic(err)
 	}
-	mdns, err := disc.NewMdnsService(ctx, h, time.Second*10, ns)
-	if err != nil {
-		panic(err)
-	}
+	// mdns, err := disc.NewMdnsService(ctx, h, time.Second*10, ns)
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	mn := &mdnsNotifee{h: h, ctx: ctx}
-	mdns.RegisterNotifee(mn)
+	// mn := &mdnsNotifee{h: h, ctx: ctx}
+	// mdns.RegisterNotifee(mn)
 
 	err = idht.Bootstrap(ctx)
 	if err != nil {

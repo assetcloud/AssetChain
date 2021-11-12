@@ -196,8 +196,8 @@ func TestRPC_CallTestNode(t *testing.T) {
 }
 
 var cfgstring = `
-Title="YCC"
-coinSymbol="YCC"
+Title="assetchain"
+coinSymbol="OCIA"
 TestNet=true
 FixTime=false
 version="6.3.0"

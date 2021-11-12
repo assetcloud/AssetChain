@@ -12,8 +12,8 @@ import (
 	"github.com/33cn/chain33/rpc/jsonclient"
 	rpctypes "github.com/33cn/chain33/rpc/types"
 	"github.com/33cn/chain33/types"
-	ty "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 	"github.com/spf13/cobra"
+	ty "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 )
 
 // Pos33TicketCmd ticket command type

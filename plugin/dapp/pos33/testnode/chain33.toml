@@ -1,7 +1,7 @@
 FixTime = false
 TestNet = true
-Title = "YCC"
-coinSymbol = "YCC"
+Title = "assetchain"
+coinSymbol = "OCIA"
 version = "6.3.0"
 
 [log]

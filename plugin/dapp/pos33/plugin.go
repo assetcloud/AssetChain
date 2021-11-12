@@ -11,6 +11,7 @@ import (
 	"github.com/assetcloud/AssetChain/plugin/dapp/pos33/rpc"
 	"github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 
+
 	// init wallet
 	_ "github.com/assetcloud/AssetChain/plugin/dapp/pos33/wallet"
 )
