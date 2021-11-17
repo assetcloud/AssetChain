@@ -94,8 +94,8 @@ serverStart=true
 channel = 10001
 port = 13801
 
-seeds = ["/ip4/218.75.123.183/tcp/13801/p2p/16Uiu2HAkzFQ5BVEQKXPbMqga6wkmtb1Rh2bH5sXaWtVyuR5GeLxv"]
-# seeds = ["/ip4/10.89.3.10/tcp/13801/p2p/16Uiu2HAkzFQ5BVEQKXPbMqga6wkmtb1Rh2bH5sXaWtVyuR5GeLxv"]
+seeds = ["/ip4/218.75.123.183/tcp/13801/p2p/16Uiu2HAmMCfKjPQBgikm41awyBTz9QUt7UfLmqi5p9hZxb4BPAkn"]
+# seeds = ["/ip4/10.89.3.10/tcp/13801/p2p/16Uiu2HAmMCfKjPQBgikm41awyBTz9QUt7UfLmqi5p9hZxb4BPAkn"]
 
 #限定连接数
 #暂时限定较小的连接数
