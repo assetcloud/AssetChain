@@ -1,0 +1,48 @@
+# type字段仅支持 consensus  dapp store
+[dapp-pos33]
+gitrepo = "github.com/assetcloud/AssetChain/plugin/dapp/pos33"
+
+[consensus-pos33]
+gitrepo = "github.com/assetcloud/AssetChain/plugin/consensus/pos33"
+
+[consensus-para]
+gitrepo = "github.com/33cn/plugin/plugin/consensus/para"
+
+[dapp-evm]
+gitrepo = "github.com/33cn/plugin/plugin/dapp/evm"
+
+[dapp-retrieve]
+gitrepo = "github.com/33cn/plugin/plugin/dapp/retrieve"
+
+[dapp-hashlock]
+gitrepo = "github.com/33cn/plugin/plugin/dapp/hashlock"
+
+[dapp-token]
+gitrepo = "github.com/33cn/plugin/plugin/dapp/token"
+
+[dapp-trade]
+gitrepo = "github.com/33cn/plugin/plugin/dapp/trade"
+
+[dapp-paracross]
+gitrepo = "github.com/33cn/plugin/plugin/dapp/paracross"
+
+[dapp-multisig]
+gitrepo = "github.com/33cn/plugin/plugin/dapp/multisig"
+
+[dapp-unfreeze]
+gitrepo = "github.com/33cn/plugin/plugin/dapp/unfreeze"
+
+[dapp-autonomy]
+gitrepo = "github.com/33cn/plugin/plugin/dapp/autonomy"
+
+[mempool-score]
+gitrepo = "github.com/33cn/plugin/plugin/mempool/score"
+
+[mempool-price]
+gitrepo = "github.com/33cn/plugin/plugin/mempool/price"
+
+[mempool-para]
+gitrepo = "github.com/33cn/plugin/plugin/mempool/para"
+
+[store-kvmvccmavl]
+gitrepo = "github.com/33cn/plugin/plugin/store/kvmvccmavl"
