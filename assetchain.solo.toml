@@ -3,6 +3,7 @@ Title = "assetchain-test"
 ChainID=10001
 version="1.0.0"
 CoinSymbol="OCIA"
+CoinPrecision=10000
 
 [log]
 # 日志级别，支持debug(dbug)/info/warn/error(eror)/crit
@@ -29,7 +30,7 @@ callerFunction = false
 batchsync = false
 defCacheSize=512
 dbCache = 512
-dbPath = "datadir"
+dbPath = "datadir-solo"
 enableTxQuickIndex = true
 isRecordBlockSequence = true
 # 升级storedb是否重新执行localdb，主链升级不需要开启，平行链升级需要开启
@@ -49,17 +50,18 @@ onChainTimeout=1
 [mempool]
 poolCacheSize=102400
 #minTxFeeRate=0
-minTxFeeRate=100000
+minTxFeeRate=10
+maxTxFeeRate=1000
 disableExecCheck=true
-maxTxNumPerAccount = 10000
+maxTxNumPerAccount = 30000
 name="price"
-maxTxFee=0
+maxTxFee=100000
 isLevelFee=true
 
 [mempool.sub.score]
 poolCacheSize=102400
-minTxFee=100000
-maxTxNumPerAccount=100
+minTxFee=10
+maxTxNumPerAccount=30000
 timeParam=1      #时间占价格比例
 priceConstant=1544  #手续费相对于时间的一个合适的常量,取当前unxi时间戳前四位数,排序时手续费高1e-5~=快1s
 pricePower=1     #常量比例
@@ -71,7 +73,7 @@ poolCacheSize=102400
 enable=false
 dbCache = 4
 driver="leveldb"
-dbPath = "datadir/addrbook"
+dbPath = "datadir-solo/addrbook"
 grpcLogFile = "grpc33.log"
 types = ["dht"]
 #waitPid 等待seed导入
@@ -93,7 +95,8 @@ channel = 10001
 port = 13801
 
 seeds = []
-# seeds = ["/ip4/10.89.3.5/tcp/13801/p2p/16Uiu2HAmDJ6PUMSsD7cz5FQJp2KmDMcZ2EqB6XN4D4zKZc6ky8J6"]
+#seeds = ["/ip4/218.75.123.183/tcp/13801/p2p/16Uiu2HAmMCfKjPQBgikm41awyBTz9QUt7UfLmqi5p9hZxb4BPAkn"]
+# seeds = ["/ip4/10.89.3.10/tcp/13801/p2p/16Uiu2HAmMCfKjPQBgikm41awyBTz9QUt7UfLmqi5p9hZxb4BPAkn"]
 
 #限定连接数
 #暂时限定较小的连接数
@@ -104,7 +107,6 @@ minLtBlockSize = 1
 isFullNode = true
 #设为1为屏蔽默认设置5
 maxBroadcastPeers = 1
-psk="4ea6f2c3d924ff5882f840aba0230c4fa422c33a061af002654f076ed25f86d4"
 
 [p2p.sub.dht.pubsub]
 gossipSubD = 10
@@ -126,15 +128,16 @@ keyFile = "key.pem"
 whitelist = ["127.0.0.1"]
 
 [consensus]
-name="pos33"
+name="solo"
 minerstart=true
 genesisBlockTime=1604449783
 genesis="163eimvjqQacXh6evrmRpRxXRCxKqHUT88"
 minerExecs=["pos33"]
 
 [consensus.sub.pos33]
-bootPeers = ["/ip4/218.75.123.183/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
-# bootPeers = ["/ip4/10.89.3.5/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
+bootPeers = []
+#bootPeers = ["/ip4/218.75.123.183/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
+#bootPeers = ["/ip4/10.89.3.10/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
 forwardServers = [] 
 listenPort = 10901
 onlyVoter = false
@@ -149,10 +152,10 @@ count=10000
 [mver.consensus]
 fundKeyAddr="14wDnMse45jomBWx1AuHB6KDhVz662YJMx"
 powLimitBits="0x1f00ffff"
-maxTxNumber=10000
+maxTxNumber=30000
 
 [mver.consensus.ForkChainParamV1]
-maxTxNumber=10000
+maxTxNumber=30000
 
 [mver.consensus.ForkChainParamV2]
 powLimitBits="0x1f2fffff"
@@ -172,9 +175,16 @@ ticketMinerWaitTime=7200
 targetTimespan=2160
 targetTimePerBlock=15
 
+[consensus.sub.solo]
+genesis="163eimvjqQacXh6evrmRpRxXRCxKqHUT88"
+genesisBlockTime=1514533395
+hotkeyAddr="19AqkFqEEB4kRxfnYomuAx4TgxeHw53X99"
+waitTxMs=10
+
+
 [store]
 dbCache = 512
-dbPath = "datadir/mavltree"
+dbPath = "datadir-solo/mavltree"
 name="kvmvccmavl"
 driver="leveldb"
 storedbVersion="2.0.0"
@@ -202,10 +212,13 @@ pruneMavlHeight = 10000
 # 缓存close ticket数目，该缓存越大同步速度越快，最大设置到1500000,默认200000
 tkCloseCacheLen = 200000
 
+[crypto]
+enableTypes = ["secp256k1", "none", "bls"]
+
 [wallet]
 dbCache = 16
-dbPath = "wallet"
-minFee=100000
+dbPath = "wallet-solo"
+minFee=10
 driver="leveldb"
 signType="secp256k1"
 
@@ -213,7 +226,7 @@ signType="secp256k1"
 ForkChainParamV1=0
 ForkCheckTxDup=0
 # TODO 正式链配置为 1
-ForkBlockHash=175000
+ForkBlockHash=1
 ForkMinerTime=0
 ForkTransferExec=0
 ForkExecKey=0
@@ -288,12 +301,15 @@ ForkParaAssetTransferRbk=0
 ForkParaSelfConsStages=0
 #仅平行链适用
 ForkParaFullMinerHeight=-1
+ForkParaRootHash=0
+ForkParaSupervision=0
 
 [fork.sub.multisig]
 Enable=0
 
 [fork.sub.autonomy]
 Enable=0
+ForkAutonomyDelRule=0
 
 [fork.sub.unfreeze]
 Enable=0
@@ -316,7 +332,7 @@ ForkEVMTxGroup=0
 [exec]
 enableMVCC = false
 enableStat = false
-disableAddrIndex=true
+#disableAddrIndex=true
 
 [exec.sub.pos33]
 ForkTicketId=0
