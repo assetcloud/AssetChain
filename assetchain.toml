@@ -143,7 +143,7 @@ genesisBlockTime=1611627559
 checkFutureBlockHeight=1500000
 
 [[consensus.sub.pos33.genesis]]
-minerAddr="19AqkFqEEB4kRxfnYomuAx4TgxeHw53X99"
+minerAddr="14XDiBdV7u73TDzbNYmf3Pihnnsm9qhEiG"
 returnAddr="13Fky3sREhmVeM3Hk5rCbAsh9id9qgwtLv"
 count=10000
 
