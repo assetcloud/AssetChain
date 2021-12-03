@@ -129,7 +129,7 @@ whitelist = ["127.0.0.1"]
 [consensus]
 name="pos33"
 minerstart=true
-genesisBlockTime=1604449783
+genesisBlockTime=1638374400
 genesis="13Fky3sREhmVeM3Hk5rCbAsh9id9qgwtLv"
 minerExecs=["pos33"]
 
@@ -139,7 +139,7 @@ bootPeers = ["/ip4/218.75.123.183/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxB
 forwardServers = [] 
 listenPort = 10901
 onlyVoter = false
-genesisBlockTime=1611627559
+genesisBlockTime=1638374400
 checkFutureBlockHeight=1500000
 
 [[consensus.sub.pos33.genesis]]
