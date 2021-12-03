@@ -94,8 +94,8 @@ serverStart=true
 channel = 10001
 port = 13801
 
-seeds = ["/ip4/218.75.123.183/tcp/13801/p2p/16Uiu2HAmMCfKjPQBgikm41awyBTz9QUt7UfLmqi5p9hZxb4BPAkn"]
-# seeds = ["/ip4/10.89.3.10/tcp/13801/p2p/16Uiu2HAmMCfKjPQBgikm41awyBTz9QUt7UfLmqi5p9hZxb4BPAkn"]
+seeds = ["/ip4/218.75.123.183/tcp/13801/p2p/16Uiu2HAm9fKBw3nYhJpSdBRoQ8YM1Z6UaLxRuFxu8sAUATmLA2JT"]
+#seeds = ["/ip4/10.89.3.10/tcp/13801/p2p/16Uiu2HAm9fKBw3nYhJpSdBRoQ8YM1Z6UaLxRuFxu8sAUATmLA2JT"]
 
 #限定连接数
 #暂时限定较小的连接数
@@ -134,8 +134,8 @@ genesis="13Fky3sREhmVeM3Hk5rCbAsh9id9qgwtLv"
 minerExecs=["pos33"]
 
 [consensus.sub.pos33]
-bootPeers = ["/ip4/218.75.123.183/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
-#bootPeers = ["/ip4/10.89.3.10/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
+bootPeers = ["/ip4/218.75.123.183/tcp/10901/p2p/16Uiu2HAmDu5ubvVncWYQ9C9ih5SK5WHVtULzmqSs9ZZqxdM1DQ6p"]
+#bootPeers = ["/ip4/10.89.3.10/tcp/10901/p2p/16Uiu2HAmDu5ubvVncWYQ9C9ih5SK5WHVtULzmqSs9ZZqxdM1DQ6p"]
 forwardServers = [] 
 listenPort = 10901
 onlyVoter = false
