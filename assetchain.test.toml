@@ -1,6 +1,7 @@
+# 这是部署测试链的配置, 需要调整种子节点的配置
 FixTime = false
-Title = "assetchain"
-ChainID=10000
+Title = "assetchain-test"
+ChainID=10001
 version="1.0.0"
 CoinSymbol="OCIA"
 CoinPrecision=10000
@@ -129,8 +130,8 @@ whitelist = ["127.0.0.1"]
 [consensus]
 name="pos33"
 minerstart=true
-genesisBlockTime=1638374400
-genesis="13Fky3sREhmVeM3Hk5rCbAsh9id9qgwtLv"
+genesisBlockTime=1604449783
+genesis="163eimvjqQacXh6evrmRpRxXRCxKqHUT88"
 minerExecs=["pos33"]
 
 [consensus.sub.pos33]
@@ -139,12 +140,12 @@ bootPeers = ["/ip4/218.75.123.183/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxB
 forwardServers = [] 
 listenPort = 10901
 onlyVoter = false
-genesisBlockTime=1638374400
+genesisBlockTime=1611627559
 checkFutureBlockHeight=1500000
 
 [[consensus.sub.pos33.genesis]]
-minerAddr="14XDiBdV7u73TDzbNYmf3Pihnnsm9qhEiG"
-returnAddr="13Fky3sREhmVeM3Hk5rCbAsh9id9qgwtLv"
+minerAddr="19AqkFqEEB4kRxfnYomuAx4TgxeHw53X99"
+returnAddr="163eimvjqQacXh6evrmRpRxXRCxKqHUT88"
 count=10000
 
 [mver.consensus]
@@ -331,17 +332,15 @@ ForkTicketVrf=0
 
 [exec.sub.token]
 #配置一个空值，防止配置文件被覆盖
-tokenApprs=["165miLmdAg9rE3q2NWNZQPcaJmnMTCWu4k"]
+tokenApprs=["13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd"]
 saveTokenTxList = false
 
 [exec.sub.relay]
-genesis="19sVCTBpeLzjT7JzRRZLqqDDpyKvZ83dfm"
+genesis="13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd"
 
 [exec.sub.manage]
 superManager=[
-    "1G6Mev49HmAbvd7tPA23aGHKcr59nBXZfD", 
-    "1348VpJs2mHby2q8WL78y8TgQwvYUB7Boq", 
-    "1NBkw3urHYVuKjUzTpYdj7ueYmXXoW7LR4",
+    "13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd", 
 ]
 
 [exec.sub.paracross]
@@ -350,7 +349,7 @@ nodeGroupFrozenCoins=0
 paraConsensusStopBlocks=30000
 
 [exec.sub.autonomy]
-total="1pEXnweTTdjqPRv4LTV9pB25qneK9hEYS"
+total="13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd"
 useBalance=false
 
 
