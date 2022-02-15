@@ -6,6 +6,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/33cn/chain33/common/address"
 	"github.com/33cn/chain33/common/crypto"
 	"github.com/33cn/chain33/queue"
 	drivers "github.com/33cn/chain33/system/consensus"
@@ -28,6 +29,7 @@ type Client struct {
 
 	clock   sync.Mutex
 	priv    crypto.PrivKey
+	myAddr  string
 	mycount int
 
 	mlock sync.Mutex
@@ -42,6 +44,7 @@ type Tx = types.Transaction
 type genesisTicket struct {
 	MinerAddr  string `json:"minerAddr"`
 	ReturnAddr string `json:"returnAddr"`
+	BlsAddr    string `json:"blsAddr"`
 	Count      int32  `json:"count"`
 }
 
@@ -122,7 +125,7 @@ func (client *Client) allCount(height int64) int {
 }
 
 func privFromBytes(privkey []byte) (crypto.PrivKey, error) {
-	cr, err := crypto.New(types.GetSignName("", types.SECP256K1))
+	cr, err := crypto.Load(types.GetSignName("", types.SECP256K1), -1)
 	if err != nil {
 		return nil, err
 	}
@@ -154,7 +157,7 @@ func (c *Client) updateTicketCount(height int64) {
 	ac := c.queryAllPos33Count()
 	c.acMap[height] = ac
 	c.mycount = c.getMyCount()
-	plog.Debug("getAllCount", "count", ac, "height", height)
+	plog.Info("AllCount", "count", ac, "height", height)
 	delete(c.acMap, height-pt.Pos33SortBlocks-1)
 }
 
@@ -163,7 +166,7 @@ func (c *Client) getMyCount() int {
 	defer c.clock.Unlock()
 	resp, err := c.GetAPI().ExecWalletFunc("pos33", "WalletGetPos33Count", &types.ReqNil{})
 	if err != nil {
-		plog.Error("WalletGetPos33Count", "err", err)
+		plog.Debug("WalletGetPos33Count", "err", err)
 		return 0
 	}
 	w := resp.(*pt.ReplyWalletPos33Count)
@@ -176,6 +179,7 @@ func (c *Client) getMyCount() int {
 		plog.Error("privFromBytes", "err", err)
 		return 0
 	}
+	c.myAddr = address.PubKeyToAddr(c.priv.PubKey().Bytes())
 	plog.Debug("getMyCount", "count", c.mycount)
 	return c.mycount
 }
@@ -227,13 +231,13 @@ func (client *Client) CreateBlock() {
 	client.n.runLoop()
 }
 
-func createTicket(cfg *types.Chain33Config, minerAddr, returnAddr string, count int32, height int64) (ret []*types.Transaction) {
-	//给hotkey 10000 个币，作为miner的手续费
+func createTicket(cfg *types.Chain33Config, minerAddr, returnAddr, blsAddr string, count int32, height int64) (ret []*types.Transaction) {
+	//给hotkey 1000 个币，作为miner的手续费
 	tx1 := types.Transaction{}
 	tx1.Execer = []byte("coins")
 	tx1.To = minerAddr
 	g := &ct.CoinsAction_Genesis{}
-	g.Genesis = &types.AssetsGenesis{Amount: pt.GetPos33TicketMinerParam(cfg, height).Pos33TicketPrice}
+	g.Genesis = &types.AssetsGenesis{Amount: cfg.GetCoinPrecision() * 1000}
 	tx1.Payload = types.Encode(&ct.CoinsAction{Value: g, Ty: ct.CoinsActionGenesis})
 	ret = append(ret, &tx1)
 
@@ -251,7 +255,7 @@ func createTicket(cfg *types.Chain33Config, minerAddr, returnAddr string, count 
 	tx3.Execer = []byte(pt.Pos33TicketX)
 	tx3.To = driver.ExecAddress(pt.Pos33TicketX)
 	gticket := &pt.Pos33TicketAction_Genesis{}
-	gticket.Genesis = &pt.Pos33TicketGenesis{MinerAddress: minerAddr, ReturnAddress: returnAddr, Count: count}
+	gticket.Genesis = &pt.Pos33TicketGenesis{MinerAddress: minerAddr, ReturnAddress: returnAddr, BlsAddress: blsAddr, Count: count}
 	tx3.Payload = types.Encode(&pt.Pos33TicketAction{Value: gticket, Ty: pt.Pos33TicketActionGenesis})
 	ret = append(ret, &tx3)
 	plog.Debug("genesis miner", "execaddr", tx3.To)
@@ -265,16 +269,16 @@ func (client *Client) CreateGenesisTx() (ret []*types.Transaction) {
 	tx0.Execer = []byte("coins")
 	tx0.To = client.Cfg.Genesis
 	g := &ct.CoinsAction_Genesis{}
-	// 发行 202005201314 (2020 亿)
+	// 发行 100 亿
 	cfg := client.GetAPI().GetConfig()
 	coin := cfg.GetCoinPrecision()
-	g.Genesis = &types.AssetsGenesis{Amount: 202005201314 * coin}
+	g.Genesis = &types.AssetsGenesis{Amount: types.MaxCoin * 10 * coin}
 	tx0.Payload = types.Encode(&ct.CoinsAction{Value: g, Ty: ct.CoinsActionGenesis})
 	ret = append(ret, &tx0)
 
 	// 初始化挖矿
 	for _, genesis := range client.conf.Genesis {
-		tx1 := createTicket(cfg, genesis.MinerAddr, genesis.ReturnAddr, genesis.Count, 0)
+		tx1 := createTicket(cfg, genesis.MinerAddr, genesis.ReturnAddr, genesis.BlsAddr, genesis.Count, 0)
 		ret = append(ret, tx1...)
 	}
 	return ret
@@ -309,13 +313,13 @@ func (client *Client) setBlock(b *types.Block) error {
 	return nil
 }
 
-func getMiner(b *types.Block) (*pt.Pos33TicketMiner, error) {
+func getMiner(b *types.Block) (*pt.Pos33MinerMsg, error) {
 	if b == nil {
 		return nil, fmt.Errorf("b is nil")
 	}
 	if len(b.Txs) == 0 {
 		plog.Error("No tx in the block", b.Height)
-		return nil, errors.New("No tx in the block")
+		return nil, errors.New("no tx in the block")
 	}
 	tx := b.Txs[0]
 	var pact pt.Pos33TicketAction
@@ -370,7 +374,7 @@ func (client *Client) CmpBestBlock(newBlock *types.Block, cmpBlock *types.Block)
 		return false
 	}
 
-	plog.Info("block cmp", "nv1", len(m1.Vs), "nv2", len(m2.Vs))
+	plog.Info("block cmp", "nv1", len(m1.BlsPkList), "nv2", len(m2.BlsPkList))
 	return true
 
 	// vw1 := voteWeight(m1.Votes)

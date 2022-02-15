@@ -33,13 +33,13 @@ func (t *Pos33Ticket) ExecDelLocal_Tclose(payload *ty.Pos33TicketClose, tx *type
 }
 
 // ExecDelLocal_Miner exec del local miner
-func (t *Pos33Ticket) ExecDelLocal_Miner(payload *ty.Pos33TicketMiner, tx *types.Transaction, receiptData *types.ReceiptData, index int) (*types.LocalDBSet, error) {
+func (t *Pos33Ticket) ExecDelLocal_Miner(payload *ty.Pos33MinerMsg, tx *types.Transaction, receiptData *types.ReceiptData, index int) (*types.LocalDBSet, error) {
 	tlog.Info("ExecDelLocal_Miner", "height", t.GetHeight())
 	return t.execDelLocal(receiptData)
 }
 
-// // ExecDelLocal_Bind exec del local miner
-// func (t *Pos33Ticket) ExecDelLocal_Bind(payload *ty.Pos33TicketBind, tx *types.Transaction, receiptData *types.ReceiptData, index int) (*types.LocalDBSet, error) {
-// 	tlog.Info("ExecDelLocal_Miner", "height", t.GetHeight())
-// 	return t.execDelLocal(receiptData)
-// }
+// ExecDelLocal_Bind exec del local miner
+func (t *Pos33Ticket) ExecDelLocal_Bind(payload *ty.Pos33TicketBind, tx *types.Transaction, receiptData *types.ReceiptData, index int) (*types.LocalDBSet, error) {
+	tlog.Info("ExecDelLocal_Miner", "height", t.GetHeight())
+	return t.execDelLocal(receiptData)
+}

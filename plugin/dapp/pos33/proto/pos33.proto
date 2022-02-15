@@ -1,7 +1,6 @@
 syntax = "proto3";
 package types;
-// option go_package =
-// "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types;types";
+option go_package = "../types";
 
 import "common.proto";
 import "transaction.proto";
@@ -33,7 +32,7 @@ message Pos33TicketAction {
     Pos33TicketOpen topen = 1;
     Pos33TicketGenesis genesis = 2;
     Pos33TicketClose tclose = 3;
-    Pos33TicketMiner miner = 6;
+    Pos33MinerMsg miner = 6;
   }
   int32 ty = 10;
 }
@@ -143,6 +142,14 @@ message Pos33TicketMiner {
   int64 blockTime = 4;
 }
 
+message Pos33MinerMsg {
+  repeated bytes BlsPkList = 1;
+  bytes BlsSig = 2;
+  bytes Hash = 3;
+  Pos33SortMsg sort = 5;
+  int64 blockTime = 4;
+}
+
 message Pos33MinerFlag {
   int32 flag = 1;
   int64 reserve = 2;
@@ -158,12 +165,14 @@ message Pos33TicketBind {
 message Pos33TicketOpen {
   //用户挖矿的ticket 地址
   string minerAddress = 1;
-  //购买ticket的数目
-  int32 count = 2;
   //币实际存储的地址
   string returnAddress = 3;
+  //聚合签名的地址
+  string blsAddress = 6;
+  //购买ticket的数目
+  int32 count = 2;
   //随机种子
-  // int64 randSeed = 4;
+  int64 randSeed = 4;
   //购买ticket时公开
   // repeated bytes pubHashes = 5;
 }
@@ -171,6 +180,7 @@ message Pos33TicketOpen {
 message Pos33TicketGenesis {
   string minerAddress = 1;
   string returnAddress = 2;
+  string blsAddress = 6;
   int32 count = 3;
 }
 
@@ -210,26 +220,28 @@ message ReceiptPos33Miner {
   int64 reward = 3;
 }
 
-// message ReceiptPos33TicketBind {
-//   string oldMinerAddress = 1;
-//   string newMinerAddress = 2;
-//   string returnAddress = 3;
-// }
+message ReceiptPos33TicketBind {
+  string oldMinerAddress = 1;
+  string newMinerAddress = 2;
+  string returnAddress = 3;
+}
 
-// message ReqBindPos33Miner {
-//   string bindAddr = 1;
-//   string originAddr = 2;
-//   int64 amount = 3;
-//   bool checkBalance = 4;
-// }
+message ReqBindPos33Miner {
+  string bindAddr = 1;
+  string originAddr = 2;
+  int64 amount = 3;
+  bool checkBalance = 4;
+}
 
-// message ReplyBindPos33Miner { string txHex = 1; }
+message ReplyBindPos33Miner { string txHex = 1; }
 
-service pos33Ticket {
+service pos33 {
   //创建绑定挖矿
-  // rpc CreateBindMiner(ReqBindPos33Miner) returns(ReplyBindPos33Miner) {}
+  rpc CreateBindMiner(ReqBindPos33Miner) returns (ReplyBindPos33Miner) {}
   //查询钱包票数
-  rpc GetPos33TicketCount(types.ReqNil) returns (Int64) {}
+  rpc GetPos33TicketCount(types.ReqAddr) returns (Int64) {}
+  //查询钱包票数
+  rpc GetAllPos33TicketCount(types.ReqNil) returns (Int64) {}
   //设置自动挖矿
   rpc SetAutoMining(Pos33MinerFlag) returns (Reply) {}
   //查询奖励
