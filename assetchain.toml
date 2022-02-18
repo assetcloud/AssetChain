@@ -145,7 +145,7 @@ checkFutureBlockHeight=1500000
 [[consensus.sub.pos33.genesis]]
 minerAddr="14XDiBdV7u73TDzbNYmf3Pihnnsm9qhEiG"
 returnAddr="13Fky3sREhmVeM3Hk5rCbAsh9id9qgwtLv"
-blsAddr="1HD3KyzUqMKT3fnKCXsFx91PZ1R2tiegXk" # TODO gen from consensus.genesis.privkey
+blsAddr="1HD3KyzUqMKT3fnKCXsFx91PZ1R2tiegXk" # TODO gen from consensus.genesis.minerAddr.privkey
 count=10000
 
 [mver.consensus]
