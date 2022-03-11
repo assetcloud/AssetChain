@@ -11,6 +11,12 @@ gitrepo = "github.com/33cn/plugin/plugin/consensus/para"
 [dapp-evm]
 gitrepo = "github.com/33cn/plugin/plugin/dapp/evm"
 
+[dapp-evmxgo]
+gitrepo = "github.com/33cn/plugin/plugin/dapp/evmxgo"
+
+[dapp-exchange]
+gitrepo = "github.com/33cn/plugin/plugin/dapp/exchange"
+
 [dapp-retrieve]
 gitrepo = "github.com/33cn/plugin/plugin/dapp/retrieve"
 
@@ -43,6 +49,7 @@ gitrepo = "github.com/33cn/plugin/plugin/mempool/price"
 
 [mempool-para]
 gitrepo = "github.com/33cn/plugin/plugin/mempool/para"
+
 
 [store-kvmvccmavl]
 gitrepo = "github.com/33cn/plugin/plugin/store/kvmvccmavl"

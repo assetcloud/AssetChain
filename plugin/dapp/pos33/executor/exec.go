@@ -6,7 +6,7 @@ package executor
 
 import (
 	"github.com/33cn/chain33/types"
-	ty "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"	
 )
 
 // Exec_Genesis exec genesis
@@ -35,13 +35,13 @@ func (t *Pos33Ticket) Exec_Tclose(payload *ty.Pos33TicketClose, tx *types.Transa
 }
 
 //Exec_Miner exec miner
-func (t *Pos33Ticket) Exec_Miner(payload *ty.Pos33TicketMiner, tx *types.Transaction, index int) (*types.Receipt, error) {
+func (t *Pos33Ticket) Exec_Miner(payload *ty.Pos33MinerMsg, tx *types.Transaction, index int) (*types.Receipt, error) {
 	actiondb := NewAction(t, tx)
-	return actiondb.Pos33TicketMiner(payload, index)
+	return actiondb.Pos33Miner(payload, index)
 }
 
-// // Exec_Tbind exec bind
-// func (t *Pos33Ticket) Exec_Tbind(payload *ty.Pos33TicketBind, tx *types.Transaction, index int) (*types.Receipt, error) {
-// 	actiondb := NewAction(t, tx)
-// 	return actiondb.Pos33TicketBind(payload)
-// }
+// Exec_Tbind exec bind
+func (t *Pos33Ticket) Exec_Tbind(payload *ty.Pos33TicketBind, tx *types.Transaction, index int) (*types.Receipt, error) {
+	actiondb := NewAction(t, tx)
+	return actiondb.Pos33TicketBind(payload)
+}
