@@ -305,7 +305,8 @@ ForkParaSelfConsStages=0
 ForkParaFullMinerHeight=-1
 ForkParaRootHash=0
 ForkParaSupervision=0
-ForkParaAutonomySuperGroup=0
+ForkParaAutonomySuperGroup=-1
+ForkParaFreeRegister = 0
 
 [fork.sub.multisig]
 Enable=0
