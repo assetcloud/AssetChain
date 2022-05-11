@@ -2,9 +2,10 @@
 FixTime = false
 Title = "assetchain-test"
 ChainID=10001
-version="1.0.0"
+version="2.0.0"
 CoinSymbol="OCIA"
 CoinPrecision=10000
+TxHeight = true
 
 [log]
 # 日志级别，支持debug(dbug)/info/warn/error(eror)/crit
@@ -41,7 +42,7 @@ enableReduceLocaldb = false
 enablePushSubscribe = true
 singleMode = false
 maxFetchBlockNum=128
-timeoutSeconds=5
+timeoutSeconds=1
 batchBlockNum=128
 driver="leveldb"
 isStrongConsistency=false
@@ -57,7 +58,8 @@ maxTxFeeRate=1000
 maxTxNumPerAccount = 30000
 name="price"
 maxTxFee=100000
-isLevelFee=true
+disableExecCheck = true
+isLevelFee=false
 
 [mempool.sub.score]
 poolCacheSize=102400
@@ -92,7 +94,7 @@ serverStart=true
 
 [p2p.sub.dht]
 #可以自定义设置连接节点
-channel = 10101
+channel = 10102
 port = 13801
 
 seeds = ["/ip4/218.75.123.183/tcp/13801/p2p/16Uiu2HAmMCfKjPQBgikm41awyBTz9QUt7UfLmqi5p9hZxb4BPAkn"]
@@ -147,16 +149,16 @@ checkFutureBlockHeight=1500000
 minerAddr="19AqkFqEEB4kRxfnYomuAx4TgxeHw53X99"
 returnAddr="163eimvjqQacXh6evrmRpRxXRCxKqHUT88"
 blsAddr="13drxPHhHTk2yKroWqJkL33M2n76aeVZPV" # gen from consensus.genesis.minerAddr.privkey 19AqkFqEEB4kRxfnYomuAx4TgxeHw53X99
-count=10000
+count=1000
 
 [mver.consensus]
 fundKeyAddr="14wDnMse45jomBWx1AuHB6KDhVz662YJMx"
 addWalletTx = false
 powLimitBits="0x1f00ffff"
-maxTxNumber=30000
+maxTxNumber=10000
 
 [mver.consensus.ForkChainParamV1]
-maxTxNumber=30000
+maxTxNumber=10000
 
 [mver.consensus.ForkChainParamV2]
 powLimitBits="0x1f2fffff"
@@ -165,23 +167,25 @@ powLimitBits="0x1f2fffff"
 #fundKeyAddr="14wDnMse45jomBWx1AuHB6KDhVz662YJMx"
 
 [mver.consensus.pos33]
-#coinReward=18
-#coinDevFund=12
-ticketPrice=10000
-#retargetAdjustmentFactor=4
-#futureBlockTime=5
-#ticketFrozenTime=43200
-#ticketWithdrawTime=10
-#ticketMinerWaitTime=7200
-#targetTimespan=2160
-#targetTimePerBlock=15
+ticketPrice1=10000
+ticketPrice2=100000
+minerFeePersent=10 
+rewardTransfer=1
+blockReward=15
+voteRewardPersent=25
+mineRewardPersent=11
+managerAddr="14KEKbYtKKQm4wMthSK9J4La4nAiidGozt"
 
 [store]
 dbCache = 512
-dbPath = "/data/assetchaindatadir/mavltree"
-name="kvmvccmavl"
+dbPath = "/data/assetchaindatadir/kvmvcc"
+name="kvmvcc"
 driver="leveldb"
-storedbVersion="2.0.0"
+
+[store.sub.kvmvcc]
+enableMVCC = false
+enableMavlPrefix = false
+
 
 [store.sub.mavl]
 enableMVCC = false
@@ -248,8 +252,12 @@ Enable=0
 
 [fork.sub.pos33]
 Enable=0
-ForkReward15=0
+#ForkReward15=725000 
+#ForkFixReward=5000000
+#UseEntrust=9870000
+ForkReward15=0 
 ForkFixReward=0
+UseEntrust=0
 
 [fork.sub.ticket]
 Enable=0
@@ -299,7 +307,8 @@ ForkParaSelfConsStages=0
 ForkParaFullMinerHeight=-1
 ForkParaRootHash=0
 ForkParaSupervision=0
-ForkParaAutonomySuperGroup=0
+ForkParaAutonomySuperGroup=-1
+ForkParaFreeRegister = 0
 
 [fork.sub.multisig]
 Enable=0
@@ -329,14 +338,18 @@ ForkEVMTxGroup=0
 [fork.sub.evmxgo]
 Enable=0
 
-[fork.sub.exchange]
-Enable=0
-
 
 [exec]
 enableMVCC = false
 enableStat = false
-#disableAddrIndex=true
+disableAddrIndex = true
+disableFeeIndex = true
+disableTxIndex = true
+
+[exec.sub.coins]
+disableAddrReceiver = true
+disableCheckTxAmount = true
+
 
 [exec.sub.token]
 #配置一个空值，防止配置文件被覆盖
