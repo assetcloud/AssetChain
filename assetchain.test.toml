@@ -32,7 +32,7 @@ callerFunction = false
 batchsync = false
 defCacheSize=512
 dbCache = 512
-dbPath = "/data/assetchaindatadir"
+dbPath = "/data/assetchaindatadir-test"
 enableTxQuickIndex = true
 isRecordBlockSequence = true
 # 升级storedb是否重新执行localdb，主链升级不需要开启，平行链升级需要开启
@@ -76,7 +76,7 @@ poolCacheSize=102400
 enable=true
 dbCache = 4
 driver="leveldb"
-dbPath = "/data/assetchaindatadir/addrbook"
+dbPath = "/data/assetchaindatadir-test/addrbook"
 grpcLogFile = "grpc33.log"
 types = ["dht"]
 #waitPid 等待seed导入
@@ -174,11 +174,11 @@ rewardTransfer=1
 blockReward=15
 voteRewardPersent=25
 mineRewardPersent=11
-managerAddr="14KEKbYtKKQm4wMthSK9J4La4nAiidGozt"
+managerAddr=""
 
 [store]
 dbCache = 512
-dbPath = "/data/assetchaindatadir/kvmvcc"
+dbPath = "/data/assetchaindatadir-test/kvmvcc"
 name="kvmvcc"
 driver="leveldb"
 
@@ -215,7 +215,7 @@ enableTypes = ["secp256k1", "none", "bls"]
 
 [wallet]
 dbCache = 16
-dbPath = "/data/assetchainwallet"
+dbPath = "/data/assetchainwallet-test"
 minFee=10
 driver="leveldb"
 signType="secp256k1"
