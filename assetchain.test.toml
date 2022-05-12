@@ -97,8 +97,7 @@ serverStart=true
 channel = 10102
 port = 13801
 
-seeds = ["/ip4/218.75.123.183/tcp/13801/p2p/16Uiu2HAmMCfKjPQBgikm41awyBTz9QUt7UfLmqi5p9hZxb4BPAkn"]
-# seeds = ["/ip4/10.89.3.10/tcp/13801/p2p/16Uiu2HAmMCfKjPQBgikm41awyBTz9QUt7UfLmqi5p9hZxb4BPAkn"]
+seeds = ["/ip4/192.168.0.157/tcp/13801/p2p/16Uiu2HAm6tYFgDeKJK4Sw1sj5N3DESHTnUgWTSLYhgVvsKMiDmDr"]
 
 #限定连接数
 #暂时限定较小的连接数
@@ -137,7 +136,7 @@ genesis="163eimvjqQacXh6evrmRpRxXRCxKqHUT88"
 minerExecs=["pos33"]
 
 [consensus.sub.pos33]
-bootPeers = ["/ip4/218.75.123.183/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
+bootPeers = ["/ip4/192.168.0.157/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
 #bootPeers = ["/ip4/10.89.3.10/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
 forwardServers = [] 
 listenPort = 10901
@@ -342,9 +341,9 @@ Enable=0
 [exec]
 enableMVCC = false
 enableStat = false
-disableAddrIndex = true
-disableFeeIndex = true
-disableTxIndex = true
+disableAddrIndex = false
+disableFeeIndex = false
+disableTxIndex = false
 
 [exec.sub.coins]
 disableAddrReceiver = true
