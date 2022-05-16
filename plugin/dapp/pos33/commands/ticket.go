@@ -10,6 +10,9 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/33cn/chain33/common"
+	"github.com/33cn/chain33/common/address"
+	"github.com/33cn/chain33/common/crypto"
 	"github.com/33cn/chain33/rpc/jsonclient"
 	rpctypes "github.com/33cn/chain33/rpc/types"
 	cmdtypes "github.com/33cn/chain33/system/dapp/commands/types"
@@ -34,10 +37,49 @@ func Pos33TicketCmd() *cobra.Command {
 		SetMinerFeeRateCmd(),
 		WithdrawRewardCmd(),
 		BlsBind(),
+		BlsAddr(),
 		Migrate(),
 	)
 
 	return cmd
+}
+
+func BlsAddr() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "bls",
+		Short: "get bls address with privakey",
+		Run:   blsAddr,
+	}
+	addBlsAddrFlags(cmd)
+	return cmd
+}
+func addBlsAddrFlags(cmd *cobra.Command) {
+	cmd.Flags().StringP("key", "s", "", "private key")
+	cmd.MarkFlagRequired("key")
+}
+
+func HexToPrivkey(key string) crypto.PrivKey {
+	cr, err := crypto.Load(types.GetSignName("", types.SECP256K1), -1)
+	if err != nil {
+		panic(err)
+	}
+	bkey, err := common.FromHex(key)
+	if err != nil {
+		panic(err)
+	}
+	priv, err := cr.PrivKeyFromBytes(bkey)
+	if err != nil {
+		panic(err)
+	}
+	return priv
+}
+
+func blsAddr(cmd *cobra.Command, args []string) {
+	strPriv, _ := cmd.Flags().GetString("key")
+	priv := HexToPrivkey(strPriv)
+	blsPk := ty.Hash2BlsSk(crypto.Sha256(priv.Bytes())).PubKey()
+	blsaddr := address.PubKeyToAddr(2, blsPk.Bytes())
+	fmt.Println(blsaddr)
 }
 
 func GetPos33Info() *cobra.Command {
@@ -50,6 +92,7 @@ func GetPos33Info() *cobra.Command {
 }
 
 type Pos33Info struct {
+	DappAddress    string
 	TicketPrice    string
 	AllTicketCount int64
 }
@@ -60,6 +103,11 @@ func parsePos33Info(arg ...interface{}) (interface{}, error) {
 	result := new(Pos33Info)
 	result.TicketPrice = types.FormatAmount2FloatDisplay(res.Price, cfg.CoinPrecision, false)
 	result.AllTicketCount = res.AllCount
+	dappAddr, err := address.GetExecAddress(ty.Pos33TicketX, 2)
+	if err != nil {
+		return nil, err
+	}
+	result.DappAddress = dappAddr
 	return result, nil
 }
 

@@ -25,6 +25,8 @@ import (
 
 var tlog = log.New("module", "pos33db")
 
+const ethID = 2
+
 // // GetReceiptLog get receipt
 // func pos33ReceiptLog(typ int32, count int, addr string) *types.ReceiptLog {
 // 	log := &types.ReceiptLog{}
@@ -222,7 +224,7 @@ func saddr(sig *types.Signature) string {
 	if sig == nil {
 		return ""
 	}
-	return address.PubKeyToAddr(address.DefaultID, sig.Pubkey)
+	return address.PubKeyToAddr(ethID, sig.Pubkey)
 }
 
 func (action *Action) Pos33Miner(miner *ty.Pos33MinerMsg, index int) (*types.Receipt, error) {
@@ -235,9 +237,9 @@ func (action *Action) Pos33Miner(miner *ty.Pos33MinerMsg, index int) (*types.Rec
 	// Pos33BlockReward 区块奖励
 	var Pos33BlockReward = Coin * 30
 	// Pos33VoteReward 每ticket区块voter奖励
-	var Pos33VoteReward = Coin / 2 // 0.5 
+	var Pos33VoteReward = Coin / 2 // 0.5
 	// Pos33MakerReward 每ticket区块bp奖励
-	var Pos33MakerReward = Coin * 22 / 100 // 0.22 
+	var Pos33MakerReward = Coin * 22 / 100 // 0.22
 
 	if chain33Cfg.IsDappFork(action.height, ty.Pos33TicketX, "ForkReward15") {
 		Pos33BlockReward /= 2
@@ -264,7 +266,7 @@ func (action *Action) Pos33Miner(miner *ty.Pos33MinerMsg, index int) (*types.Rec
 
 	// reward voters
 	for _, pk := range miner.BlsPkList {
-		val, err := action.db.Get(BlsKey(address.PubKeyToAddr(address.DefaultID, pk)))
+		val, err := action.db.Get(BlsKey(address.PubKeyToAddr(ethID, pk)))
 		if err != nil {
 			return nil, err
 		}

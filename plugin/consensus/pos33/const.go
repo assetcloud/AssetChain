@@ -1,5 +1,6 @@
 package pos33
 
+const ethID = 2
 const projectname = "assetchain"
 const pos33Topic = projectname + "-pos33"
 const remoteAddrID = pos33Topic + "-addr"
