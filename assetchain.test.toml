@@ -138,7 +138,7 @@ whitelist = ["127.0.0.1"]
 name="pos33"
 minerstart=true
 genesisBlockTime=1604449783
-genesis="163eimvjqQacXh6evrmRpRxXRCxKqHUT88" #TODO
+genesis="0x41b5d28887876d5f4301beebbbd065740f22dac2"
 minerExecs=["pos33"]
 
 [consensus.sub.pos33]
@@ -151,13 +151,13 @@ genesisBlockTime=1611627559
 checkFutureBlockHeight=1500000
 
 [[consensus.sub.pos33.genesis]]
-minerAddr="19AqkFqEEB4kRxfnYomuAx4TgxeHw53X99" # TODO 1,2,3
-returnAddr="163eimvjqQacXh6evrmRpRxXRCxKqHUT88"
-blsAddr="13drxPHhHTk2yKroWqJkL33M2n76aeVZPV" # gen from consensus.genesis.minerAddr.privkey 19AqkFqEEB4kRxfnYomuAx4TgxeHw53X99
+minerAddr="0xaf5b0f386dea0073f4457e250fe47055cee8d24e"
+returnAddr="0x41b5d28887876d5f4301beebbbd065740f22dac2"
+blsAddr="0x0abbc66296fb1e4a4ee204a100cdb42c666f7e09" # gen from consensus.genesis.minerAddr.privkey
 count=1000
 
 [mver.consensus]
-fundKeyAddr="14wDnMse45jomBWx1AuHB6KDhVz662YJMx"
+fundKeyAddr="0x44f80d1d3d3001c38bb475d5f2b7171ddd823595"
 addWalletTx = false
 powLimitBits="0x1f00ffff"
 maxTxNumber=10000
@@ -357,15 +357,15 @@ disableCheckTxAmount = true
 
 [exec.sub.token]
 #配置一个空值，防止配置文件被覆盖
-tokenApprs=["13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd"] # TODO
+tokenApprs=["0xa2fd40cdaf529c54d7f22b6e5a1a56d2cc23a35a"] 
 saveTokenTxList = false
 
 [exec.sub.relay]
-genesis="13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd" #TODO
+genesis="0xa2fd40cdaf529c54d7f22b6e5a1a56d2cc23a35a" 
 
 [exec.sub.manage]
 superManager=[
-    "13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd",  # TODO
+    "0xa2fd40cdaf529c54d7f22b6e5a1a56d2cc23a35a",  
 ]
 
 [exec.sub.paracross]
@@ -374,7 +374,7 @@ nodeGroupFrozenCoins=0
 paraConsensusStopBlocks=30000
 
 [exec.sub.autonomy]
-total="13jXcaJB3Sg7oBB2FAZf3VbDB58gHn7PPd"  # TODO
+total="0xa2fd40cdaf529c54d7f22b6e5a1a56d2cc23a35a"
 useBalance=false
 
 [mver.autonomy]
