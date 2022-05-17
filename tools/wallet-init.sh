@@ -21,16 +21,9 @@ function init() {
     sleep 1
 
     echo "=========== # create new key for mining ============="
-    result=$(./assetchain-cli account create -l mining | jq ".acc")
+    result=$(./assetchain-cli account create -t 2 -l mining | jq ".acc")
     echo "${result}"
     if [ -z "${result}" ]; then
-        exit 1
-    fi
-
-    sleep 1
-    echo "=========== # set auto mining ============="
-    result=$(./assetchain-cli pos33 auto_mine -f 1 | jq ".isok")
-    if [ "${result}" = "false" ]; then
         exit 1
     fi
 
