@@ -48,6 +48,11 @@ isStrongConsistency=false
 disableShard=true
 onChainTimeout=1
 
+[address]
+defaultDriver="eth"
+[address.enableHeight]
+eth=0
+
 [mempool]
 poolCacheSize=102400
 #minTxFeeRate=0
@@ -131,16 +136,17 @@ whitelist = ["127.0.0.1"]
 [consensus]
 name="pos33"
 minerstart=true
-genesisBlockTime=1638374400
+genesisBlockTime=1652356636
 genesis="13Fky3sREhmVeM3Hk5rCbAsh9id9qgwtLv"
 minerExecs=["pos33"]
 
 [consensus.sub.pos33]
 bootPeers = ["/ip4/218.75.123.183/tcp/10901/p2p/16Uiu2HAmDu5ubvVncWYQ9C9ih5SK5WHVtULzmqSs9ZZqxdM1DQ6p"] # TODO
 #bootPeers = ["/ip4/10.89.3.10/tcp/10901/p2p/16Uiu2HAmDu5ubvVncWYQ9C9ih5SK5WHVtULzmqSs9ZZqxdM1DQ6p"]
+issueTotal = 202005201314
 listenPort = 10901
 onlyVoter = false
-genesisBlockTime=1638374400
+genesisBlockTime=1652356636
 checkFutureBlockHeight=1500000
 
 [[consensus.sub.pos33.genesis]]
@@ -150,19 +156,10 @@ blsAddr="1HD3KyzUqMKT3fnKCXsFx91PZ1R2tiegXk" # TODO gen from consensus.genesis.m
 count=1000
 
 [mver.consensus]
-addWalletTx = false
 fundKeyAddr="14wDnMse45jomBWx1AuHB6KDhVz662YJMx" # TODO more address or same the other
+addWalletTx = false
 powLimitBits="0x1f00ffff"
 maxTxNumber=10000
-
-[mver.consensus.ForkChainParamV1]
-maxTxNumber=10000
-
-[mver.consensus.ForkChainParamV2]
-powLimitBits="0x1f2fffff"
-
-#[mver.consensus.ForkTicketFundAddrV1]
-#fundKeyAddr="14wDnMse45jomBWx1AuHB6KDhVz662YJMx"
 
 [mver.consensus.pos33]
 ticketPrice1=10000
@@ -172,7 +169,6 @@ rewardTransfer=1
 blockReward=15
 voteRewardPersent=25
 mineRewardPersent=11
-managerAddr=""
 
 [store]
 dbCache = 512
@@ -250,9 +246,6 @@ Enable=0
 
 [fork.sub.pos33]
 Enable=0
-#ForkReward15=725000 
-#ForkFixReward=5000000
-#UseEntrust=9870000
 ForkReward15=0 
 ForkFixReward=0
 UseEntrust=0
@@ -339,9 +332,9 @@ Enable=0
 [exec]
 enableMVCC = false
 enableStat = false
-disableAddrIndex = true
-disableFeeIndex = true
-disableTxIndex = true
+disableAddrIndex = false
+disableFeeIndex = false
+disableTxIndex = false
 
 
 [exec.sub.coins]
@@ -373,7 +366,67 @@ paraConsensusStopBlocks=30000
 total="1pEXnweTTdjqPRv4LTV9pB25qneK9hEYS"
 useBalance=false
 
-
+[mver.autonomy]
+#最小委员会数量
+minBoards=20
+#最大委员会数量
+maxBoards=40
+#公示一周时间，以区块高度计算
+publicPeriod=120960
+#单张票价
+ticketPrice=3000
+#重大项目公示金额阈值
+largeProjectAmount=1000000
+#创建者消耗金额bty
+proposalAmount=500
+#董事会成员赞成率，以%计，可修改
+boardApproveRatio=51
+#全体持票人参与率，以%计
+pubAttendRatio=51
+#全体持票人赞成率，以%计
+pubApproveRatio=51
+#全体持票人否决率，以%计
+pubOpposeRatio=33
+#提案开始结束最小周期高度
+startEndBlockPeriod=720
+#提案高度 结束高度最大周期 100W
+propEndBlockPeriod=1000000
+#最小董事会赞成率
+minBoardApproveRatio=50
+#最大董事会赞成率
+maxBoardApproveRatio=66
+#最小全体持票人否决率
+minPubOpposeRatio=33
+#最大全体持票人否决率
+maxPubOpposeRatio=50
+#可以调整，但是可能需要进行范围的限制：参与率最低设置为 50%， 最高设置为 80%，赞成率，最低 50.1%，最高80%
+#不能设置太低和太高，太低就容易作弊，太高则有可能很难达到
+#最小全体持票人参与率
+minPubAttendRatio=50
+#最大全体持票人参与率
+maxPubAttendRatio=80
+#最小全体持票人赞成率
+minPubApproveRatio=50
+#最大全体持票人赞成率
+maxPubApproveRatio=80
+#最小公示周期
+minPublicPeriod=120960
+#最大公示周期
+maxPublicPeriod=241920
+#最小重大项目阈值(coin)
+minLargeProjectAmount=1000000
+#最大重大项目阈值(coin)
+maxLargeProjectAmount=3000000
+#最小提案金(coin)
+minProposalAmount=20
+#最大提案金(coin)
+maxProposalAmount=2000
+#每个时期董事会审批最大额度300万
+maxBoardPeriodAmount =3000000
+#时期为一个月
+boardPeriod=518400
+#4w高度，大概2天 (未生效)
+itemWaitBlockNumber=40000
 
 
 [metrics]
