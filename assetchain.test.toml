@@ -137,7 +137,7 @@ whitelist = ["127.0.0.1"]
 [consensus]
 name="pos33"
 minerstart=true
-genesisBlockTime=1604449783
+genesisBlockTime=1652356536
 genesis="0x41b5d28887876d5f4301beebbbd065740f22dac2"
 minerExecs=["pos33"]
 
@@ -147,7 +147,7 @@ bootPeers = ["/ip4/192.168.0.157/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBE
 forwardServers = [] 
 listenPort = 10901
 onlyVoter = false
-genesisBlockTime=1611627559
+genesisBlockTime=1652356536
 checkFutureBlockHeight=1500000
 
 [[consensus.sub.pos33.genesis]]
@@ -161,15 +161,6 @@ fundKeyAddr="0x44f80d1d3d3001c38bb475d5f2b7171ddd823595"
 addWalletTx = false
 powLimitBits="0x1f00ffff"
 maxTxNumber=10000
-
-[mver.consensus.ForkChainParamV1]
-maxTxNumber=10000
-
-[mver.consensus.ForkChainParamV2]
-powLimitBits="0x1f2fffff"
-
-#[mver.consensus.ForkTicketFundAddrV1]
-#fundKeyAddr="14wDnMse45jomBWx1AuHB6KDhVz662YJMx"
 
 [mver.consensus.pos33]
 ticketPrice1=10000
@@ -256,9 +247,6 @@ Enable=0
 
 [fork.sub.pos33]
 Enable=0
-#ForkReward15=725000 
-#ForkFixReward=5000000
-#UseEntrust=9870000
 ForkReward15=0 
 ForkFixReward=0
 UseEntrust=0
