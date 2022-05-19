@@ -55,6 +55,7 @@ type subConfig struct {
 	BootPeers        []string         `json:"bootPeers,omitempty"`
 	ForwardServers   []string         `json:"forwardServers,omitempty"`
 	ForwardPeers     bool             `json:"forwardPeers,omitempty"`
+	IssueTotal       int64            `json:"issueTotal,omitempty"`
 	// if true, you can't make block and only vote
 	OnlyVoter bool `json:"onlyVoter,omitempty"`
 	// only for test!!! if true, delay 5 second make block
@@ -436,12 +437,14 @@ func (client *Client) CreateGenesisTx() (ret []*types.Transaction) {
 	tx0.Execer = []byte("coins")
 	tx0.To = client.Cfg.Genesis
 	g := &ct.CoinsAction_Genesis{}
-	// 发行 202005201314 (2020 亿)
+
 	cfg := client.GetAPI().GetConfig()
 	coin := cfg.GetCoinPrecision()
-	g.Genesis = &types.AssetsGenesis{Amount: 202005201314 * coin}
+	g.Genesis = &types.AssetsGenesis{Amount: client.conf.IssueTotal * coin}
 	tx0.Payload = types.Encode(&ct.CoinsAction{Value: g, Ty: ct.CoinsActionGenesis})
 	ret = append(ret, &tx0)
+
+	plog.Info("genesis Tx", "issue total", client.conf.IssueTotal)
 
 	// 初始化挖矿
 	for _, genesis := range client.conf.Genesis {

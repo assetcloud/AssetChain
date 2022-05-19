@@ -144,7 +144,7 @@ minerExecs=["pos33"]
 [consensus.sub.pos33]
 bootPeers = ["/ip4/192.168.0.157/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
 #bootPeers = ["/ip4/10.89.3.10/tcp/10901/p2p/16Uiu2HAmVqWHXxNwPsYCA1nV5CUgGxBEBwhsX5gu1ERx8sbPmM52"]
-forwardServers = [] 
+issueTotal = 202005201314 
 listenPort = 10901
 onlyVoter = false
 genesisBlockTime=1652356536
