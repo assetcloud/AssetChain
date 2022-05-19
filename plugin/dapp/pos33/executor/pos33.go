@@ -140,7 +140,7 @@ func (act *Action) minerReward(consignee *ty.Pos33Consignee, mineReward int64) (
 					tlog.Error("fee reward transfer error", "to", consignee.Address, "execaddr", act.execaddr, "amount", consignee.RemainFeeReward)
 					return nil, err
 				}
-				tlog.Info("fee reward transfer to", "addr", consignee.Address, "height", act.height, "amount", consignee.RemainFeeReward, "fee", fee)
+				tlog.Debug("fee reward transfer to", "addr", consignee.Address, "height", act.height, "amount", consignee.RemainFeeReward, "fee", fee)
 				consignee.RemainFeeReward = 0
 				logs = append(logs, receipt.Logs...)
 				kvs = append(kvs, receipt.KV...)
@@ -198,7 +198,7 @@ func (act *Action) voteReward(mis []*minerInfo, voteReward int64) (*types.Receip
 						tlog.Error("fee reward transfer error", "to", consignee.Address, "execaddr", act.execaddr, "amount", consignee.RemainFeeReward)
 						return nil, err
 					}
-					tlog.Info("fee reward transfer to", "addr", consignee.Address, "height", act.height, "amount", consignee.RemainFeeReward, "fee", fee)
+					tlog.Debug("fee reward transfer to", "addr", consignee.Address, "height", act.height, "amount", consignee.RemainFeeReward, "fee", fee)
 					consignee.RemainFeeReward = 0
 					logs = append(logs, receipt.Logs...)
 					kvs = append(kvs, receipt.KV...)
@@ -237,9 +237,9 @@ func (action *Action) Pos33MinerNew(miner *ty.Pos33MinerMsg, index int) (*types.
 	// Pos33BlockReward 区块奖励
 	var Pos33BlockReward = Coin * 30
 	// Pos33VoteReward 每ticket区块voter奖励
-	var Pos33VoteReward = Coin / 2 // 0.5
+	var Pos33VoteReward = Coin / 2 // 0.5 coin
 	// Pos33MakerReward 每ticket区块bp奖励
-	var Pos33MakerReward = Coin * 22 / 100 // 0.22
+	var Pos33MakerReward = Coin * 22 / 100 // 0.22 coin
 
 	if chain33Cfg.IsDappFork(action.height, ty.Pos33TicketX, "ForkReward15") {
 		Pos33BlockReward /= 2
@@ -347,7 +347,7 @@ func (action *Action) updateAllAmount(newAmount int64) *types.KeyValue {
 	}
 	allAmount += newAmount
 	value := []byte(fmt.Sprintf("%d", allAmount))
-	tlog.Info("updateAllAmount", "height", action.height, "allAmount", allAmount, "newAmount", newAmount)
+	tlog.Debug("updateAllAmount", "height", action.height, "allAmount", allAmount, "newAmount", newAmount)
 	return &types.KeyValue{Key: AllFrozenAmount(), Value: value}
 }
 
@@ -369,7 +369,7 @@ func (action *Action) Pos33Migrate(pm *ty.Pos33Migrate) (*types.Receipt, error) 
 	}
 	acc := accs[0]
 	amount := acc.Frozen
-	tlog.Info("pos33 migrate", "miner", action.fromaddr, "consignor", acc.Addr, "amount", amount)
+	tlog.Debug("pos33 migrate", "miner", action.fromaddr, "consignor", acc.Addr, "amount", amount)
 	return action.setEntrust(&ty.Pos33Entrust{Consignee: action.fromaddr, Consignor: acc.Addr, Amount: amount})
 }
 
@@ -389,7 +389,7 @@ func (action *Action) freeze(addr string, amount int64) (*types.Receipt, error) 
 			return nil, err
 		}
 	}
-	tlog.Info("freeze", "height", action.height, "addr", addr, "amount", amount)
+	tlog.Debug("freeze", "height", action.height, "addr", addr, "amount", amount)
 	return receipt, nil
 }
 
@@ -464,7 +464,7 @@ func (action *Action) minerWithdrawFee(amount int64, consignee *ty.Pos33Consigne
 	}
 	kv := action.updateConsignee(consignee)
 	receipt.KV = append(receipt.KV, kv...)
-	tlog.Info("miner withdraw", "height", action.height, "miner", consignee.Address, "amount", amount)
+	tlog.Debug("miner withdraw", "height", action.height, "miner", consignee.Address, "amount", amount)
 	return receipt, nil
 }
 
@@ -519,7 +519,7 @@ func (action *Action) Pos33WithdrawReward(wr *ty.Pos33WithdrawReward) (*types.Re
 	}
 	kv := action.updateConsignee(consignee)
 	receipt.KV = append(receipt.KV, kv...)
-	tlog.Info("withdrawReward ", "height", action.height, "consignor", wr.Consignor, "miner", wr.Consignee, "amount", wr.Amount)
+	tlog.Debug("withdrawReward ", "height", action.height, "consignor", wr.Consignor, "miner", wr.Consignee, "amount", wr.Amount)
 	return receipt, nil
 }
 
