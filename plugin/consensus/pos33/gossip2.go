@@ -293,7 +293,9 @@ func (g *gossip2) handleOutgoing() {
 				if err != nil {
 					s.Close()
 				}
+				g.mu.Lock()
 				delete(g.streams, msg.pid)
+				g.mu.Unlock()
 			}
 		}(m)
 	}
@@ -329,7 +331,7 @@ func newHost(ctx context.Context, priv crypto.PrivKey, port int, ns string) host
 	if err != nil {
 		panic(err)
 	}
-	err = ioutil.WriteFile("yccpeeraddr.txt", []byte(paddr[0].String()+"\n"), 0644)
+	err = ioutil.WriteFile(peerAddrFile, []byte(paddr[0].String()+"\n"), 0644)
 	if err != nil {
 		panic(err)
 	}

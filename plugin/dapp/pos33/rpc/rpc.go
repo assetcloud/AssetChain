@@ -6,59 +6,66 @@ package rpc
 
 import (
 	"github.com/33cn/chain33/common"
-	"github.com/33cn/chain33/common/address"
 	rpctypes "github.com/33cn/chain33/rpc/types"
 	"github.com/33cn/chain33/types"
 	ty "github.com/assetcloud/AssetChain/plugin/dapp/pos33/types"
 	"golang.org/x/net/context"
 )
 
-// SetAutoMining set auto mining
-func (g *channelClient) SetAutoMining(ctx context.Context, in *ty.Pos33MinerFlag) (*types.Reply, error) {
-	data, err := g.ExecWalletFunc(ty.Pos33TicketX, "WalletAutoMiner", in)
+// GetAllPos33TicketAmount get count
+func (g *channelClient) getAllPos33TicketAmount(ctx context.Context, in *types.ReqNil) (*types.Int64, error) {
+	msg, err := g.Query(ty.Pos33TicketX, "AllPos33TicketAmount", in)
 	if err != nil {
 		return nil, err
 	}
-	return data.(*types.Reply), nil
+	return msg.(*types.Int64), nil
 }
 
-// GetAllPos33TicketCount get count
-func (g *channelClient) GetAllPos33TicketCount(ctx context.Context, in *types.ReqNil) (*types.Int64, error) {
+// // GetAllPos33TicketAmount get count
+// func (j *Jrpc) GetAllPos33TicketAmount(in *types.ReqNil) (*types.Int64, error) {
+// 	a, err := j.cli.GetAllPos33TicketAmount(context.Background(), in)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	return a, nil
+// }
+
+// GetPos33Info get pos33 ticket price and all ticket count
+func (c *Jrpc) GetPos33Info(in *types.ReqNil, result *interface{}) error {
+	resp, err := c.cli.GetPos33Info(context.Background(), in)
+	if err != nil {
+		return err
+	}
+	*result = resp
+	return nil
+}
+
+// GetPos33Info get pos33 ticket price and all ticket count
+func (g *channelClient) GetPos33Info(ctx context.Context, in *types.ReqNil) (*ty.ReplyPos33Info, error) {
+	header, err := g.GetLastHeader()
+	if err != nil {
+		return nil, err
+	}
+	height := header.Height
+	cfg33 := g.GetConfig()
+	mp := ty.GetPos33MineParam(cfg33, height)
+	tprice := mp.GetTicketPrice()
+
+	useEntrust := cfg33.IsDappFork(height, ty.Pos33TicketX, "UseEntrust")
+	if useEntrust {
+		amount, err := g.getAllPos33TicketAmount(ctx, in)
+		if err != nil {
+			return nil, err
+		}
+		count := amount.Data / tprice
+		return &ty.ReplyPos33Info{Price: tprice, AllCount: count}, nil
+	}
+
 	msg, err := g.Query(ty.Pos33TicketX, "AllPos33TicketCount", in)
 	if err != nil {
 		return nil, err
 	}
-	return msg.(*types.Int64), nil
-}
-
-// GetPos33TicketCount get count
-func (g *channelClient) GetPos33TicketCount(ctx context.Context, in *types.ReqAddr) (*types.Int64, error) {
-	msg, err := g.Query(ty.Pos33TicketX, "Pos33TicketCount", in)
-	if err != nil {
-		return nil, err
-	}
-	return msg.(*types.Int64), nil
-}
-
-// ClosePos33Tickets close ticket
-func (g *channelClient) ClosePos33Tickets(ctx context.Context, in *ty.Pos33TicketClose) (*types.ReplyHashes, error) {
-	// inn := *in
-	data, err := g.ExecWalletFunc(ty.Pos33TicketX, "ClosePos33Tickets", in)
-	if err != nil {
-		return nil, err
-	}
-	return data.(*types.ReplyHashes), nil
-}
-
-// GetAllPos33TicketCount get ticket count
-func (c *Jrpc) GetAllPos33TicketCount(in *types.ReqNil, result *int64) error {
-	resp, err := c.cli.GetAllPos33TicketCount(context.Background(), in)
-	if err != nil {
-		return err
-	}
-	*result = resp.GetData()
-	return nil
-
+	return &ty.ReplyPos33Info{AllCount: msg.(*types.Int64).Data, Price: tprice}, nil
 }
 
 // GetPos33TicketCount get ticket count
@@ -72,56 +79,84 @@ func (c *Jrpc) GetPos33TicketCount(in *types.ReqAddr, result *int64) error {
 
 }
 
-// CreateBindMiner create bind miner
-func (c *Jrpc) CreateBindMiner(in *ty.ReqBindPos33Miner, result *interface{}) error {
-	reply, err := c.cli.CreateBindMiner(context.Background(), in)
-	if err != nil {
-		return err
-	}
-	*result = reply
-	return nil
-}
-
-// ClosePos33Tickets close ticket
-func (c *Jrpc) ClosePos33Tickets(in *ty.Pos33TicketClose, result *interface{}) error {
-	resp, err := c.cli.ClosePos33Tickets(context.Background(), in)
-	if err != nil {
-		return err
-	}
-	var hashes rpctypes.ReplyHashes
-	for _, has := range resp.Hashes {
-		hashes.Hashes = append(hashes.Hashes, common.ToHex(has))
-	}
-	*result = &hashes
-	return nil
-}
-
-// SetAutoMining set auto mining
-func (c *Jrpc) SetAutoMining(in *ty.Pos33MinerFlag, result *rpctypes.Reply) error {
-	resp, err := c.cli.SetAutoMining(context.Background(), in)
-	if err != nil {
-		return err
-	}
-	var reply rpctypes.Reply
-	reply.IsOk = resp.GetIsOk()
-	reply.Msg = string(resp.GetMsg())
-	*result = reply
-	return nil
-}
-
-// GetPos33Deposit get ticket list info
-func (g *channelClient) GetPos33Deposit(ctx context.Context, in *types.ReqAddr) (*ty.Pos33DepositMsg, error) {
-	data, err := g.Query(ty.Pos33TicketX, "Pos33Deposit", in)
+// GetPos33TicketCount get count
+func (g *channelClient) GetPos33TicketCount(ctx context.Context, in *types.ReqAddr) (*types.Int64, error) {
+	msg, err := g.Query(ty.Pos33TicketX, "Pos33TicketCount", in)
 	if err != nil {
 		return nil, err
 	}
-
-	return data.(*ty.Pos33DepositMsg), nil
+	return msg.(*types.Int64), nil
 }
 
-// GetPos33TicketList get ticket list info
-func (c *Jrpc) GetPos33Deposit(in *types.ReqAddr, result *interface{}) error {
-	resp, err := c.cli.GetPos33Deposit(context.Background(), in)
+// BlsBind
+func (c *Jrpc) Pos33Migrate(in *types.ReqNil, result *interface{}) error {
+	resp, err := c.cli.Migrate(context.Background(), in)
+	if err != nil {
+		return err
+	}
+	*result = &rpctypes.ReplyHash{Hash: common.ToHex(resp.Hash)}
+	return nil
+}
+
+// BlsBind
+func (g *channelClient) Migrate(ctx context.Context, in *types.ReqNil) (*types.ReplyHash, error) {
+	data, err := g.ExecWalletFunc(ty.Pos33TicketX, "Migrate", in)
+	if err != nil {
+		return nil, err
+	}
+	return data.(*types.ReplyHash), nil
+}
+
+// BlsBind
+func (c *Jrpc) BlsBind(in *types.ReqNil, result *interface{}) error {
+	resp, err := c.cli.BlsBind(context.Background(), in)
+	if err != nil {
+		return err
+	}
+	*result = &rpctypes.ReplyHash{Hash: common.ToHex(resp.Hash)}
+	return nil
+}
+
+// BlsBind
+func (g *channelClient) BlsBind(ctx context.Context, in *types.ReqNil) (*types.ReplyHash, error) {
+	data, err := g.ExecWalletFunc(ty.Pos33TicketX, "BlsBind", in)
+	if err != nil {
+		return nil, err
+	}
+	return data.(*types.ReplyHash), nil
+}
+
+// SetMinerFeeRate
+func (c *Jrpc) SetMinerFeeRate(in *ty.Pos33MinerFeeRate, result *interface{}) error {
+	resp, err := c.cli.SetMinerFeeRate(context.Background(), in)
+	if err != nil {
+		return err
+	}
+	*result = &rpctypes.ReplyHash{Hash: common.ToHex(resp.Hash)}
+	return nil
+}
+
+// SetMinerFeeRate
+func (g *channelClient) SetMinerFeeRate(ctx context.Context, in *ty.Pos33MinerFeeRate) (*types.ReplyHash, error) {
+	data, err := g.ExecWalletFunc(ty.Pos33TicketX, "SetMinerFeeRate", in)
+	if err != nil {
+		return nil, err
+	}
+	return data.(*types.ReplyHash), nil
+}
+
+// query consignor entrust info
+func (g *channelClient) GetPos33ConsignorEntrust(ctx context.Context, in *types.ReqAddr) (*ty.Pos33Consignor, error) {
+	msg, err := g.Query(ty.Pos33TicketX, "Pos33ConsignorEntrust", in)
+	if err != nil {
+		return nil, err
+	}
+	return msg.(*ty.Pos33Consignor), nil
+}
+
+// GetPos33ConsignorEntrust get ticket list info
+func (c *Jrpc) GetPos33ConsignorEntrust(in *types.ReqAddr, result *interface{}) error {
+	resp, err := c.cli.GetPos33ConsignorEntrust(context.Background(), in)
 	if err != nil {
 		return err
 	}
@@ -129,18 +164,9 @@ func (c *Jrpc) GetPos33Deposit(in *types.ReqAddr, result *interface{}) error {
 	return nil
 }
 
-// GetPos33TicketList get ticket list info
-func (g *channelClient) GetPos33TicketReward(ctx context.Context, in *ty.Pos33TicketReward) (*ty.ReplyPos33TicketReward, error) {
-	data, err := g.QueryConsensusFunc(ty.Pos33TicketX, "GetPos33Reward", in)
-	if err != nil {
-		return nil, err
-	}
-	return data.(*ty.ReplyPos33TicketReward), nil
-}
-
-// GetPos33TicketList get ticket list info
-func (c *Jrpc) GetPos33TicketReward(in *ty.Pos33TicketReward, result *interface{}) error {
-	resp, err := c.cli.GetPos33TicketReward(context.Background(), in)
+// GetPos33ConsigneeEntrust get ticket list info
+func (c *Jrpc) GetPos33ConsigneeEntrust(in *types.ReqAddr, result *interface{}) error {
+	resp, err := c.cli.GetPos33ConsigneeEntrust(context.Background(), in)
 	if err != nil {
 		return err
 	}
@@ -148,57 +174,33 @@ func (c *Jrpc) GetPos33TicketReward(in *ty.Pos33TicketReward, result *interface{
 	return nil
 }
 
-func bindMiner(cfg *types.Chain33Config, param *ty.ReqBindPos33Miner) (*ty.ReplyBindPos33Miner, error) {
-	tBind := &ty.Pos33TicketBind{
-		MinerAddress:  param.BindAddr,
-		ReturnAddress: param.OriginAddr,
-	}
-	data, err := types.CallCreateTx(cfg, cfg.ExecName(ty.Pos33TicketX), "Tbind", tBind)
+// query consignee entrust info
+func (g *channelClient) GetPos33ConsigneeEntrust(ctx context.Context, in *types.ReqAddr) (*ty.Pos33Consignee, error) {
+	msg, err := g.Query(ty.Pos33TicketX, "Pos33ConsigneeEntrust", in)
 	if err != nil {
 		return nil, err
 	}
-	hex := common.ToHex(data)
-	return &ty.ReplyBindPos33Miner{TxHex: hex}, nil
+	return msg.(*ty.Pos33Consignee), nil
 }
 
-// CreateBindMiner 创建绑定挖矿
-func (g *channelClient) CreateBindMiner(ctx context.Context, in *ty.ReqBindPos33Miner) (*ty.ReplyBindPos33Miner, error) {
-	if in.BindAddr != "" {
-		err := address.CheckAddress(in.BindAddr)
-		if err != nil {
-			return nil, err
-		}
-	}
-	err := address.CheckAddress(in.OriginAddr)
-	if err != nil {
-		return nil, err
-	}
-
+// SetEntrust create entrust
+func (g *channelClient) SetPos33Entrust(ctx context.Context, in *ty.Pos33Entrust) (*ty.ReplyTxHex, error) {
 	cfg := g.GetConfig()
-	if in.CheckBalance {
-		header, err := g.GetLastHeader()
-		if err != nil {
-			return nil, err
-		}
-		price := ty.GetPos33TicketMinerParam(cfg, header.Height).Pos33TicketPrice
-		if price == 0 {
-			return nil, types.ErrInvalidParam
-		}
-		if in.Amount%ty.GetPos33TicketMinerParam(cfg, header.Height).Pos33TicketPrice != 0 || in.Amount < 0 {
-			return nil, types.ErrAmount
-		}
-
-		getBalance := &types.ReqBalance{Addresses: []string{in.OriginAddr}, Execer: cfg.GetCoinExec(), AssetSymbol: cfg.GetCoinSymbol(), AssetExec: cfg.GetCoinExec()}
-		balances, err := g.GetCoinsAccountDB().GetBalance(g, getBalance)
-		if err != nil {
-			return nil, err
-		}
-		if len(balances) == 0 {
-			return nil, types.ErrInvalidParam
-		}
-		if balances[0].Balance < in.Amount+2*cfg.GetCoinPrecision() {
-			return nil, types.ErrNoBalance
-		}
+	data, err := types.CallCreateTx(cfg, cfg.ExecName(ty.Pos33TicketX), "entrust", in)
+	if err != nil {
+		return nil, err
 	}
-	return bindMiner(cfg, in)
+
+	hex := common.ToHex(data)
+	return &ty.ReplyTxHex{TxHex: hex}, nil
+}
+
+// SetEntrust create entrust
+func (c *Jrpc) SetPos33Entrust(in *ty.Pos33Entrust, result *interface{}) error {
+	r, err := c.cli.SetPos33Entrust(context.Background(), in)
+	if err != nil {
+		return err
+	}
+	*result = r
+	return nil
 }

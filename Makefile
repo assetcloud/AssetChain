@@ -41,7 +41,7 @@ linux-amd64:
 	rm assetchain-pkg assetchain-$@.tgz -rf
 	mkdir assetchain-pkg
 	cp assetchain assetchain-cli assetchain.toml tools/wallet-init.sh assetchain-pkg
-	tar zcvf assetchain-$@.tar assetchain-pkg
+	tar zcvf assetchain-$@.tgz assetchain-pkg
 
 linux-arm64:
 	GOARCH=arm64 GOOS=linux $(GOBUILD) -o $(APP)
@@ -49,7 +49,7 @@ linux-arm64:
 	rm assetchain-pkg assetchain-$@.tgz -rf
 	mkdir assetchain-pkg
 	cp assetchain assetchain-cli assetchain.toml tools/wallet-init.sh assetchain-pkg
-	tar zcvf assetchain-$@.tar assetchain-pkg
+	tar zcvf assetchain-$@.tgz assetchain-pkg
 
 windows-amd64:
 	GOARCH=amd64 GOOS=windows $(GOBUILD) -o $(APP).exe
@@ -57,7 +57,7 @@ windows-amd64:
 	rm assetchain-pkg assetchain-$@.tgz -rf
 	mkdir assetchain-pkg
 	cp assetchain.exe assetchain-cli.exe assetchain.toml tools/wallet-init.sh assetchain-pkg
-	tar zcvf assetchain-$@.tar assetchain-pkg
+	tar zcvf assetchain-$@.tgz assetchain-pkg
 
 
 #make updateplugin version=xxx

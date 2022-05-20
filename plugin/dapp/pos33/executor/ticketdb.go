@@ -25,6 +25,8 @@ import (
 
 var tlog = log.New("module", "pos33db")
 
+const ethID = ty.EthAddrID
+
 // // GetReceiptLog get receipt
 // func pos33ReceiptLog(typ int32, count int, addr string) *types.ReceiptLog {
 // 	log := &types.ReceiptLog{}
@@ -159,14 +161,14 @@ func minerReceipt(t int, raddr string, newReward int64) *types.ReceiptLog {
 // GenesisInit init genesis
 func (action *Action) GenesisInit(genesis *ty.Pos33TicketGenesis) (*types.Receipt, error) {
 	chain33Cfg := action.api.GetConfig()
-	cfg := ty.GetPos33TicketMinerParam(chain33Cfg, action.height)
+	cfg := ty.GetPos33MineParam(chain33Cfg, action.height)
 
 	Coin := chain33Cfg.GetCoinPrecision()
 	// Pos33BlockReward 区块奖励
 	var Pos33BlockReward = Coin * 30
 
 	//冻结子账户资金
-	receipt, err := action.coinsAccount.ExecFrozen(genesis.ReturnAddress, action.execaddr, cfg.Pos33TicketPrice*int64(genesis.Count))
+	receipt, err := action.coinsAccount.ExecFrozen(genesis.ReturnAddress, action.execaddr, cfg.GetTicketPrice()*int64(genesis.Count))
 	if err != nil {
 		tlog.Error("GenesisInit.Frozen", "addr", genesis.MinerAddress, "execaddr", action.execaddr)
 		panic(err)
@@ -201,10 +203,10 @@ func (action *Action) Pos33TicketOpen(topen *ty.Pos33TicketOpen) (*types.Receipt
 	}
 
 	chain33Cfg := action.api.GetConfig()
-	cfg := ty.GetPos33TicketMinerParam(chain33Cfg, action.height)
+	cfg := ty.GetPos33MineParam(chain33Cfg, action.height)
 
 	//冻结子账户资金
-	receipt, err := action.coinsAccount.ExecFrozen(topen.ReturnAddress, action.execaddr, cfg.Pos33TicketPrice*int64(topen.Count))
+	receipt, err := action.coinsAccount.ExecFrozen(topen.ReturnAddress, action.execaddr, cfg.GetTicketPrice()*int64(topen.Count))
 	if err != nil {
 		tlog.Error("Pos33TicketOpen.Frozen", "addr", topen.ReturnAddress, "execaddr", action.execaddr, "n", topen.Count)
 		return nil, err
@@ -222,7 +224,7 @@ func saddr(sig *types.Signature) string {
 	if sig == nil {
 		return ""
 	}
-	return address.PubKeyToAddress(sig.Pubkey).String()
+	return address.PubKeyToAddr(ethID, sig.Pubkey)
 }
 
 func (action *Action) Pos33Miner(miner *ty.Pos33MinerMsg, index int) (*types.Receipt, error) {
@@ -235,9 +237,9 @@ func (action *Action) Pos33Miner(miner *ty.Pos33MinerMsg, index int) (*types.Rec
 	// Pos33BlockReward 区块奖励
 	var Pos33BlockReward = Coin * 30
 	// Pos33VoteReward 每ticket区块voter奖励
-	var Pos33VoteReward = Coin / 2 // 0.5 
+	var Pos33VoteReward = Coin / 2 // 0.5 coin
 	// Pos33MakerReward 每ticket区块bp奖励
-	var Pos33MakerReward = Coin * 22 / 100 // 0.22 
+	var Pos33MakerReward = Coin * 22 / 100 // 0.22 coin
 
 	if chain33Cfg.IsDappFork(action.height, ty.Pos33TicketX, "ForkReward15") {
 		Pos33BlockReward /= 2
@@ -264,7 +266,7 @@ func (action *Action) Pos33Miner(miner *ty.Pos33MinerMsg, index int) (*types.Rec
 
 	// reward voters
 	for _, pk := range miner.BlsPkList {
-		val, err := action.db.Get(BlsKey(address.PubKeyToAddr(pk)))
+		val, err := action.db.Get(BlsKey(address.PubKeyToAddr(ethID, pk)))
 		if err != nil {
 			return nil, err
 		}
@@ -334,8 +336,8 @@ func (action *Action) Pos33Miner(miner *ty.Pos33MinerMsg, index int) (*types.Rec
 // Pos33TicketClose close tick
 func (action *Action) Pos33TicketClose(tclose *ty.Pos33TicketClose) (*types.Receipt, error) {
 	chain33Cfg := action.api.GetConfig()
-	cfg := ty.GetPos33TicketMinerParam(chain33Cfg, action.height)
-	price := cfg.Pos33TicketPrice
+	cfg := ty.GetPos33MineParam(chain33Cfg, action.height)
+	price := cfg.GetTicketPrice()
 
 	d, err := getDeposit(action.db, action.fromaddr)
 	if err != nil {
@@ -396,7 +398,7 @@ func (action *Action) Pos33TicketBind(tbind *ty.Pos33TicketBind) (*types.Receipt
 	}
 	//"" 表示设置为空
 	if len(tbind.MinerAddress) > 0 {
-		if err := address.CheckAddress(tbind.MinerAddress); err != nil {
+		if err := address.CheckAddress(tbind.MinerAddress, action.height); err != nil {
 			return nil, err
 		}
 	}
