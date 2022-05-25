@@ -1,8 +1,8 @@
 FixTime = false
-Title = "assetchain"
+Title = "Assetchain"
 ChainID=10000
 version="2.0.0"
-CoinSymbol="OCIA"
+CoinSymbol="AS"
 CoinPrecision=10000
 TxHeight = true
 
@@ -213,6 +213,7 @@ dbPath = "/data/assetchainwallet"
 minFee=10
 driver="leveldb"
 signType="secp256k1"
+coinType="AS" # 898
 
 [fork.system]
 ForkChainParamV1=0

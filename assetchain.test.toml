@@ -1,9 +1,9 @@
 # 这是部署测试链的配置, 需要调整种子节点的配置
 FixTime = false
-Title = "assetchain-test"
+Title = "Assetchain-test"
 ChainID=10001
 version="2.0.0"
-CoinSymbol="OCIA"
+CoinSymbol="AS"
 CoinPrecision=10000
 TxHeight = true
 
@@ -214,6 +214,7 @@ dbPath = "/data/assetchainwallet-test"
 minFee=10
 driver="leveldb"
 signType="secp256k1"
+coinType="AS" # 898
 
 [fork.system]
 ForkChainParamV1=0
