@@ -101,8 +101,7 @@ serverStart=true
 channel = 10003
 port = 13801
 
-seeds = ["/ip4/218.75.123.183/tcp/13801/p2p/16Uiu2HAm9fKBw3nYhJpSdBRoQ8YM1Z6UaLxRuFxu8sAUATmLA2JT"] # TODO
-#seeds = ["/ip4/10.89.3.10/tcp/13801/p2p/16Uiu2HAm9fKBw3nYhJpSdBRoQ8YM1Z6UaLxRuFxu8sAUATmLA2JT"]
+seeds = ["/ip4/183.131.3.8/tcp/13801/p2p/16Uiu2HAkvf2T8cQ4MiK1M1n19zaDZpcNMjregJMDfWhajHcbxaz9", "/ip4/124.71.221.14/tcp/13801/p2p/16Uiu2HAmFzcdkdGYkrDtSozC3hBmrJDpQJJ4kXhd1igRejbikGYu"]
 
 #限定连接数
 #暂时限定较小的连接数
@@ -141,8 +140,7 @@ genesis="0x94e67ceba77c19c683db4e24675b1f5c29e0226a"
 minerExecs=["pos33"]
 
 [consensus.sub.pos33]
-bootPeers = ["/ip4/218.75.123.183/tcp/10901/p2p/16Uiu2HAmDu5ubvVncWYQ9C9ih5SK5WHVtULzmqSs9ZZqxdM1DQ6p"] # TODO
-#bootPeers = ["/ip4/10.89.3.10/tcp/10901/p2p/16Uiu2HAmDu5ubvVncWYQ9C9ih5SK5WHVtULzmqSs9ZZqxdM1DQ6p"]
+bootPeers = ["/ip4/183.131.3.8/tcp/10901/p2p/16Uiu2HAmDu5ubvVncWYQ9C9ih5SK5WHVtULzmqSs9ZZqxdM1DQ6p"]
 issueTotal = 202005201314
 listenPort = 10901
 onlyVoter = false
