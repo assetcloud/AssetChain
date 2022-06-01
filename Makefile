@@ -33,7 +33,7 @@ darwin-amd64:
 	rm assetchain-pkg assetchain-$@.tgz -rf
 	mkdir assetchain-pkg
 	cp assetchain assetchain-cli assetchain.toml tools/wallet-init.sh assetchain-pkg
-	tar zcvf assetchain-$@.tar assetchain-pkg
+	tar zcvf assetchain-$@.tgz assetchain-pkg
 
 linux-amd64:
 	GOARCH=amd64 GOOS=linux $(GOBUILD) -o $(APP)
