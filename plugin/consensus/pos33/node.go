@@ -160,7 +160,7 @@ type node struct {
 
 	vmp map[int64]map[int]*maker
 	mmp map[int64]map[int]*committee
-	bch chan *types.Block
+	bch chan *types.Block // for add block
 
 	vCh    chan vArg
 	sortCh chan *sortArg
@@ -206,11 +206,14 @@ func (n *node) minerTx(height int64, round int, sm *pt.Pos33SortMsg, vs []*pt.Po
 	}
 
 	blsSig, err := bls.Driver{}.Aggregate(sigs)
-	if err != nil && round < 3 {
+	if err != nil {
 		return nil, err
-	} else if err != nil {
-		blsSig = bls.SignatureBLS{}
 	}
+	// if err != nil && round < 3 {
+	// 	return nil, err
+	// } else if err != nil {
+	// 	blsSig = bls.SignatureBLS{}
+	// }
 	act := &pt.Pos33TicketAction{
 		Value: &pt.Pos33TicketAction_Miner{
 			Miner: &pt.Pos33MinerMsg{
@@ -388,6 +391,10 @@ func (n *node) checkBlock(b, pb *types.Block) error {
 	if len(b.Txs) == 0 {
 		return fmt.Errorf("nil block error")
 	}
+	if b.Txs[0].From() == n.myAddr {
+		return nil
+	}
+
 	err := n.blockCheck(b)
 	if err != nil {
 		plog.Error("blockCheck error", "err", err, "height", b.Height)
@@ -1146,8 +1153,8 @@ func (n *node) runLoop() {
 	nch := make(chan int64, 1)
 
 	round := 0
-	blockTimeout := time.Second * 3
-	resortTimeout := time.Second * 2
+	blockTimeout := time.Second * 5
+	resortTimeout := time.Second * 3
 	blockD := int64(900)
 
 	for {
