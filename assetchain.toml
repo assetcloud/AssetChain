@@ -260,7 +260,7 @@ ForkFormatAddressKey=0
 
 [fork.sub.coins]
 Enable=0
-ForkFriendExecer=0
+ForkFriendExecer=4547490
 
 [fork.sub.none]
 ForkUseTimeDelay=0
