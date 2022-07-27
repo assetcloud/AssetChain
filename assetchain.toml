@@ -64,6 +64,7 @@ name="price"
 maxTxFee=100000
 disableExecCheck = true
 isLevelFee=false
+enableEthCheck=true
 
 [mempool.sub.score]
 poolCacheSize=102400
@@ -106,8 +107,6 @@ seeds = ["/ip4/183.131.3.8/tcp/13801/p2p/16Uiu2HAkvf2T8cQ4MiK1M1n19zaDZpcNMjregJ
 #限定连接数
 #暂时限定较小的连接数
 maxConnectNum = 50
-#区块轻广播最低区块大小，1k
-minLtBlockSize = 1
 # 是否配置为全节点模式，全节点保存所有分片数据，种子节点应配置为true
 isFullNode = true
 #设为1为屏蔽默认设置5
@@ -120,6 +119,11 @@ gossipSubDlo = 7
 gossipSubHeartbeatInterval = 900
 gossipSubHistoryGossip = 2
 gossipSubHistoryLength = 7
+disablePubSubMsgSign = true
+
+[p2p.sub.dht.broadcast]
+disableBatchTx = true
+minLtBlockSize = 100
 
 
 [rpc]
@@ -131,6 +135,15 @@ jrpcBindAddr = "localhost:8801"
 jrpcFuncWhitelist = ["*"]
 keyFile = "key.pem"
 whitelist = ["127.0.0.1"]
+
+[rpc.sub.eth]
+enable = false
+httpAddr = "localhost:8547"
+httpApi = ["eth", "web3", "personal", "admin", "net"]
+# websocket 绑定地址
+wsAddr = "localhost:8548"
+wsApi = ["eth", "web3", "personal", "admin", "net"]
+
 
 [consensus]
 name="pos33"
@@ -203,7 +216,10 @@ pruneMavlHeight = 10000
 tkCloseCacheLen = 200000
 
 [crypto]
-enableTypes = ["secp256k1", "none", "bls"]
+enableTypes = ["secp256k1", "none", "bls", "secp256k1eth"]
+
+[crypto.sub.secp256k1eth]
+evmChainID=898
 
 [wallet]
 dbCache = 16
@@ -241,8 +257,13 @@ ForkTicketFundAddrV1=-1 #fork6.3
 ForkRootHash=0 
 ForkFormatAddressKey=0
 
+
 [fork.sub.coins]
 Enable=0
+ForkFriendExecer=0
+
+[fork.sub.none]
+ForkUseTimeDelay=0
 
 [fork.sub.pos33]
 Enable=0
@@ -340,6 +361,12 @@ disableTxIndex = false
 [exec.sub.coins]
 disableAddrReceiver = true
 disableCheckTxAmount = true
+friendExecer=["evm"]
+
+[exec.sub.evm]
+ethMapFromExecutor="coins"
+ethMapFromSymbol="AS"
+addressDriver="eth"
 
 
 [exec.sub.token]
