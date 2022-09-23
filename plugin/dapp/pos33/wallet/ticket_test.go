@@ -13,18 +13,18 @@ import (
 
 	"github.com/stretchr/testify/mock"
 
-	wcom "github.com/33cn/chain33/wallet/common"
+	wcom "github.com/assetcloud/chain/wallet/common"
 	"github.com/stretchr/testify/assert"
-	ty "github.com/yccproject/ycc/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
 
-	_ "github.com/33cn/chain33/system"
+	_ "github.com/assetcloud/chain/system"
 
-	"github.com/33cn/chain33/types"
+	"github.com/assetcloud/chain/types"
 
-	"github.com/33cn/chain33/client"
-	"github.com/33cn/chain33/client/mocks"
-	"github.com/33cn/chain33/common/crypto"
-	"github.com/33cn/chain33/common/db"
+	"github.com/assetcloud/chain/client"
+	"github.com/assetcloud/chain/client/mocks"
+	"github.com/assetcloud/chain/common/crypto"
+	"github.com/assetcloud/chain/common/db"
 )
 
 const (
@@ -32,7 +32,7 @@ const (
 )
 
 func TestForceClosePos33TicketList(t *testing.T) {
-	cfg := types.NewChain33ConfigNoInit(cfgstring)
+	cfg := types.NewChainConfigNoInit(cfgstring)
 	cfg.GetModuleConfig().Consensus.Name = "pos33"
 
 	ticket := &ticketPolicy{mtx: &sync.Mutex{}}
@@ -54,7 +54,7 @@ func TestForceClosePos33TicketList(t *testing.T) {
 }
 
 func TestClosePos33TicketsByAddr(t *testing.T) {
-	cfg := types.NewChain33ConfigNoInit(cfgstring)
+	cfg := types.NewChainConfigNoInit(cfgstring)
 	cfg.GetModuleConfig().Consensus.Name = "pos33"
 
 	pk, err := hex.DecodeString("CC38546E9E659D15E6B4893F0AB32A06D103931A8230B0BDE71459D2B27D6944")
@@ -85,7 +85,7 @@ func TestClosePos33TicketsByAddr(t *testing.T) {
 }
 
 func TestBuyPos33TicketOne(t *testing.T) {
-	cfg := types.NewChain33ConfigNoInit(cfgstring)
+	cfg := types.NewChainConfigNoInit(cfgstring)
 	cfg.GetModuleConfig().Consensus.Name = "pos33"
 
 	ticket := &ticketPolicy{mtx: &sync.Mutex{}}
@@ -108,7 +108,7 @@ func TestBuyPos33TicketOne(t *testing.T) {
 }
 
 func TestBuyMinerAddrPos33TicketOne(t *testing.T) {
-	cfg := types.NewChain33ConfigNoInit(cfgstring)
+	cfg := types.NewChainConfigNoInit(cfgstring)
 	cfg.GetModuleConfig().Consensus.Name = "pos33"
 
 	pk, err := hex.DecodeString("CC38546E9E659D15E6B4893F0AB32A06D103931A8230B0BDE71459D2B27D6944")
@@ -293,7 +293,7 @@ version="6.3.0"
 loglevel = "dbug"
 logConsoleLevel = "error"
 # 日志文件名，可带目录，所有生成的日志文件都放到此目录下
-logFile = "logs/chain33.log"
+logFile = "logs/chain.log"
 # 单个日志文件的最大值（单位：兆）
 maxFileSize = 300
 # 最多保存的历史日志文件个数
@@ -465,7 +465,7 @@ minerwhitelist=["*"]
 [wallet.sub.multisig]
 rescanMultisigAddr=false
 
-#系统中所有的fork,默认用chain33的测试网络的
+#系统中所有的fork,默认用chain的测试网络的
 #但是我们可以替换
 [fork.system]
 ForkChainParamV1= 0
@@ -625,7 +625,7 @@ dataEmitMode="influxdb"
 #以纳秒为单位的发送间隔
 duration=1000000000
 url="http://influxdb:8086"
-database="chain33metrics"
+database="chainmetrics"
 username=""
 password=""
 namespace=""

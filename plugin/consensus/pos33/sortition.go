@@ -7,14 +7,14 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/33cn/chain33/common/address"
-	"github.com/33cn/chain33/common/crypto"
-	"github.com/33cn/chain33/common/difficulty"
-	vrf "github.com/33cn/chain33/common/vrf/secp256k1"
-	"github.com/33cn/chain33/types"
+	pt "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
+	"github.com/assetcloud/chain/common/address"
+	"github.com/assetcloud/chain/common/crypto"
+	"github.com/assetcloud/chain/common/difficulty"
+	vrf "github.com/assetcloud/chain/common/vrf/secp256k1"
+	"github.com/assetcloud/chain/types"
 	secp256k1 "github.com/btcsuite/btcd/btcec"
 	"github.com/golang/protobuf/proto"
-	pt "github.com/yccproject/ycc/plugin/dapp/pos33/types"
 )
 
 var big1 = big.NewInt(1)

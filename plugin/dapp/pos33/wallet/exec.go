@@ -5,8 +5,8 @@
 package wallet
 
 import (
-	"github.com/33cn/chain33/types"
-	ty "github.com/yccproject/ycc/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
+	"github.com/assetcloud/chain/types"
 )
 
 // On_Migrate

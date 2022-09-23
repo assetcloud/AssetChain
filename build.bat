@@ -1,2 +1,2 @@
-go build -i -o ycc
-go build -i -o ycc-cli github.com/yccproject/ycc/cli
+go build -i -o assetchain
+go build -i -o assetchain-cli github.com/assetcloud/assetchain/cli

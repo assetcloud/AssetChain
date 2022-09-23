@@ -6,13 +6,13 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/33cn/chain33/account"
-	"github.com/33cn/chain33/client"
-	"github.com/33cn/chain33/common/address"
-	dbm "github.com/33cn/chain33/common/db"
-	"github.com/33cn/chain33/system/dapp"
-	"github.com/33cn/chain33/types"
-	ty "github.com/yccproject/ycc/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
+	"github.com/assetcloud/chain/account"
+	"github.com/assetcloud/chain/client"
+	"github.com/assetcloud/chain/common/address"
+	dbm "github.com/assetcloud/chain/common/db"
+	"github.com/assetcloud/chain/system/dapp"
+	"github.com/assetcloud/chain/types"
 )
 
 // mine param key
@@ -132,8 +132,8 @@ func (act *Action) minerReward(consignee *ty.Pos33Consignee, mineReward int64) (
 	if consignee.Amount == 0 {
 		return nil, nil
 	}
-	chain33Cfg := act.api.GetConfig()
-	mp := ty.GetPos33MineParam(chain33Cfg, act.height)
+	chainCfg := act.api.GetConfig()
+	mp := ty.GetPos33MineParam(chainCfg, act.height)
 	needTransfer := mp.RewardTransfer
 	tprice := mp.GetTicketPrice()
 
@@ -181,8 +181,8 @@ func (act *Action) minerReward(consignee *ty.Pos33Consignee, mineReward int64) (
 }
 
 func (act *Action) voteReward(mis []*minerInfo, voteReward int64) (*types.Receipt, error) {
-	chain33Cfg := act.api.GetConfig()
-	mp := ty.GetPos33MineParam(chain33Cfg, act.height)
+	chainCfg := act.api.GetConfig()
+	mp := ty.GetPos33MineParam(chainCfg, act.height)
 	needTransfer := mp.RewardTransfer
 	tprice := mp.GetTicketPrice()
 
@@ -255,15 +255,15 @@ type minerInfo struct {
 }
 
 func (action *Action) Pos33MinerNew(miner *ty.Pos33MinerMsg, index int) (*types.Receipt, error) {
-	chain33Cfg := action.api.GetConfig()
-	if !chain33Cfg.IsDappFork(action.height, ty.Pos33TicketX, "UseEntrust") {
+	chainCfg := action.api.GetConfig()
+	if !chainCfg.IsDappFork(action.height, ty.Pos33TicketX, "UseEntrust") {
 		return nil, errors.New("config exec.pos33.UseEntrust error")
 	}
 	if index != 0 {
 		return nil, types.ErrCoinBaseIndex
 	}
 
-	pmp := ty.GetPos33MineParam(chain33Cfg, action.height)
+	pmp := ty.GetPos33MineParam(chainCfg, action.height)
 	Pos33BlockReward := pmp.BlockReward
 	Pos33VoteReward := pmp.VoteReward
 	Pos33MakerReward := pmp.MineReward
@@ -337,7 +337,7 @@ func (action *Action) Pos33MinerNew(miner *ty.Pos33MinerMsg, index int) (*types.
 
 	// fund reward
 	fundReward := Pos33BlockReward - (Pos33VoteReward+Pos33MakerReward)*int64(len(miner.BlsPkList))
-	fundaddr := chain33Cfg.MGStr("mver.consensus.fundKeyAddr", action.height)
+	fundaddr := chainCfg.MGStr("mver.consensus.fundKeyAddr", action.height)
 	tlog.Debug("fund rerward", "fundaddr", fundaddr, "height", action.height, "reward", fundReward)
 
 	receipt, err = action.coinsAccount.Transfer(action.execaddr, fundaddr, fundReward)
@@ -438,8 +438,8 @@ func (action *Action) setEntrust(pe *ty.Pos33Entrust) (*types.Receipt, error) {
 		return nil, types.ErrAmount
 	}
 
-	chain33Cfg := action.api.GetConfig()
-	mp := ty.GetPos33MineParam(chain33Cfg, action.height)
+	chainCfg := action.api.GetConfig()
+	mp := ty.GetPos33MineParam(chainCfg, action.height)
 
 	consignee, err := action.getConsignee(pe.Consignee)
 	if err != nil {

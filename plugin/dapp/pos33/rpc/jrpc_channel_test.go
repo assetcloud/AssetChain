@@ -8,17 +8,17 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/33cn/chain33/rpc/jsonclient"
-	rpctypes "github.com/33cn/chain33/rpc/types"
-	_ "github.com/33cn/chain33/system"
-	"github.com/33cn/chain33/types"
-	"github.com/33cn/chain33/util/testnode"
-	_ "github.com/33cn/plugin/plugin"
+	"github.com/assetcloud/chain/rpc/jsonclient"
+	rpctypes "github.com/assetcloud/chain/rpc/types"
+	_ "github.com/assetcloud/chain/system"
+	"github.com/assetcloud/chain/types"
+	"github.com/assetcloud/chain/util/testnode"
+	_ "github.com/assetcloud/plugin/plugin"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestJRPCChannel(t *testing.T) {
-	cfg := types.NewChain33Config(types.GetDefaultCfgstring())
+	cfg := types.NewChainConfig(types.GetDefaultCfgstring())
 	cfg.GetModuleConfig().Consensus.Name = "pos33"
 	mocker := testnode.NewWithConfig(cfg, nil)
 	mocker.Listen()
@@ -64,5 +64,5 @@ func testGetColdAddrByMinerCmd(t *testing.T, jrpc *jsonclient.JSONClient) error 
 	params.FuncName = "MinerSourceList"
 	params.Payload = types.MustPBToJSON(req)
 	rep = &types.ReplyStrings{}
-	return jrpc.Call("Chain33.Query", params, rep)
+	return jrpc.Call("Chain.Query", params, rep)
 }

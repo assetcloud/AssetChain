@@ -4,22 +4,22 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/33cn/chain33/account"
-	"github.com/33cn/chain33/common/crypto"
-	"github.com/33cn/chain33/types"
-	"github.com/33cn/chain33/util"
-	"github.com/33cn/chain33/util/testnode"
+	ty "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
+	"github.com/assetcloud/chain/account"
+	"github.com/assetcloud/chain/common/crypto"
+	"github.com/assetcloud/chain/types"
+	"github.com/assetcloud/chain/util"
+	"github.com/assetcloud/chain/util/testnode"
 	"github.com/stretchr/testify/assert"
-	ty "github.com/yccproject/ycc/plugin/dapp/pos33/types"
 
-	_ "github.com/33cn/chain33/system"
-	_ "github.com/33cn/plugin/plugin"
+	_ "github.com/assetcloud/chain/system"
+	_ "github.com/assetcloud/plugin/plugin"
 )
 
-var mock33 *testnode.Chain33Mock
+var mock33 *testnode.ChainMock
 
 func TestMain(m *testing.M) {
-	mock33 = testnode.New("testdata/chain33.pos33.toml", nil)
+	mock33 = testnode.New("testdata/chain.pos33.toml", nil)
 	mock33.Listen()
 	m.Run()
 	mock33.Close()
@@ -122,7 +122,7 @@ func TestPos33Ticket(t *testing.T) {
 	t.Error("wait 100 , open and close not happened")
 }
 
-func createBindMiner(t *testing.T, cfg *types.Chain33Config, m, r string, priv crypto.PrivKey) *types.Transaction {
+func createBindMiner(t *testing.T, cfg *types.ChainConfig, m, r string, priv crypto.PrivKey) *types.Transaction {
 	ety := types.LoadExecutorType("pos33")
 	tx, err := ety.Create("Tbind", &ty.Pos33TicketBind{MinerAddress: m, ReturnAddress: r})
 	assert.Nil(t, err)
@@ -132,7 +132,7 @@ func createBindMiner(t *testing.T, cfg *types.Chain33Config, m, r string, priv c
 	return tx
 }
 
-// func ticketList(t *testing.T, mock33 *testnode.Chain33Mock, req proto.Message) *ty.ReplyPos33TicketList {
+// func ticketList(t *testing.T, mock33 *testnode.ChainMock, req proto.Message) *ty.ReplyPos33TicketList {
 // 	data, err := mock33.GetAPI().Query("pos33", "Pos33TicketList", req)
 // 	assert.Nil(t, err)
 // 	return data.(*ty.ReplyPos33TicketList)

@@ -5,8 +5,8 @@
 package executor
 
 import (
-	"github.com/33cn/chain33/types"
-	ty "github.com/yccproject/ycc/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
+	"github.com/assetcloud/chain/types"
 )
 
 func (t *Pos33Ticket) execDelLocal(receiptData *types.ReceiptData) (*types.LocalDBSet, error) {

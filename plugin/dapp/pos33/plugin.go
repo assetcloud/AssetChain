@@ -5,14 +5,14 @@
 package pos33
 
 import (
-	"github.com/33cn/chain33/pluginmgr"
-	"github.com/yccproject/ycc/plugin/dapp/pos33/commands"
-	"github.com/yccproject/ycc/plugin/dapp/pos33/executor"
-	"github.com/yccproject/ycc/plugin/dapp/pos33/rpc"
-	"github.com/yccproject/ycc/plugin/dapp/pos33/types"
+	"github.com/assetcloud/assetchain/plugin/dapp/pos33/commands"
+	"github.com/assetcloud/assetchain/plugin/dapp/pos33/executor"
+	"github.com/assetcloud/assetchain/plugin/dapp/pos33/rpc"
+	"github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
+	"github.com/assetcloud/chain/pluginmgr"
 
 	// init wallet
-	_ "github.com/yccproject/ycc/plugin/dapp/pos33/wallet"
+	_ "github.com/assetcloud/assetchain/plugin/dapp/pos33/wallet"
 )
 
 func init() {

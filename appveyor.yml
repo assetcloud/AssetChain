@@ -2,7 +2,7 @@ version: "{build}"
 
 # Source Config
 
-clone_folder: c:\gopath\src\github.com\yccproject\ycc
+clone_folder: c:\gopath\src\github.com\assetcloud\assetchain
 
 # Build host
 

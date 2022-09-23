@@ -5,10 +5,10 @@
 package rpc
 
 import (
-	"github.com/33cn/chain33/common"
-	rpctypes "github.com/33cn/chain33/rpc/types"
-	"github.com/33cn/chain33/types"
-	ty "github.com/yccproject/ycc/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
+	"github.com/assetcloud/chain/common"
+	rpctypes "github.com/assetcloud/chain/rpc/types"
+	"github.com/assetcloud/chain/types"
 	"golang.org/x/net/context"
 )
 

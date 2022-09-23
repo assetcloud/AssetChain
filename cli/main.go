@@ -4,11 +4,11 @@
 package main
 
 import (
-	_ "github.com/33cn/chain33/system"
-	_ "github.com/yccproject/ycc/plugin"
+	_ "github.com/assetcloud/assetchain/plugin"
+	_ "github.com/assetcloud/chain/system"
 
-	"github.com/33cn/chain33/util/cli"
-	"github.com/yccproject/ycc/cli/buildflags"
+	"github.com/assetcloud/assetchain/cli/buildflags"
+	"github.com/assetcloud/chain/util/cli"
 )
 
 func main() {

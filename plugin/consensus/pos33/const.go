@@ -1,6 +1,6 @@
 package pos33
 
-import "github.com/yccproject/ycc/plugin/dapp/pos33/types"
+import "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
 
 const pos33Topic = "pos33"
 const remoteAddrID = pos33Topic + "-addr"

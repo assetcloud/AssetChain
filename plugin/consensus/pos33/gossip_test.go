@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	ccrypto "github.com/33cn/chain33/common/crypto"
+	ccrypto "github.com/assetcloud/chain/common/crypto"
 )
 
 func TestGossip2(t *testing.T) {

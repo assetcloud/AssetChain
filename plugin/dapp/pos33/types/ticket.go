@@ -8,11 +8,11 @@ import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/33cn/chain33/common/crypto"
-	"github.com/33cn/chain33/common/difficulty"
-	"github.com/33cn/chain33/system/address/eth"
-	"github.com/33cn/chain33/types"
-	bls33 "github.com/33cn/plugin/plugin/crypto/bls"
+	"github.com/assetcloud/chain/common/crypto"
+	"github.com/assetcloud/chain/common/difficulty"
+	"github.com/assetcloud/chain/system/address/eth"
+	"github.com/assetcloud/chain/types"
+	bls33 "github.com/assetcloud/plugin/plugin/crypto/bls"
 	"github.com/phoreproject/bls"
 	"github.com/phoreproject/bls/g1pubs"
 )
@@ -71,14 +71,14 @@ func init() {
 	types.RegExec(Pos33TicketX, InitExecutor)
 }
 
-func InitFork(cfg *types.Chain33Config) {
+func InitFork(cfg *types.ChainConfig) {
 	cfg.RegisterDappFork(Pos33TicketX, "Enable", 0)
 	cfg.RegisterDappFork(Pos33TicketX, "ForkReward15", 725000)
 	cfg.RegisterDappFork(Pos33TicketX, "ForkFixReward", 5000000)
 	cfg.RegisterDappFork(Pos33TicketX, "UseEntrust", 7000000)
 }
 
-func InitExecutor(cfg *types.Chain33Config) {
+func InitExecutor(cfg *types.ChainConfig) {
 	types.RegistorExecutor(Pos33TicketX, NewType(cfg))
 }
 
@@ -88,7 +88,7 @@ type Pos33TicketType struct {
 }
 
 // NewType new type
-func NewType(cfg *types.Chain33Config) *Pos33TicketType {
+func NewType(cfg *types.ChainConfig) *Pos33TicketType {
 	c := &Pos33TicketType{}
 	c.SetChild(c)
 	c.SetConfig(cfg)
@@ -164,12 +164,12 @@ type Pos33MineParam struct {
 	VoteReward      int64
 	MineReward      int64
 
-	cfg    *types.Chain33Config
+	cfg    *types.ChainConfig
 	height int64
 }
 
 // GetPos33MineParam 获取ticket miner config params
-func GetPos33MineParam(cfg *types.Chain33Config, height int64) *Pos33MineParam {
+func GetPos33MineParam(cfg *types.ChainConfig, height int64) *Pos33MineParam {
 	conf := types.Conf(cfg, "mver.consensus.pos33")
 	c := &Pos33MineParam{}
 	c.TicketPrice1 = conf.MGInt("ticketPrice1", height) * cfg.GetCoinPrecision()

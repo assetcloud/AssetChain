@@ -1,51 +1,51 @@
 # type字段仅支持 consensus  dapp store
 [dapp-pos33]
-gitrepo = "github.com/yccproject/ycc/plugin/dapp/pos33"
+gitrepo = "github.com/assetcloud/assetchain/plugin/dapp/pos33"
 
 [consensus-pos33]
-gitrepo = "github.com/yccproject/ycc/plugin/consensus/pos33"
+gitrepo = "github.com/assetcloud/assetchain/plugin/consensus/pos33"
 
 [dapp-evm]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/evm"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/evm"
 
 [dapp-evmxgo]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/evmxgo"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/evmxgo"
 
 # [dapp-exchange]
-# gitrepo = "github.com/33cn/plugin/plugin/dapp/exchange"
+# gitrepo = "github.com/assetcloud/plugin/plugin/dapp/exchange"
 
 [dapp-retrieve]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/retrieve"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/retrieve"
 
 [dapp-hashlock]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/hashlock"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/hashlock"
 
 [dapp-token]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/token"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/token"
 
 [dapp-trade]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/trade"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/trade"
 
 [dapp-paracross]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/paracross"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/paracross"
 
 [dapp-multisig]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/multisig"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/multisig"
 
 [dapp-unfreeze]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/unfreeze"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/unfreeze"
 
 [dapp-autonomy]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/autonomy"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/autonomy"
 
 [mempool-score]
-gitrepo = "github.com/33cn/plugin/plugin/mempool/score"
+gitrepo = "github.com/assetcloud/plugin/plugin/mempool/score"
 
 [mempool-price]
-gitrepo = "github.com/33cn/plugin/plugin/mempool/price"
+gitrepo = "github.com/assetcloud/plugin/plugin/mempool/price"
 
 [store-kvmvccmavl]
-gitrepo = "github.com/33cn/plugin/plugin/store/kvmvccmavl"
+gitrepo = "github.com/assetcloud/plugin/plugin/store/kvmvccmavl"
 
 [store-kvmvcc]
-gitrepo = "github.com/33cn/plugin/plugin/store/kvmvcc"
+gitrepo = "github.com/assetcloud/plugin/plugin/store/kvmvcc"

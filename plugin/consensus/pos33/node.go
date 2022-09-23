@@ -9,16 +9,16 @@ import (
 	"sync"
 	"time"
 
-	"github.com/33cn/chain33/common"
-	"github.com/33cn/chain33/common/address"
-	"github.com/33cn/chain33/common/crypto"
-	"github.com/33cn/chain33/common/difficulty"
-	"github.com/33cn/chain33/common/log/log15"
-	"github.com/33cn/chain33/types"
-	"github.com/33cn/plugin/plugin/crypto/bls"
+	"github.com/assetcloud/chain/common"
+	"github.com/assetcloud/chain/common/address"
+	"github.com/assetcloud/chain/common/crypto"
+	"github.com/assetcloud/chain/common/difficulty"
+	"github.com/assetcloud/chain/common/log/log15"
+	"github.com/assetcloud/chain/types"
+	"github.com/assetcloud/plugin/plugin/crypto/bls"
 	"github.com/golang/protobuf/proto"
 
-	pt "github.com/yccproject/ycc/plugin/dapp/pos33/types"
+	pt "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
 )
 
 var plog = log15.New("module", "pos33")

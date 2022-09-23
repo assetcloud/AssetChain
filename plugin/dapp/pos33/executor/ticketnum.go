@@ -5,10 +5,10 @@
 package executor
 
 import (
-	"github.com/33cn/chain33/common"
-	"github.com/33cn/chain33/types"
+	"github.com/assetcloud/chain/common"
+	"github.com/assetcloud/chain/types"
 
-	tickettypes "github.com/yccproject/ycc/plugin/dapp/pos33/types"
+	tickettypes "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
 )
 
 func (ticket *Pos33Ticket) getTxActions(blockHash []byte, blockNum int64) ([]*tickettypes.Pos33TicketAction, error) {

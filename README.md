@@ -1,12 +1,12 @@
-# ycc
+# assetchain
 Yuan Chain Project
 # pos33 运行
 
 ## 运行节点
-	$ ./ycc 
+	$ ./assetchain
 或者
 	
-	$ nohup ./ycc &
+	$ nohup ./assetchain &
 
 ## 挖矿
 1. 创建mining 挖矿账户
@@ -16,7 +16,7 @@ Yuan Chain Project
 2. 给mining账户打币作为手续费
 3. mining 账户bls绑定
 
-		$ ./ycc-cli pos33 blsbind
+		$ ./assetchain-cli pos33 blsbind
 
 3. 给委托账户打币用来委托挖矿
 4.  委托账户抵押到合约

@@ -24,7 +24,7 @@ pos33_CreateBindMiner() {
     echo_rst "$FUNCNAME" "$rst"
     #发送交易
     rawTx=$(echo "${resp}" | jq -r ".result.txHex")
-    chain33_SignRawTx "${rawTx}" "${returnPriv}" ${MAIN_HTTP}
+    chain_SignRawTx "${rawTx}" "${returnPriv}" ${MAIN_HTTP}
 }
 
 # pos33_SetAutoMining() {
@@ -98,7 +98,7 @@ pos33_GetAllPos33TicketCount() {
 #     returnAddr=$3
 #     execer="pos33"
 #     funcName="Pos33TicketInfos"
-#     resp=$(curl -ksd '{"method":"Chain33.Query","params":[{"execer":"'"$execer"'","funcName":"'"$funcName"'","payload":{"ticketIds":["'"$tid"'"]}}]}' -H 'content-type:text/plain;' ${MAIN_HTTP})
+#     resp=$(curl -ksd '{"method":"Chain.Query","params":[{"execer":"'"$execer"'","funcName":"'"$funcName"'","payload":{"ticketIds":["'"$tid"'"]}}]}' -H 'content-type:text/plain;' ${MAIN_HTTP})
 #     ok=$(jq '(.error|not) and (.result.tickets | length > 0) and (.result.tickets[0].minerAddress == "'"$minerAddr"'") and (.result.tickets[0].returnAddress == "'"$returnAddr"'")' <<<"$resp")
 #     [[ $ok == true ]]
 #     rst=$?
@@ -111,7 +111,7 @@ pos33_GetAllPos33TicketCount() {
 #     status=$3
 #     execer="pos33"
 #     funcName="Pos33TicketList"
-#     resp=$(curl -ksd '{"method":"Chain33.Query","params":[{"execer":"'"$execer"'","funcName":"'"$funcName"'","payload":{"addr":"'"$minerAddr"'", "status":'"$status"'}}]}' -H 'content-type:text/plain;' ${MAIN_HTTP})
+#     resp=$(curl -ksd '{"method":"Chain.Query","params":[{"execer":"'"$execer"'","funcName":"'"$funcName"'","payload":{"addr":"'"$minerAddr"'", "status":'"$status"'}}]}' -H 'content-type:text/plain;' ${MAIN_HTTP})
 #     ok=$(jq '(.error|not) and (.result.tickets | length > 0) and (.result.tickets[0].minerAddress == "'"$minerAddr"'") and (.result.tickets[0].returnAddress == "'"$returnAddr"'") and (.result.tickets[0].status == '"$status"')' <<<"$resp")
 #     [[ $ok == true ]]
 #     rst=$?
@@ -128,7 +128,7 @@ pos33_GetAllPos33TicketCount() {
 #     minerAddr=$2
 #     execer="pos33"
 #     funcName="MinerAddress"
-#     resp=$(curl -ksd '{"method":"Chain33.Query","params":[{"execer":"'"$execer"'","funcName":"'"$funcName"'","payload":{"data":"'"$returnAddr"'"}}]}' -H 'content-type:text/plain;' ${MAIN_HTTP})
+#     resp=$(curl -ksd '{"method":"Chain.Query","params":[{"execer":"'"$execer"'","funcName":"'"$funcName"'","payload":{"data":"'"$returnAddr"'"}}]}' -H 'content-type:text/plain;' ${MAIN_HTTP})
 #     ok=$(jq '(.error|not) and (.result.data == "'"$minerAddr"'")' <<<"$resp")
 #     [[ $ok == true ]]
 #     rst=$?
@@ -140,7 +140,7 @@ pos33_GetAllPos33TicketCount() {
 #     returnAddr=$2
 #     execer="pos33"
 #     funcName="MinerSourceList"
-#     resp=$(curl -ksd '{"method":"Chain33.Query","params":[{"execer":"'"$execer"'","funcName":"'"$funcName"'","payload":{"data":"'"$minerAddr"'"}}]}' -H 'content-type:text/plain;' ${MAIN_HTTP})
+#     resp=$(curl -ksd '{"method":"Chain.Query","params":[{"execer":"'"$execer"'","funcName":"'"$funcName"'","payload":{"data":"'"$minerAddr"'"}}]}' -H 'content-type:text/plain;' ${MAIN_HTTP})
 #     ok=$(jq '(.error|not) and (.result.datas | length > 0) and (.result.datas[0] == "'"$returnAddr"'")' <<<"$resp")
 #     [[ $ok == true ]]
 #     rst=$?
@@ -152,7 +152,7 @@ pos33_GetAllPos33TicketCount() {
 # #     blockNum=$2
 # #     execer="pos33"
 # #     funcName="RandNumHash"
-# #     resp=$(curl -ksd '{"method":"Chain33.Query","params":[{"execer":"'"$execer"'","funcName":"'"$funcName"'","payload":{"hash":"'"$hash"'", "blockNum":'"$blockNum"'}}]}' -H 'content-type:text/plain;' ${MAIN_HTTP})
+# #     resp=$(curl -ksd '{"method":"Chain.Query","params":[{"execer":"'"$execer"'","funcName":"'"$funcName"'","payload":{"hash":"'"$hash"'", "blockNum":'"$blockNum"'}}]}' -H 'content-type:text/plain;' ${MAIN_HTTP})
 # #     ok=$(jq '(.error|not) and (.result.hash != "")' <<<"$resp")
 # #     [[ $ok == true ]]
 # #     rst=$?
@@ -169,8 +169,8 @@ pos33_GetAllPos33TicketCount() {
 #     returnAddr2="1NNaYHkscJaLJ2wUrFNeh6cQXBS4TrFYeB"
 #     returnPriv2="0x794443611e7369a57b078881445b93b754cbc9b9b8f526535ab9c6d21d29203d"
 
-#     chain33_QueryBalance "${returnAddr2}" "${MAIN_HTTP}"
-#     chain33_applyCoins "${minerAddr2}" 1000000000 "${MAIN_HTTP}"
+#     chain_QueryBalance "${returnAddr2}" "${MAIN_HTTP}"
+#     chain_applyCoins "${minerAddr2}" 1000000000 "${MAIN_HTTP}"
 
 #     pos33_SetAutoMining 0
 #     pos33_GetPos33TicketCount
@@ -183,12 +183,12 @@ pos33_GetAllPos33TicketCount() {
 #     #关闭
 #     pos33_ClosePos33Tickets "${minerAddr1}"
 
-#     chain33_LastBlockhash "${MAIN_HTTP}"
+#     chain_LastBlockhash "${MAIN_HTTP}"
 #     pos33_RandNumHash "${LAST_BLOCK_HASH}" 5
 # }
 
 function main() {
-    chain33_RpcTestBegin Pos33Ticket
+    chain_RpcTestBegin Pos33Ticket
     MAIN_HTTP="$1"
     echo "main_ip=$MAIN_HTTP"
 
@@ -200,7 +200,7 @@ function main() {
         # run_testcases
     fi
 
-    chain33_RpcTestRst Pos33Ticket "$CASE_ERR"
+    chain_RpcTestRst Pos33Ticket "$CASE_ERR"
 }
 
-chain33_debug_function main "$1"
+chain_debug_function main "$1"

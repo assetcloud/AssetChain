@@ -1,10 +1,10 @@
-module github.com/yccproject/ycc
+module github.com/assetcloud/assetchain
 
 go 1.15
 
 require (
-	github.com/33cn/chain33 v1.67.4-0.20220722090050-f04f8bab7f42
-	github.com/33cn/plugin v1.67.4-0.20220714095200-e39c121a83d7
+	github.com/assetcloud/chain v0.0.0-20220923095606-c46ba6173fc0 // indirect
+	github.com/assetcloud/plugin v0.0.0-20220923102327-b387bb3e31c6 // indirect
 	github.com/btcsuite/btcd v0.22.1
 	github.com/golang/protobuf v1.5.2
 	github.com/libp2p/go-libp2p v0.15.0
@@ -25,5 +25,5 @@ require (
 	google.golang.org/protobuf v1.28.1
 )
 
-// replace github.com/33cn/chain33 => /Users/w/pos33/chain33
-//  replace github.com/33cn/chain33 => /home/w/pos33/chain33
+// replace github.com/assetcloud/chain => /Users/w/pos33/chain
+//  replace github.com/assetcloud/chain => /home/w/pos33/chain

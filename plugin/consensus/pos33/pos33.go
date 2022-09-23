@@ -6,15 +6,15 @@ import (
 	"sync"
 	"time"
 
-	"github.com/33cn/chain33/common"
-	"github.com/33cn/chain33/common/address"
-	"github.com/33cn/chain33/common/crypto"
-	"github.com/33cn/chain33/queue"
-	drivers "github.com/33cn/chain33/system/consensus"
-	driver "github.com/33cn/chain33/system/dapp"
-	ct "github.com/33cn/chain33/system/dapp/coins/types"
-	"github.com/33cn/chain33/types"
-	pt "github.com/yccproject/ycc/plugin/dapp/pos33/types"
+	pt "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
+	"github.com/assetcloud/chain/common"
+	"github.com/assetcloud/chain/common/address"
+	"github.com/assetcloud/chain/common/crypto"
+	"github.com/assetcloud/chain/queue"
+	drivers "github.com/assetcloud/chain/system/consensus"
+	driver "github.com/assetcloud/chain/system/dapp"
+	ct "github.com/assetcloud/chain/system/dapp/coins/types"
+	"github.com/assetcloud/chain/types"
 )
 
 func init() {
@@ -187,8 +187,8 @@ func (c *Client) updateTicketCount(b *types.Block) {
 			}
 		}
 	}
-	chain33Cfg := c.GetAPI().GetConfig()
-	if pt.GetPos33MineParam(chain33Cfg, height).ChangeTicketPrice() {
+	chainCfg := c.GetAPI().GetConfig()
+	if pt.GetPos33MineParam(chainCfg, height).ChangeTicketPrice() {
 		plog.Debug("update ticket count because price changed", "height", height)
 		c.queryAllPos33Count(height)
 		for k := range c.tcMap[height-1] {
@@ -369,7 +369,7 @@ func (client *Client) CreateBlock() {
 	client.n.runLoop()
 }
 
-func createTicket(cfg *types.Chain33Config, minerAddr, returnAddr, blsAddr string, count int32, height int64) (ret []*types.Transaction) {
+func createTicket(cfg *types.ChainConfig, minerAddr, returnAddr, blsAddr string, count int32, height int64) (ret []*types.Transaction) {
 	//给hotkey 1000 个币，作为miner的手续费
 	tx1 := types.Transaction{}
 	tx1.Execer = []byte("coins")

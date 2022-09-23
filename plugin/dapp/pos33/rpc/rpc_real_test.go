@@ -8,18 +8,18 @@ package rpc
 import (
 	"testing"
 
-	rpctypes "github.com/33cn/chain33/rpc/types"
-	_ "github.com/33cn/chain33/system"
-	"github.com/33cn/chain33/types"
-	"github.com/33cn/chain33/util/testnode"
-	_ "github.com/33cn/plugin/plugin"
+	ty "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
+	rpctypes "github.com/assetcloud/chain/rpc/types"
+	_ "github.com/assetcloud/chain/system"
+	"github.com/assetcloud/chain/types"
+	"github.com/assetcloud/chain/util/testnode"
+	_ "github.com/assetcloud/plugin/plugin"
 	"github.com/stretchr/testify/assert"
-	ty "github.com/yccproject/ycc/plugin/dapp/pos33/types"
 )
 
 func TestNewPos33Ticket(t *testing.T) {
 	//选票(可以用hotwallet 关闭选票)
-	cfg := types.NewChain33Config(cfgstring)
+	cfg := types.NewChainConfig(cfgstring)
 	cfg.GetModuleConfig().Consensus.Name = "pos33"
 	mocker := testnode.NewWithConfig(cfg, nil)
 	mocker.Listen()

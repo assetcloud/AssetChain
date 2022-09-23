@@ -1,10 +1,10 @@
 
 export GO111MODULE=on
-export CHAIN33_PATH=$(shell go list -f {{.Dir}} github.com/33cn/chain33)
-export PLUGIN_PATH=$(shell go list -f {{.Dir}} github.com/33cn/plugin)
+export CHAIN33_PATH=$(shell go list -f {{.Dir}} github.com/assetcloud/chain)
+export PLUGIN_PATH=$(shell go list -f {{.Dir}} github.com/assetcloud/plugin)
 PKG_LIST_VET := `go list ./... | grep -v "vendor" | grep -v plugin/dapp/evm/executor/vm/common/crypto/bn256`
 PKG_LIST_INEFFASSIGN= `go list -f {{.Dir}} ./... | grep -v "vendor"`
-BUILD_FLAGS = -ldflags "-X github.com/33cn/chain33/common/version.GitCommit=`git rev-parse --short=8 HEAD`"
+BUILD_FLAGS = -ldflags "-X github.com/assetcloud/chain/common/version.GitCommit=`git rev-parse --short=8 HEAD`"
 
 .PHONY: default build
 
@@ -13,26 +13,26 @@ default: build
 all:  build
 
 build: toolimport
-	go build ${BUILD_FLAGS} -v  -o ycc
-	go build ${BUILD_FLAGS} -v  -o ycc-cli github.com/yccproject/ycc/cli
+	go build ${BUILD_FLAGS} -v  -o assetchain
+	go build ${BUILD_FLAGS} -v  -o assetchain-cli github.com/assetcloud/assetchain/cli
 
 
 
 #make updateplugin version=xxx
-#单独更新plugin或chain33, version可以是tag或者commit哈希(tag必须是--vMajor.Minor.Patch--规范格式)
+#单独更新plugin或chain, version可以是tag或者commit哈希(tag必须是--vMajor.Minor.Patch--规范格式)
 updateplugin:
 	@if [ -n "$(version)" ]; then   \
-    go get github.com/33cn/plugin@${version}; \
+    go get github.com/assetcloud/plugin@${version}; \
     else \
-    go get github.com/33cn/plugin@master;fi
-updatechain33:
+    go get github.com/assetcloud/plugin@master;fi
+updatechain:
 	@if [ -n "$(version)" ]; then   \
-	go get github.com/33cn/chain33@${version}; \
+	go get github.com/assetcloud/chain@${version}; \
 	else \
-	go get github.com/33cn/chain33@master;fi
+	go get github.com/assetcloud/chain@master;fi
 
-#make update version=xxx, 同时更新chain33和plugin, 两个项目必须有相同的tag(tag必须是--vMajor.Minor.Patch--规范格式)
-update:updatechain33 updateplugin
+#make update version=xxx, 同时更新chain和plugin, 两个项目必须有相同的tag(tag必须是--vMajor.Minor.Patch--规范格式)
+update:updatechain updateplugin
 
 vet:
 	@go vet ${PKG_LIST_VET}
@@ -64,17 +64,17 @@ fmt: fmt_shell ## go fmt
 	@find . -name '*.go' -not -path "./vendor/*" | xargs goimports -l -w
 
 
-buildtool: ## chain33 tool
-	@go build -o tool `go list -f {{.Dir}} github.com/33cn/chain33`/cmd/tools
+buildtool: ## chain tool
+	@go build -o tool `go list -f {{.Dir}} github.com/assetcloud/chain`/cmd/tools
 
 toolimport: buildtool ## update plugin import
-	@./tool import --path "plugin" --packname "github.com/yccproject/ycc/plugin" --conf "plugin/plugin.toml"
+	@./tool import --path "plugin" --packname "github.com/assetcloud/assetchain/plugin" --conf "plugin/plugin.toml"
 
 clean:
 	@rm -rf datadir
 	@rm -rf logs
 	@rm -rf wallet
 	@rm -rf grpc33.log
-	@rm -rf ycc
-	@rm -rf ycc-cli
+	@rm -rf assetchain
+	@rm -rf assetchain-cli
 	@rm -rf tool

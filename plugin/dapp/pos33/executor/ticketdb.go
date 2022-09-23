@@ -9,8 +9,8 @@ import (
 
 	//"bytes"
 
-	log "github.com/33cn/chain33/common/log/log15"
-	ty "github.com/yccproject/ycc/plugin/dapp/pos33/types"
+	ty "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
+	log "github.com/assetcloud/chain/common/log/log15"
 )
 
 var tlog = log.New("module", "pos33db")
@@ -124,10 +124,10 @@ func minerReceipt(t int, raddr string, newReward int64) *types.ReceiptLog {
 
 // GenesisInit init genesis
 func (action *Action) GenesisInit(genesis *ty.Pos33TicketGenesis) (*types.Receipt, error) {
-	chain33Cfg := action.api.GetConfig()
-	cfg := ty.GetPos33MineParam(chain33Cfg, action.height)
+	chainCfg := action.api.GetConfig()
+	cfg := ty.GetPos33MineParam(chainCfg, action.height)
 
-	Coin := chain33Cfg.GetCoinPrecision()
+	Coin := chainCfg.GetCoinPrecision()
 	// Pos33BlockReward 区块奖励
 	var Pos33BlockReward = Coin * 30
 
@@ -166,8 +166,8 @@ func (action *Action) Pos33TicketOpen(topen *ty.Pos33TicketOpen) (*types.Receipt
 		return nil, errors.New("open return address NOT match")
 	}
 
-	chain33Cfg := action.api.GetConfig()
-	cfg := ty.GetPos33MineParam(chain33Cfg, action.height)
+	chainCfg := action.api.GetConfig()
+	cfg := ty.GetPos33MineParam(chainCfg, action.height)
 
 	//冻结子账户资金
 	receipt, err := action.coinsAccount.ExecFrozen(topen.ReturnAddress, action.execaddr, cfg.GetTicketPrice()*int64(topen.Count))
@@ -195,9 +195,9 @@ func (action *Action) Pos33Miner(miner *ty.Pos33MinerMsg, index int) (*types.Rec
 	if index != 0 {
 		return nil, types.ErrCoinBaseIndex
 	}
-	chain33Cfg := action.api.GetConfig()
+	chainCfg := action.api.GetConfig()
 
-	Coin := chain33Cfg.GetCoinPrecision()
+	Coin := chainCfg.GetCoinPrecision()
 	// Pos33BlockReward 区块奖励
 	var Pos33BlockReward = Coin * 30
 	// Pos33VoteReward 每ticket区块voter奖励
@@ -205,7 +205,7 @@ func (action *Action) Pos33Miner(miner *ty.Pos33MinerMsg, index int) (*types.Rec
 	// Pos33MakerReward 每ticket区块bp奖励
 	var Pos33MakerReward = Coin * 22 / 100 // 0.22 coin
 
-	if chain33Cfg.IsDappFork(action.height, ty.Pos33TicketX, "ForkReward15") {
+	if chainCfg.IsDappFork(action.height, ty.Pos33TicketX, "ForkReward15") {
 		Pos33BlockReward /= 2
 		Pos33VoteReward /= 2
 		Pos33MakerReward /= 2
@@ -273,7 +273,7 @@ func (action *Action) Pos33Miner(miner *ty.Pos33MinerMsg, index int) (*types.Rec
 
 		logs = append(logs, receipt.Logs...)
 		kvs = append(kvs, receipt.KV...)
-		if chain33Cfg.IsDappFork(action.height, ty.Pos33TicketX, "ForkFixReward") {
+		if chainCfg.IsDappFork(action.height, ty.Pos33TicketX, "ForkFixReward") {
 			kvs = append(kvs, setDeposit(action.db, action.fromaddr, "", 0, bpReward, action.height, false))
 		} else {
 			kvs = append(kvs, setDeposit(action.db, action.fromaddr, "", 0, Pos33VoteReward, action.height, false))
@@ -283,7 +283,7 @@ func (action *Action) Pos33Miner(miner *ty.Pos33MinerMsg, index int) (*types.Rec
 
 	// fund reward
 	fundReward := Pos33BlockReward - (Pos33VoteReward+Pos33MakerReward)*int64(len(miner.BlsPkList))
-	fundaddr := chain33Cfg.MGStr("mver.consensus.fundKeyAddr", action.height)
+	fundaddr := chainCfg.MGStr("mver.consensus.fundKeyAddr", action.height)
 	tlog.Info("fund rerward", "fundaddr", fundaddr, "height", action.height, "reward", fundReward)
 
 	receipt, err := action.coinsAccount.Transfer(action.execaddr, fundaddr, fundReward)
@@ -299,8 +299,8 @@ func (action *Action) Pos33Miner(miner *ty.Pos33MinerMsg, index int) (*types.Rec
 
 // Pos33TicketClose close tick
 func (action *Action) Pos33TicketClose(tclose *ty.Pos33TicketClose) (*types.Receipt, error) {
-	chain33Cfg := action.api.GetConfig()
-	cfg := ty.GetPos33MineParam(chain33Cfg, action.height)
+	chainCfg := action.api.GetConfig()
+	cfg := ty.GetPos33MineParam(chainCfg, action.height)
 	price := cfg.GetTicketPrice()
 
 	d, err := getDeposit(action.db, action.fromaddr)

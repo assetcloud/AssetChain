@@ -22,14 +22,14 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/33cn/chain33/common"
-	"github.com/33cn/chain33/common/address"
-	"github.com/33cn/chain33/common/crypto"
-	"github.com/33cn/chain33/common/log/log15"
-	rpctypes "github.com/33cn/chain33/rpc/types"
-	"github.com/33cn/chain33/system/crypto/none"
-	"github.com/33cn/chain33/types"
-	ty "github.com/33cn/plugin/plugin/dapp/valnode/types"
+	"github.com/assetcloud/chain/common"
+	"github.com/assetcloud/chain/common/address"
+	"github.com/assetcloud/chain/common/crypto"
+	"github.com/assetcloud/chain/common/log/log15"
+	rpctypes "github.com/assetcloud/chain/rpc/types"
+	"github.com/assetcloud/chain/system/crypto/none"
+	"github.com/assetcloud/chain/types"
+	ty "github.com/assetcloud/plugin/plugin/dapp/valnode/types"
 	"google.golang.org/grpc"
 	_ "google.golang.org/grpc/encoding/gzip"
 )
@@ -143,14 +143,14 @@ func Perf(host, txsize, num, sleepinterval, totalduration string) {
 		ch <- struct{}{}
 		conn := newGrpcConn(host)
 		defer conn.Close()
-		gcli := types.NewChain33Client(conn)
+		gcli := types.NewChainClient(conn)
 		for {
 			height, err := getHeight(gcli)
 			if err != nil {
 				//conn.Close()
 				log.Error("getHeight", "err", err)
 				//conn = newGrpcConn(ip)
-				//gcli = types.NewChain33Client(conn)
+				//gcli = types.NewChainClient(conn)
 				time.Sleep(time.Second)
 			} else {
 				atomic.StoreInt64(&blockHeight, height)
@@ -189,7 +189,7 @@ func Perf(host, txsize, num, sleepinterval, totalduration string) {
 		go func() {
 			conn := newGrpcConn(host)
 			defer conn.Close()
-			gcli := types.NewChain33Client(conn)
+			gcli := types.NewChainClient(conn)
 
 			for tx := range txChan {
 				//发送交易
@@ -210,7 +210,7 @@ func Perf(host, txsize, num, sleepinterval, totalduration string) {
 					time.Sleep(time.Second)
 					//conn.Close()
 					//conn = newGrpcConn(ip)
-					//gcli = types.NewChain33Client(conn)
+					//gcli = types.NewChainClient(conn)
 				} else {
 					atomic.AddInt64(&success, 1)
 				}
@@ -253,7 +253,7 @@ func PerfV2(host, txsize, duration string) {
 		ch <- struct{}{}
 		conn := newGrpcConn(host)
 		defer conn.Close()
-		gcli := types.NewChain33Client(conn)
+		gcli := types.NewChainClient(conn)
 		for {
 			height, err := getHeight(gcli)
 			if err != nil {
@@ -306,7 +306,7 @@ func PerfV2(host, txsize, duration string) {
 		go func() {
 			conn := newGrpcConn(host)
 			defer conn.Close()
-			gcli := types.NewChain33Client(conn)
+			gcli := types.NewChainClient(conn)
 			txs := &types.Transactions{Txs: make([]*types.Transaction, 0, batchNum)}
 
 			for tx := range txChan {
@@ -350,7 +350,7 @@ var (
 	execAddr = address.ExecAddress("user.write")
 )
 
-func getHeight(gcli types.Chain33Client) (int64, error) {
+func getHeight(gcli types.ChainClient) (int64, error) {
 	header, err := gcli.GetLastHeader(context.Background(), &types.ReqNil{})
 	if err != nil {
 		log.Error("getHeight", "err", err)
@@ -447,7 +447,7 @@ func Put(ip string, size string, privkey string) {
 	tx.To = address.ExecAddress("user.write")
 	tx.Expire = TxHeightOffset + types.TxHeightFlag
 	tx.Sign(types.SECP256K1, getprivkey(privkey))
-	poststr := fmt.Sprintf(`{"jsonrpc":"2.0","id":2,"method":"Chain33.SendTransaction","params":[{"data":"%v"}]}`,
+	poststr := fmt.Sprintf(`{"jsonrpc":"2.0","id":2,"method":"Chain.SendTransaction","params":[{"data":"%v"}]}`,
 		common.ToHex(types.Encode(tx)))
 
 	resp, err := http.Post(url, "application/json", bytes.NewBufferString(poststr))
@@ -470,7 +470,7 @@ func Get(ip string, hash string) {
 	url := "http://" + ip + ":8801"
 	fmt.Println("transaction hash:", hash)
 
-	poststr := fmt.Sprintf(`{"jsonrpc":"2.0","id":2,"method":"Chain33.QueryTransaction","params":[{"hash":"%s"}]}`, hash)
+	poststr := fmt.Sprintf(`{"jsonrpc":"2.0","id":2,"method":"Chain.QueryTransaction","params":[{"hash":"%s"}]}`, hash)
 	resp, err := http.Post(url, "application/json", bytes.NewBufferString(poststr))
 	if err != nil {
 		fmt.Println(err)
@@ -488,7 +488,7 @@ func Get(ip string, hash string) {
 
 func setTxHeight(ip string) {
 	url := "http://" + ip + ":8801"
-	poststr := fmt.Sprintf(`{"jsonrpc":"2.0","id":2,"method":"Chain33.GetLastHeader","params":[]}`)
+	poststr := fmt.Sprintf(`{"jsonrpc":"2.0","id":2,"method":"Chain.GetLastHeader","params":[]}`)
 	resp, err := http.Post(url, "application/json", bytes.NewBufferString(poststr))
 	if err != nil {
 		fmt.Println(err)
@@ -582,7 +582,7 @@ func ValNode(ip, pubkey, power string) {
 	tx.Nonce = r.Int63()
 	tx.Sign(types.SECP256K1, getprivkey(privkey))
 
-	poststr := fmt.Sprintf(`{"jsonrpc":"2.0","id":2,"method":"Chain33.SendTransaction","params":[{"data":"%v"}]}`,
+	poststr := fmt.Sprintf(`{"jsonrpc":"2.0","id":2,"method":"Chain.SendTransaction","params":[{"data":"%v"}]}`,
 		common.ToHex(types.Encode(tx)))
 
 	resp, err := http.Post(url, "application/json", bytes.NewBufferString(poststr))

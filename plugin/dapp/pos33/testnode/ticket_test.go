@@ -8,27 +8,27 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/33cn/chain33/util/testnode"
+	ty "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
+	ticketwallet "github.com/assetcloud/assetchain/plugin/dapp/pos33/wallet"
+	"github.com/assetcloud/chain/util/testnode"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	ty "github.com/yccproject/ycc/plugin/dapp/pos33/types"
-	ticketwallet "github.com/yccproject/ycc/plugin/dapp/pos33/wallet"
 
-	_ "github.com/33cn/chain33/system"
-	"github.com/33cn/chain33/types"
-	_ "github.com/33cn/plugin/plugin"
+	_ "github.com/assetcloud/chain/system"
+	"github.com/assetcloud/chain/types"
+	_ "github.com/assetcloud/plugin/plugin"
 )
 
 func TestWalletPos33Ticket(t *testing.T) {
 	minerAddr := "12qyocayNF7Lv6C9qW4avxs2E7U41fKSfv"
 	t.Log("Begin wallet ticket test")
 
-	strCfg, err := ioutil.ReadFile("./chain33.toml")
+	strCfg, err := ioutil.ReadFile("./chain.toml")
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	cfg := types.NewChain33Config(string(strCfg))
+	cfg := types.NewChainConfig(string(strCfg))
 	cfg.GetModuleConfig().Consensus.Name = "pos33"
 	mock33 := testnode.NewWithConfig(cfg, nil)
 	defer mock33.Close()

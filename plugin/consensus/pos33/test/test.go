@@ -14,17 +14,17 @@ import (
 	"os"
 	"time"
 
-	"github.com/33cn/chain33/common"
-	"github.com/33cn/chain33/common/address"
-	"github.com/33cn/chain33/common/crypto"
-	grpc "github.com/33cn/chain33/rpc/grpcclient"
-	jrpc "github.com/33cn/chain33/rpc/jsonclient"
-	rpctypes "github.com/33cn/chain33/rpc/types"
-	"github.com/33cn/chain33/system/crypto/none"
-	ctypes "github.com/33cn/chain33/system/dapp/coins/types"
-	"github.com/33cn/chain33/types"
-	_ "github.com/33cn/plugin/plugin"
-	pt "github.com/yccproject/ycc/plugin/dapp/pos33/types"
+	pt "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
+	"github.com/assetcloud/chain/common"
+	"github.com/assetcloud/chain/common/address"
+	"github.com/assetcloud/chain/common/crypto"
+	grpc "github.com/assetcloud/chain/rpc/grpcclient"
+	jrpc "github.com/assetcloud/chain/rpc/jsonclient"
+	rpctypes "github.com/assetcloud/chain/rpc/types"
+	"github.com/assetcloud/chain/system/crypto/none"
+	ctypes "github.com/assetcloud/chain/system/dapp/coins/types"
+	"github.com/assetcloud/chain/types"
+	_ "github.com/assetcloud/plugin/plugin"
 )
 
 //
@@ -50,19 +50,19 @@ var maxacc = flag.Int("a", 10000, "max account")
 var maxaccF = flag.Int("m", 1000000, "max account in a file")
 
 // var rn = flag.Int("r", 3000, "sleep in Microsecond")
-var conf = flag.String("c", "ycc.toml", "chain33 config file")
+var conf = flag.String("c", "assetchain.toml", "chain config file")
 var useGrpc = flag.Bool("G", false, "if use grpc")
 var sign = flag.Bool("s", true, "signature tx")
 var accFile = flag.String("f", "acc.dat", "acc file")
 var noUseTx = flag.Bool("n", false, "send no use tx")
 
-var gClient types.Chain33Client
+var gClient types.ChainClient
 var jClient *jrpc.JSONClient
-var config *types.Chain33Config
+var config *types.ChainConfig
 
 func main() {
 	flag.Parse()
-	config = types.NewChain33Config(types.MergeCfg(types.ReadFile(*conf), ""))
+	config = types.NewChainConfig(types.MergeCfg(types.ReadFile(*conf), ""))
 	rand.Seed(time.Now().Unix())
 	// config.EnableCheckFork(false)
 
@@ -157,7 +157,7 @@ func run(privs []crypto.PrivKey) {
 				height = h.Height
 			} else {
 				var res rpctypes.Header
-				err := jClient.Call("Chain33.GetLastHeader", nil, &res)
+				err := jClient.Call("Chain.GetLastHeader", nil, &res)
 				if err != nil {
 					panic(err)
 				}
@@ -234,7 +234,7 @@ func sendTxs(txs []*Tx) error {
 	} else {
 		panic("can't go here")
 		// return errors.New("not support grpc in batch send txs")
-		// err = jClient.Call("Chain33.SendTransaction", &rpctypes.RawParm{Data: common.ToHex(types.Encode(tx))}, &txHash)
+		// err = jClient.Call("Chain.SendTransaction", &rpctypes.RawParm{Data: common.ToHex(types.Encode(tx))}, &txHash)
 	}
 	return nil
 }
@@ -246,7 +246,7 @@ func sendTx(tx *Tx) error {
 		_, err = gClient.SendTransaction(context.Background(), tx)
 	} else {
 		var txHash string
-		err = jClient.Call("Chain33.SendTransaction", &rpctypes.RawParm{Data: common.ToHex(types.Encode(tx))}, &txHash)
+		err = jClient.Call("Chain.SendTransaction", &rpctypes.RawParm{Data: common.ToHex(types.Encode(tx))}, &txHash)
 	}
 	if err != nil {
 		// _, ok := err.(*json.InvalidUnmarshalError)

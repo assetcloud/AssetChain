@@ -1,15 +1,16 @@
+//go:build go1.13
 // +build go1.13
 
 package main
 
 import (
-	_ "github.com/33cn/chain33/system"
-	_ "github.com/yccproject/ycc/plugin"
+	_ "github.com/assetcloud/assetchain/plugin"
+	_ "github.com/assetcloud/chain/system"
 
 	"flag"
 	"runtime/debug"
 
-	"github.com/33cn/chain33/util/cli"
+	"github.com/assetcloud/chain/util/cli"
 )
 
 var percent = flag.Int("p", 0, "SetGCPercent")
@@ -22,5 +23,5 @@ func main() {
 	if *percent > 0 {
 		debug.SetGCPercent(*percent)
 	}
-	cli.RunChain33("ycc", yccconfig)
+	cli.RunChain("assetchain", assetChainConfig)
 }

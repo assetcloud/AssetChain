@@ -7,13 +7,13 @@ package rpc
 import (
 	"testing"
 
-	"github.com/33cn/chain33/client"
-	"github.com/33cn/chain33/client/mocks"
-	rpctypes "github.com/33cn/chain33/rpc/types"
-	"github.com/33cn/chain33/types"
+	ty "github.com/assetcloud/assetchain/plugin/dapp/pos33/types"
+	"github.com/assetcloud/chain/client"
+	"github.com/assetcloud/chain/client/mocks"
+	rpctypes "github.com/assetcloud/chain/rpc/types"
+	"github.com/assetcloud/chain/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	ty "github.com/yccproject/ycc/plugin/dapp/pos33/types"
 	"golang.org/x/net/context"
 )
 
@@ -28,7 +28,7 @@ func newJrpc(api client.QueueProtocolAPI) *Jrpc {
 }
 
 func TestChannelClient_BindMiner(t *testing.T) {
-	cfg := types.NewChain33Config(cfgstring)
+	cfg := types.NewChainConfig(cfgstring)
 	api := new(mocks.QueueProtocolAPI)
 	api.On("GetConfig", mock.Anything).Return(cfg, nil)
 	client := newGrpc(api)
@@ -57,7 +57,7 @@ func TestChannelClient_BindMiner(t *testing.T) {
 /*
 
 func testGetPos33TicketCountOK(t *testing.T) {
-	cfg := types.NewChain33Config(types.GetDefaultCfgstring())
+	cfg := types.NewChainConfig(types.GetDefaultCfgstring())
 	api := &mocks.QueueProtocolAPI{}
 	api.On("GetConfig", mock.Anything).Return(cfg, nil)
 	g := newGrpc(api)
@@ -126,7 +126,7 @@ func TestJrpc_GetPos33TicketCount(t *testing.T) {
 }
 
 func TestRPC_CallTestNode(t *testing.T) {
-	cfg := types.NewChain33Config(types.GetDefaultCfgstring())
+	cfg := types.NewChainConfig(types.GetDefaultCfgstring())
 	// 测试环境下，默认配置的共识为solo，需要修改
 	cfg.GetModuleConfig().Consensus.Name = "pos33"
 
@@ -147,20 +147,20 @@ func TestRPC_CallTestNode(t *testing.T) {
 		Msg:  []byte("123"),
 	}
 	api.On("IsSync").Return(ret, nil)
-	api.On("Version").Return(&types.VersionInfo{Chain33: version.GetVersion()}, nil)
+	api.On("Version").Return(&types.VersionInfo{Chain: version.GetVersion()}, nil)
 	api.On("Close").Return()
 	rpcCfg := mock33.GetCfg().RPC
 	jsonClient, err := jsonclient.NewJSONClient("http://" + rpcCfg.JrpcBindAddr + "/")
 	assert.Nil(t, err)
 	assert.NotNil(t, jsonClient)
 	var result types.VersionInfo
-	err = jsonClient.Call("Chain33.Version", nil, &result)
+	err = jsonClient.Call("Chain.Version", nil, &result)
 	fmt.Println(err)
 	assert.Nil(t, err)
-	assert.Equal(t, version.GetVersion(), result.Chain33)
+	assert.Equal(t, version.GetVersion(), result.Chain)
 
 	var isSnyc bool
-	err = jsonClient.Call("Chain33.IsSync", &types.ReqNil{}, &isSnyc)
+	err = jsonClient.Call("Chain.IsSync", &types.ReqNil{}, &isSnyc)
 	assert.Nil(t, err)
 	assert.Equal(t, ret.GetIsOk(), isSnyc)
 
@@ -179,7 +179,7 @@ func TestRPC_CallTestNode(t *testing.T) {
 	assert.Nil(t, err)
 	assert.NotNil(t, c)
 
-	client := types.NewChain33Client(c)
+	client := types.NewChainClient(c)
 	issync, err := client.IsSync(ctx, &types.ReqNil{})
 	assert.Nil(t, err)
 	assert.Equal(t, true, issync.IsOk)
@@ -193,14 +193,14 @@ func TestRPC_CallTestNode(t *testing.T) {
 
 var cfgstring = `
 FxTime = true
-Title = "ycc"
+Title = "assetchain"
 
 [log]
 # 日志级别，支持debug(dbug)/info/warn/error(eror)/crit
 logConsoleLevel = "error"
 loglevel = "info"
 # 日志文件名，可带目录，所有生成的日志文件都放到此目录下
-logFile = "logs/chain33.log"
+logFile = "logs/chain.log"
 # 单个日志文件的最大值（单位：兆）
 maxFileSize = 300
 # 最多保存的历史日志文件个数
@@ -372,7 +372,7 @@ dataEmitMode = "influxdb"
 
 [metrics.sub.influxdb]
 #以纳秒为单位的发送间隔
-database = "chain33metrics"
+database = "chainmetrics"
 duration = 1000000000
 namespace = ""
 password = ""
