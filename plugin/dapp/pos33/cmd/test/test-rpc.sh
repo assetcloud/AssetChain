@@ -24,7 +24,7 @@ pos33_CreateBindMiner() {
     echo_rst "$FUNCNAME" "$rst"
     #发送交易
     rawTx=$(echo "${resp}" | jq -r ".result.txHex")
-    chain_SignRawTx "${rawTx}" "${returnPriv}" ${MAIN_HTTP}
+    chain33_SignRawTx "${rawTx}" "${returnPriv}" ${MAIN_HTTP}
 }
 
 # pos33_SetAutoMining() {
@@ -169,8 +169,8 @@ pos33_GetAllPos33TicketCount() {
 #     returnAddr2="1NNaYHkscJaLJ2wUrFNeh6cQXBS4TrFYeB"
 #     returnPriv2="0x794443611e7369a57b078881445b93b754cbc9b9b8f526535ab9c6d21d29203d"
 
-#     chain_QueryBalance "${returnAddr2}" "${MAIN_HTTP}"
-#     chain_applyCoins "${minerAddr2}" 1000000000 "${MAIN_HTTP}"
+#     chain33_QueryBalance "${returnAddr2}" "${MAIN_HTTP}"
+#     chain33_applyCoins "${minerAddr2}" 1000000000 "${MAIN_HTTP}"
 
 #     pos33_SetAutoMining 0
 #     pos33_GetPos33TicketCount
@@ -183,12 +183,12 @@ pos33_GetAllPos33TicketCount() {
 #     #关闭
 #     pos33_ClosePos33Tickets "${minerAddr1}"
 
-#     chain_LastBlockhash "${MAIN_HTTP}"
+#     chain33_LastBlockhash "${MAIN_HTTP}"
 #     pos33_RandNumHash "${LAST_BLOCK_HASH}" 5
 # }
 
 function main() {
-    chain_RpcTestBegin Pos33Ticket
+    chain33_RpcTestBegin Pos33Ticket
     MAIN_HTTP="$1"
     echo "main_ip=$MAIN_HTTP"
 
@@ -200,7 +200,7 @@ function main() {
         # run_testcases
     fi
 
-    chain_RpcTestRst Pos33Ticket "$CASE_ERR"
+    chain33_RpcTestRst Pos33Ticket "$CASE_ERR"
 }
 
-chain_debug_function main "$1"
+chain33_debug_function main "$1"

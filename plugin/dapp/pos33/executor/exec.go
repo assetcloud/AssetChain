@@ -17,8 +17,8 @@ import (
 // 		return nil, ty.ErrPos33TicketCount
 // 	}
 // 	actiondb := NewAction(t, tx)
-// 	chainCfg := actiondb.api.GetConfig()
-// 	if chainCfg.IsDappFork(actiondb.height, ty.Pos33TicketX, "UseEntrust") {
+// 	chain33Cfg := actiondb.api.GetConfig()
+// 	if chain33Cfg.IsDappFork(actiondb.height, ty.Pos33TicketX, "UseEntrust") {
 // 		return nil, errors.New("NOT support!!! UseEntrust replate")
 // 	}
 // 	return actiondb.GenesisInit(payload)
@@ -31,8 +31,8 @@ import (
 // 		return nil, ty.ErrPos33TicketCount
 // 	}
 // 	actiondb := NewAction(t, tx)
-// 	chainCfg := actiondb.api.GetConfig()
-// 	if chainCfg.IsDappFork(actiondb.height, ty.Pos33TicketX, "UseEntrust") {
+// 	chain33Cfg := actiondb.api.GetConfig()
+// 	if chain33Cfg.IsDappFork(actiondb.height, ty.Pos33TicketX, "UseEntrust") {
 // 		return nil, errors.New("NOT support!!! UseEntrust replate")
 // 	}
 // 	return actiondb.Pos33TicketOpen(payload)
@@ -42,8 +42,8 @@ import (
 // func (t *Pos33Ticket) Exec_Tclose(payload *ty.Pos33TicketClose, tx *types.Transaction, index int) (*types.Receipt, error) {
 // 	actiondb := NewAction(t, tx)
 
-// 	chainCfg := actiondb.api.GetConfig()
-// 	if chainCfg.IsDappFork(actiondb.height, ty.Pos33TicketX, "UseEntrust") {
+// 	chain33Cfg := actiondb.api.GetConfig()
+// 	if chain33Cfg.IsDappFork(actiondb.height, ty.Pos33TicketX, "UseEntrust") {
 // 		return nil, errors.New("NOT support!!! UseEntrust replate")
 // 	}
 
@@ -69,8 +69,8 @@ func (t *Pos33Ticket) Exec_Miner(payload *ty.Pos33MinerMsg, tx *types.Transactio
 // Exec_Entrust exec entrust
 func (t *Pos33Ticket) Exec_Entrust(payload *ty.Pos33Entrust, tx *types.Transaction, index int) (*types.Receipt, error) {
 	action := NewAction(t, tx)
-	chainCfg := action.api.GetConfig()
-	if !chainCfg.IsDappFork(action.height, ty.Pos33TicketX, "UseEntrust") {
+	chain33Cfg := action.api.GetConfig()
+	if !chain33Cfg.IsDappFork(action.height, ty.Pos33TicketX, "UseEntrust") {
 		return nil, errors.New("config exec.pos33.UseEntrust error")
 	}
 	return action.Pos33Entrust(payload)

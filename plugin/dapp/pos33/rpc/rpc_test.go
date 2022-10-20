@@ -200,7 +200,7 @@ Title = "assetchain"
 logConsoleLevel = "error"
 loglevel = "info"
 # 日志文件名，可带目录，所有生成的日志文件都放到此目录下
-logFile = "logs/chain.log"
+logFile = "logs/chain33.log"
 # 单个日志文件的最大值（单位：兆）
 maxFileSize = 300
 # 最多保存的历史日志文件个数
@@ -372,7 +372,7 @@ dataEmitMode = "influxdb"
 
 [metrics.sub.influxdb]
 #以纳秒为单位的发送间隔
-database = "chainmetrics"
+database = "chain33metrics"
 duration = 1000000000
 namespace = ""
 password = ""

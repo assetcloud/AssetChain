@@ -132,8 +132,8 @@ func (act *Action) minerReward(consignee *ty.Pos33Consignee, mineReward int64) (
 	if consignee.Amount == 0 {
 		return nil, nil
 	}
-	chainCfg := act.api.GetConfig()
-	mp := ty.GetPos33MineParam(chainCfg, act.height)
+	chain33Cfg := act.api.GetConfig()
+	mp := ty.GetPos33MineParam(chain33Cfg, act.height)
 	needTransfer := mp.RewardTransfer
 	tprice := mp.GetTicketPrice()
 
@@ -181,8 +181,8 @@ func (act *Action) minerReward(consignee *ty.Pos33Consignee, mineReward int64) (
 }
 
 func (act *Action) voteReward(mis []*minerInfo, voteReward int64) (*types.Receipt, error) {
-	chainCfg := act.api.GetConfig()
-	mp := ty.GetPos33MineParam(chainCfg, act.height)
+	chain33Cfg := act.api.GetConfig()
+	mp := ty.GetPos33MineParam(chain33Cfg, act.height)
 	needTransfer := mp.RewardTransfer
 	tprice := mp.GetTicketPrice()
 
@@ -255,15 +255,15 @@ type minerInfo struct {
 }
 
 func (action *Action) Pos33MinerNew(miner *ty.Pos33MinerMsg, index int) (*types.Receipt, error) {
-	chainCfg := action.api.GetConfig()
-	if !chainCfg.IsDappFork(action.height, ty.Pos33TicketX, "UseEntrust") {
+	chain33Cfg := action.api.GetConfig()
+	if !chain33Cfg.IsDappFork(action.height, ty.Pos33TicketX, "UseEntrust") {
 		return nil, errors.New("config exec.pos33.UseEntrust error")
 	}
 	if index != 0 {
 		return nil, types.ErrCoinBaseIndex
 	}
 
-	pmp := ty.GetPos33MineParam(chainCfg, action.height)
+	pmp := ty.GetPos33MineParam(chain33Cfg, action.height)
 	Pos33BlockReward := pmp.BlockReward
 	Pos33VoteReward := pmp.VoteReward
 	Pos33MakerReward := pmp.MineReward
@@ -337,7 +337,7 @@ func (action *Action) Pos33MinerNew(miner *ty.Pos33MinerMsg, index int) (*types.
 
 	// fund reward
 	fundReward := Pos33BlockReward - (Pos33VoteReward+Pos33MakerReward)*int64(len(miner.BlsPkList))
-	fundaddr := chainCfg.MGStr("mver.consensus.fundKeyAddr", action.height)
+	fundaddr := chain33Cfg.MGStr("mver.consensus.fundKeyAddr", action.height)
 	tlog.Debug("fund rerward", "fundaddr", fundaddr, "height", action.height, "reward", fundReward)
 
 	receipt, err = action.coinsAccount.Transfer(action.execaddr, fundaddr, fundReward)
@@ -438,8 +438,8 @@ func (action *Action) setEntrust(pe *ty.Pos33Entrust) (*types.Receipt, error) {
 		return nil, types.ErrAmount
 	}
 
-	chainCfg := action.api.GetConfig()
-	mp := ty.GetPos33MineParam(chainCfg, action.height)
+	chain33Cfg := action.api.GetConfig()
+	mp := ty.GetPos33MineParam(chain33Cfg, action.height)
 
 	consignee, err := action.getConsignee(pe.Consignee)
 	if err != nil {
