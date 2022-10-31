@@ -3,8 +3,8 @@ module github.com/assetcloud/assetchain
 go 1.15
 
 require (
-	github.com/assetcloud/chain v0.0.0-20220923095606-c46ba6173fc0 // indirect
-	github.com/assetcloud/plugin v0.0.0-20220923102327-b387bb3e31c6 // indirect
+	github.com/assetcloud/chain v0.0.0-20221027103303-5dd175a4e293
+	github.com/assetcloud/plugin v0.0.0-20221031035911-f46d827dc6d8
 	github.com/btcsuite/btcd v0.22.1
 	github.com/golang/protobuf v1.5.2
 	github.com/libp2p/go-libp2p v0.15.0
@@ -15,7 +15,6 @@ require (
 	github.com/libp2p/go-libp2p-kad-dht v0.13.1
 	github.com/libp2p/go-libp2p-pubsub v0.5.4
 	github.com/multiformats/go-multiaddr v0.5.0
-	github.com/panjf2000/gnet v1.4.3
 	github.com/phoreproject/bls v0.0.0-20200525203911-a88a5ae26844
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.1.1
