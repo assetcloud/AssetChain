@@ -1,8 +1,8 @@
-ChainID = 999
-CoinPrecision = 100000000
-CoinSymbol = "assetchain"
-Title = "pos33"
-version = "1.0.0.1"
+ChainID = 10000
+CoinPrecision = 10000
+CoinSymbol = "AS"
+Title = "Assetchain"
+version = "2.0.0"
 
 [log]
 # 日志级别，支持debug(dbug)/info/warn/error(eror)/crit
@@ -15,12 +15,12 @@ logFile = "logs/chain.log"
 # 区块数据目录
 batchsync = false
 dbCache = 512
-dbPath = "datadir"
+dbPath = "/data/assetchaindatadir"
 disableBlockBroadcast = false
 disableShard = true
-enablePushSubscribe = false
+enablePushSubscribe = true
 enableReExecLocal = false
-enableReduceLocaldb = true
+enableReduceLocaldb = false
 enableTxQuickIndex = true
 isParaChain = false
 isRecordBlockSequence = true
@@ -31,23 +31,17 @@ maxTxNumPerAccount = 100000
 poolCacheSize = 20240
 
 [p2p]
-dbPath = "datadir/addrbook"
+dbPath = "/data/assetchaindatadir/addrbook"
 grpcLogFile = "grpc33.log"
 
 [p2p.sub.dht]
 # 分组通道, 同一个网络的channel必须相同
-channel = 9
+channel = 10003
 # p2p服务端口
 port = 13801
 #可以自定义设置连接节点
-seeds = [
-  "/ip4/3.112.197.178/tcp/13801/p2p/16Uiu2HAm5HWtYK211WmKBJWcT8jfbNFGTVft9w29HJqRifiBKotx",
-  "/ip4/18.167.231.200/tcp/13801/p2p/16Uiu2HAmF32CeMnNa3ud2hce8F1UGZtvyvZ48SCViMiJN1QJVvcR",
-  "/ip4/18.167.240.187/tcp/13801/p2p/16Uiu2HAm8r9GZPPhfXEXGYvHQNgbnRe3CiNvRkFXqioiYumm6mJj",
-  "/ip4/121.52.224.84/tcp/13801/p2p/16Uiu2HAm4KV8puoy5SKLXhz36E1vkrnMTsU5NBy98qoyBhrfnKoj",
-  "/ip4/121.52.224.85/tcp/13801/p2p/16Uiu2HAmMnGGDYg8oKvYeQuZWqer8m4u1k2bUZyNxuevhS9SZ1mm",
-  "/ip4/121.52.224.86/tcp/13801/p2p/16Uiu2HAkxDkbdzH7LDMuwSkYPfApRDNd2jeSbwobL2m6LrpJzZbW",
-]
+seeds = ["/ip4/183.131.3.8/tcp/13801/p2p/16Uiu2HAkvf2T8cQ4MiK1M1n19zaDZpcNMjregJMDfWhajHcbxaz9", "/ip4/124.71.221.14/tcp/13801/p2p/16Uiu2HAmFzcdkdGYkrDtSozC3hBmrJDpQJJ4kXhd1igRejbikGYu"]
+
 
 [p2p.sub.dht.broadcast]
 disableBatchTx = true
@@ -56,9 +50,9 @@ minLtBlockSize = 100
 [rpc]
 certFile = "cert.pem"
 enableTLS = false
-grpcBindAddr = "localhost:9902"
+grpcBindAddr = "localhost:8802"
 grpcFuncWhitelist = ["*"]
-jrpcBindAddr = "localhost:9901"
+jrpcBindAddr = "localhost:8801"
 jrpcFuncWhitelist = ["*"]
 keyFile = "key.pem"
 whitelist = ["127.0.0.1"]
@@ -72,23 +66,19 @@ wsAddr = "localhost:8548"
 wsApi = ["eth", "web3", "personal", "admin", "net"]
 
 [consensus.sub.pos33]
-bootPeers = [
-  "/ip4/121.52.224.84/tcp/10801/p2p/16Uiu2HAmErmNhtS145Lv5fe9FWrHSrNjPkp1eMLeLgi6t3sdr1of",
-  "/ip4/121.52.224.85/tcp/10801/p2p/16Uiu2HAkwjfnaDfxzV2ZKfqKXoLq3ftTLh8GyxorWE25gPfRE9gB",
-  "/ip4/121.52.224.86/tcp/10801/p2p/16Uiu2HAmJmMxZRMYtYSLpbZK4aNjJo8dPyagX2ACm3gi4LEu2SPU",
-]
+bootPeers = ["/ip4/183.131.3.8/tcp/10901/p2p/16Uiu2HAmDu5ubvVncWYQ9C9ih5SK5WHVtULzmqSs9ZZqxdM1DQ6p"]
 issueTotal = 10000000000
-listenPort = 10801
+listenPort = 10901
 
 [mver.consensus]
 maxTxNumber = 30000
 
 [store]
-dbPath = "datadir/kvmvcc"
+dbPath = "/data/assetchaindatadir/kvmvcc"
 
 [wallet]
-coinType = "assetchain"
-dbPath = "wallet"
+coinType = "AS"
+dbPath = "/data/assetchainwallet"
 
 [health]
-listenAddr = "localhost:8708"
+listenAddr = "localhost:8809"

@@ -42,18 +42,13 @@ dbCache = 16
 innerBounds = 300
 innerSeedEnable = true
 isSeed = false
-port = 13702
+port = 13802
 useGithub = false
 serverStart=true
 
 [p2p.sub.dht]
-#dht 版本还不稳定，暂时限定较小的连接数
 maxConnectNum = 50
-# 是否配置为全节点模式，全节点保存所有分片数据，种子节点应配置为true
-# 全节点可以切换为分片节点，暂不支持分片节点切换为全节点
 isFullNode = true
-# 兼容老版本广播节点数，目前比特元网络已基本全面升级6.5.3，新版本不再支持广播发送至老版本
-# 设为1为屏蔽默认设置5
 maxBroadcastPeers = 1
 
 [p2p.sub.dht.pubsub]
@@ -71,16 +66,16 @@ defaultDriver="eth"
 eth=0
 
 [mempool]
-minTxFeeRate = 100000
-maxTxFeeRate = 10000000
+minTxFeeRate = 10
+maxTxFeeRate = 100000
 isLevelFee = false
-maxTxFee=100000000
+maxTxFee=100000
 name = "price"
 enableEthCheck=true
 
 [mempool.sub.score]
 poolCacheSize=1024000
-minTxFee=100000
+minTxFee=10
 maxTxNumPerAccount=100000
 timeParam=1      #时间占价格比例
 priceConstant=1544  #手续费相对于时间的一个合适的常量,取当前unxi时间戳前四位数,排序时手续费高1e-5~=快1s
@@ -93,21 +88,21 @@ poolCacheSize = 1024000
 name="pos33"
 minerstart=true
 genesisBlockTime=1652797628
-genesis="0xf39e69a8f2c1041edd7616cf079c7084bb7a5242"
+genesis="0x94e67ceba77c19c683db4e24675b1f5c29e0226a"
 minerExecs=["pos33"]
 
 [consensus.sub.pos33]
 onlyVoter = false
 
 [[consensus.sub.pos33.genesis]]
-minerAddr="0x991fb09dc31a44b3177673f330c582ac2ea168e0"
-returnAddr="0xf39e69a8f2c1041edd7616cf079c7084bb7a5242"
-blsAddr="0x6da47c11230e44adb384fed56554bfd55dde1750"
+minerAddr="0xc0fabb98bfc363e98bd57075c1e4604ea6294086"
+returnAddr="0x94e67ceba77c19c683db4e24675b1f5c29e0226a"
+blsAddr="0xf96781cff585f534475500215e0e5a10b2d33cbf"# gen from consensus.genesis.minerAddr.privkey
 count=1000
 
 [mver.consensus]
 addWalletTx = false
-fundKeyAddr = "0x92dd51393c77fd07c5840ae28076b7e0f072c289"
+fundKeyAddr = "0xfde1e130268184de2da955302bb3ce271c5738d8"
 powLimitBits = "0x1f00ffff"
 
 [mver.consensus.pos33]
@@ -155,18 +150,18 @@ tkCloseCacheLen = 200000
 enableTypes = ["secp256k1", "none", "bls", "secp256k1eth"]
 
 [crypto.sub.secp256k1eth]
-evmChainID=3999
+evmChainID=898
 
 [wallet]
 dbCache = 16
 driver = "leveldb"
-minFee = 100000
+minFee = 10
 signType = "secp256k1"
 
 [exec]
-#disableAddrIndex = true
-#disableFeeIndex = true
-#disableTxIndex = true
+disableAddrIndex = false
+disableFeeIndex = false
+disableTxIndex = false
 enableMVCC = false
 enableStat = false
 
@@ -177,20 +172,22 @@ friendExecer=["evm"]
 
 [exec.sub.evm]
 ethMapFromExecutor="coins"
-ethMapFromSymbol="assetchain"
+ethMapFromSymbol="AS"
 addressDriver="eth"
 
 
 [exec.sub.token]
 saveTokenTxList = false
 #配置一个空值，防止配置文件被覆盖
-tokenApprs=[]
+tokenApprs=["0xd09d60dbc1d572cf01f58ffb87866c1fee0b4394"]
 [exec.sub.relay]
-genesis="0x6b0a9bdf4d994c359fe02a74b538cf3f27b83f0a"
+genesis="0x01f0ddbaf9c73510b23ba51c81e931f7488f2422"
 
 [exec.sub.manage]
 superManager=[
-    "0xf27a1b1a548b7bf380c5011364670b5218edc54b", 
+    "0xfde1e130268184de2da955302bb3ce271c5738d8", 
+    "0x14e92e09bf973dc2d842b042609173003878ab3d", 
+    "0xa3d3da443260436f32b37a0fd29f1eaf0094e06b",
 ]
 
 [exec.sub.paracross]
@@ -199,7 +196,7 @@ nodeGroupFrozenCoins=0
 paraConsensusStopBlocks=30000
 
 [exec.sub.autonomy]
-total="0x6950e4d7a94947b1f36265828de26c13ba3dee69"
+total="0x36e041f189753673079191f91568c3c5f9ad7c26"
 useBalance=false
 
 [mver.autonomy]
@@ -269,7 +266,7 @@ itemWaitBlockNumber=40000
 [fork.system]
 ForkChainParamV1=0
 ForkCheckTxDup=0
-ForkBlockHash=5000000
+ForkBlockHash=0
 ForkMinerTime=0
 ForkTransferExec=0
 ForkExecKey=0
@@ -296,7 +293,7 @@ ForkFormatAddressKey=0
 
 [fork.sub.coins]
 Enable=0
-ForkFriendExecer=4864713
+ForkFriendExecer=0
 
 [fork.sub.pos33]
 Enable=0
