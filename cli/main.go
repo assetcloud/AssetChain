@@ -13,7 +13,7 @@ import (
 
 func main() {
 	if buildflags.RPCAddr == "" {
-		buildflags.RPCAddr = "http://localhost:9901"
+		buildflags.RPCAddr = "http://localhost:8801"
 	}
 	cli.Run(buildflags.RPCAddr, buildflags.ParaName, "xxx")
 }

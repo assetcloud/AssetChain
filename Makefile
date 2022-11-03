@@ -5,6 +5,9 @@ export PLUGIN_PATH=$(shell go list -f {{.Dir}} github.com/assetcloud/plugin)
 PKG_LIST_VET := `go list ./... | grep -v "vendor" | grep -v plugin/dapp/evm/executor/vm/common/crypto/bn256`
 PKG_LIST_INEFFASSIGN= `go list -f {{.Dir}} ./... | grep -v "vendor"`
 BUILD_FLAGS = -ldflags "-X github.com/assetcloud/chain/common/version.GitCommit=`git rev-parse --short=8 HEAD`"
+APP = assetchain
+CLI = assetchain-cli
+SRC_CLI = github.com/assetcloud/assetchain/cli
 
 .PHONY: default build
 
@@ -16,6 +19,45 @@ build: toolimport
 	go build ${BUILD_FLAGS} -v  -o assetchain
 	go build ${BUILD_FLAGS} -v  -o assetchain-cli github.com/assetcloud/assetchain/cli
 
+pkg:
+	rm assetchain-pkg assetchain-pkg.tgz -rf
+	mkdir assetchain-pkg
+	cp assetchain assetchain-cli assetchain.toml wallet-init.sh assetchain-pkg
+	tar zcfv assetchain-pkg.tgz assetchain-pkg
+
+GOBUILD=go build $(BUILD_FLAGS) $(LDFLAGS)
+
+darwin-amd64:
+	GOARCH=amd64 GOOS=darwin $(GOBUILD) -o $(APP)
+	GOARCH=amd64 GOOS=darwin $(GOBUILD) -o $(CLI) $(SRC_CLI)
+	rm assetchain-pkg assetchain-$@.tgz -rf
+	mkdir assetchain-pkg
+	cp assetchain assetchain-cli assetchain.toml wallet-init.sh assetchain-pkg
+	tar zcvf assetchain-$@.tgz assetchain-pkg
+
+linux-amd64:
+	GOARCH=amd64 GOOS=linux $(GOBUILD) -o $(APP)
+	GOARCH=amd64 GOOS=linux $(GOBUILD) -o $(CLI) $(SRC_CLI)
+	rm assetchain-pkg assetchain-$@.tgz -rf
+	mkdir assetchain-pkg
+	cp assetchain assetchain-cli assetchain.toml wallet-init.sh assetchain-pkg
+	tar zcvf assetchain-$@.tgz assetchain-pkg
+
+linux-arm64:
+	GOARCH=arm64 GOOS=linux $(GOBUILD) -o $(APP)
+	GOARCH=arm64 GOOS=linux $(GOBUILD) -o $(CLI) $(SRC_CLI)
+	rm assetchain-pkg assetchain-$@.tgz -rf
+	mkdir assetchain-pkg
+	cp assetchain assetchain-cli assetchain.toml wallet-init.sh assetchain-pkg
+	tar zcvf assetchain-$@.tgz assetchain-pkg
+
+windows-amd64:
+	GOARCH=amd64 GOOS=windows $(GOBUILD) -o $(APP).exe
+	GOARCH=amd64 GOOS=windows $(GOBUILD) -o $(CLI).exe $(SRC_CLI)
+	rm assetchain-pkg assetchain-$@.tgz -rf
+	mkdir assetchain-pkg
+	cp assetchain.exe assetchain-cli.exe assetchain.toml wallet-init.sh assetchain-pkg
+	tar zcvf assetchain-$@.tgz assetchain-pkg
 
 
 #make updateplugin version=xxx
