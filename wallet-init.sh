@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function init() {
-    main_jrpc="http://localhost:9901"
+    main_jrpc="http://localhost:8801"
     echo "=========== # start set wallet 1 ============="
     echo "=========== # save seed to wallet ============="
     result=$(./assetchain-cli --rpc_laddr=${main_jrpc} seed generate -l 0)
