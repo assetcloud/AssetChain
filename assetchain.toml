@@ -58,7 +58,7 @@ keyFile = "key.pem"
 whitelist = ["127.0.0.1"]
 
 [rpc.sub.eth]
-enable = false
+enable = true
 httpAddr = "localhost:8547"
 httpApi = ["eth", "web3", "personal", "admin", "net"]
 # websocket 绑定地址
