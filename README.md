@@ -1,7 +1,8 @@
 # assetchain
 Yuan Chain Project
 # pos33 运行
-
+# chain33开发文档
+https://chain.33.cn/document/60
 ## 运行节点
 	$ ./assetchain
 或者
