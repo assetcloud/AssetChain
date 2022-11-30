@@ -31,8 +31,8 @@ func (t *Pos33Ticket) Exec_Miner(payload *ty.Pos33MinerMsg, tx *types.Transactio
 // Exec_Entrust exec entrust
 func (t *Pos33Ticket) Exec_Entrust(payload *ty.Pos33Entrust, tx *types.Transaction, index int) (*types.Receipt, error) {
 	action := NewAction(t, tx)
-	chain33Cfg := action.api.GetConfig()
-	if !chain33Cfg.IsDappFork(action.height, ty.Pos33TicketX, "UseEntrust") {
+	cfg := action.api.GetConfig()
+	if !cfg.IsDappFork(action.height, ty.Pos33TicketX, "UseEntrust") {
 		return nil, errors.New("config exec.pos33.UseEntrust error")
 	}
 	return action.Pos33Entrust(payload)
