@@ -1,7 +1,7 @@
 FixTime = false
 TestNet = true
-Title = "ycc_test"
-coinSymbol = "YCC"
+Title = "as_test"
+coinSymbol = "AS"
 version = "6.3.0"
 
 [log]

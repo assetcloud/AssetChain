@@ -291,7 +291,7 @@ func runSendInitTxs(privCh chan crypto.PrivKey) {
 }
 
 func newTxWithTxHeight(priv crypto.PrivKey, amount int64, to string, height int64) *Tx {
-	act := &ctypes.CoinsAction{Value: &ctypes.CoinsAction_Transfer{Transfer: &types.AssetsTransfer{Cointoken: "YCC", Amount: amount}}, Ty: ctypes.CoinsActionTransfer}
+	act := &ctypes.CoinsAction{Value: &ctypes.CoinsAction_Transfer{Transfer: &types.AssetsTransfer{Cointoken: "AS", Amount: amount}}, Ty: ctypes.CoinsActionTransfer}
 	payload := types.Encode(act)
 	tx, err := types.CreateFormatTx(config, "coins", payload)
 	if err != nil {
@@ -338,7 +338,7 @@ func newNoUseTx() *Tx {
 }
 
 func newTx(priv crypto.PrivKey, amount int64, to string) *Tx {
-	act := &ctypes.CoinsAction{Value: &ctypes.CoinsAction_Transfer{Transfer: &types.AssetsTransfer{Cointoken: "YCC", Amount: amount}}, Ty: ctypes.CoinsActionTransfer}
+	act := &ctypes.CoinsAction{Value: &ctypes.CoinsAction_Transfer{Transfer: &types.AssetsTransfer{Cointoken: "AS", Amount: amount}}, Ty: ctypes.CoinsActionTransfer}
 	payload := types.Encode(act)
 	tx, err := types.CreateFormatTx(config, "coins", payload)
 	if err != nil {
