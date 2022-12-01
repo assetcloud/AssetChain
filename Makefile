@@ -1,6 +1,6 @@
 
 export GO111MODULE=on
-export CHAIN33_PATH=$(shell go list -f {{.Dir}} github.com/assetcloud/chain)
+export chain_PATH=$(shell go list -f {{.Dir}} github.com/assetcloud/chain)
 export PLUGIN_PATH=$(shell go list -f {{.Dir}} github.com/assetcloud/plugin)
 PKG_LIST_VET := `go list ./... | grep -v "vendor" | grep -v plugin/dapp/evm/executor/vm/common/crypto/bn256`
 PKG_LIST_INEFFASSIGN= `go list -f {{.Dir}} ./... | grep -v "vendor"`

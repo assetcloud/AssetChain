@@ -293,7 +293,7 @@ version="6.3.0"
 loglevel = "dbug"
 logConsoleLevel = "error"
 # 日志文件名，可带目录，所有生成的日志文件都放到此目录下
-logFile = "logs/chain33.log"
+logFile = "logs/chain.log"
 # 单个日志文件的最大值（单位：兆）
 maxFileSize = 300
 # 最多保存的历史日志文件个数
@@ -465,7 +465,7 @@ minerwhitelist=["*"]
 [wallet.sub.multisig]
 rescanMultisigAddr=false
 
-#系统中所有的fork,默认用chain33的测试网络的
+#系统中所有的fork,默认用chain的测试网络的
 #但是我们可以替换
 [fork.system]
 ForkChainParamV1= 0
@@ -625,7 +625,7 @@ dataEmitMode="influxdb"
 #以纳秒为单位的发送间隔
 duration=1000000000
 url="http://influxdb:8086"
-database="chain33metrics"
+database="chainmetrics"
 username=""
 password=""
 namespace=""
