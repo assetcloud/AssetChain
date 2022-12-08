@@ -67,9 +67,9 @@ eth=0
 
 [mempool]
 minTxFeeRate = 10
-maxTxFeeRate = 100000
+maxTxFeeRate = 100000000
 isLevelFee = false
-maxTxFee=100000
+maxTxFee=100000000
 name = "price"
 enableEthCheck=true
 
