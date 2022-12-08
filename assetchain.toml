@@ -36,7 +36,7 @@ grpcLogFile = "grpc33.log"
 
 [p2p.sub.dht]
 # 分组通道, 同一个网络的channel必须相同
-channel = 10005
+channel = 20005
 # p2p服务端口
 port = 13801
 #可以自定义设置连接节点
