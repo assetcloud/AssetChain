@@ -1,0 +1,86 @@
+ChainID = 10000
+CoinPrecision = 10000
+CoinSymbol = "AS"
+Title = "Assetchain"
+version = "2.0.0"
+
+[log]
+# 日志级别，支持debug(dbug)/info/warn/error(eror)/crit
+logConsoleLevel = "debug"
+loglevel = "debug"
+# 日志文件名，可带目录，所有生成的日志文件都放到此目录下
+logFile = "logs/chain.log"
+
+[blockchain]
+# 区块数据目录
+batchsync = false
+dbCache = 512
+dbPath = "/data/assetchaindatadir"
+disableBlockBroadcast = false
+disableShard = true
+enablePushSubscribe = true
+enableReExecLocal = false
+enableReduceLocaldb = false
+enableTxQuickIndex = true
+isParaChain = false
+isRecordBlockSequence = true
+singleMode = true
+
+[mempool]
+maxTxNumPerAccount = 100000
+poolCacheSize = 20240
+
+[p2p]
+dbPath = "/data/assetchaindatadir/addrbook"
+grpcLogFile = "grpc33.log"
+
+[p2p.sub.dht]
+# 分组通道, 同一个网络的channel必须相同
+channel = 20005
+# p2p服务端口
+port = 13801
+#可以自定义设置连接节点
+seeds = []
+# ["/ip4/183.131.3.8/tcp/13801/p2p/16Uiu2HAkwi5xVpTAxkqt1pJZGpqk8reYCL7xsswDZ7SV2cUkCKqp", "/ip4/124.71.221.14/tcp/13801/p2p/16Uiu2HAm1DVL7S7xJss4UFAvKArDSQzn5JEMDGmZ9xgULSaLFJ1j"]
+
+
+[p2p.sub.dht.broadcast]
+disableBatchTx = true
+minLtBlockSize = 100
+
+[rpc]
+certFile = "cert.pem"
+enableTLS = false
+grpcBindAddr = ":8802"
+grpcFuncWhitelist = ["*"]
+jrpcBindAddr = ":8801"
+jrpcFuncWhitelist = ["*"]
+keyFile = "key.pem"
+whitelist = ["*"]
+
+[rpc.sub.eth]
+enable = true
+httpAddr = "192.168.0.233:8547"
+httpApi = ["eth", "web3", "personal", "admin", "net"]
+# websocket 绑定地址
+wsAddr = "192.168.0.233:8548"
+wsApi = ["eth", "web3", "personal", "admin", "net"]
+
+[consensus.sub.pos33]
+bootPeers = []
+#["/ip4/183.131.3.8/tcp/10901/p2p/16Uiu2HAmDu5ubvVncWYQ9C9ih5SK5WHVtULzmqSs9ZZqxdM1DQ6p"]
+issueTotal = 10000000000
+listenPort = 10901
+
+[mver.consensus]
+maxTxNumber = 30000
+
+[store]
+dbPath = "/data/assetchaindatadir/kvmvcc"
+
+[wallet]
+coinType = "AS"
+dbPath = "/data/assetchainwallet"
+
+[health]
+listenAddr = "localhost:8809"
