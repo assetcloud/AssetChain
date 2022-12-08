@@ -50,7 +50,7 @@ var maxacc = flag.Int("a", 10000, "max account")
 var maxaccF = flag.Int("m", 1000000, "max account in a file")
 
 // var rn = flag.Int("r", 3000, "sleep in Microsecond")
-var conf = flag.String("c", "assetchain.toml", "chain33 config file")
+var conf = flag.String("c", "assetchain.toml", "chain config file")
 var useGrpc = flag.Bool("G", false, "if use grpc")
 var sign = flag.Bool("s", true, "signature tx")
 var accFile = flag.String("f", "acc.dat", "acc file")
@@ -291,7 +291,7 @@ func runSendInitTxs(privCh chan crypto.PrivKey) {
 }
 
 func newTxWithTxHeight(priv crypto.PrivKey, amount int64, to string, height int64) *Tx {
-	act := &ctypes.CoinsAction{Value: &ctypes.CoinsAction_Transfer{Transfer: &types.AssetsTransfer{Cointoken: "YCC", Amount: amount}}, Ty: ctypes.CoinsActionTransfer}
+	act := &ctypes.CoinsAction{Value: &ctypes.CoinsAction_Transfer{Transfer: &types.AssetsTransfer{Cointoken: "AS", Amount: amount}}, Ty: ctypes.CoinsActionTransfer}
 	payload := types.Encode(act)
 	tx, err := types.CreateFormatTx(config, "coins", payload)
 	if err != nil {
@@ -338,7 +338,7 @@ func newNoUseTx() *Tx {
 }
 
 func newTx(priv crypto.PrivKey, amount int64, to string) *Tx {
-	act := &ctypes.CoinsAction{Value: &ctypes.CoinsAction_Transfer{Transfer: &types.AssetsTransfer{Cointoken: "YCC", Amount: amount}}, Ty: ctypes.CoinsActionTransfer}
+	act := &ctypes.CoinsAction{Value: &ctypes.CoinsAction_Transfer{Transfer: &types.AssetsTransfer{Cointoken: "AS", Amount: amount}}, Ty: ctypes.CoinsActionTransfer}
 	payload := types.Encode(act)
 	tx, err := types.CreateFormatTx(config, "coins", payload)
 	if err != nil {

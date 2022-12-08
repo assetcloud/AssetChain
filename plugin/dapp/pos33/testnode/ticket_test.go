@@ -23,7 +23,7 @@ func TestWalletPos33Ticket(t *testing.T) {
 	minerAddr := "12qyocayNF7Lv6C9qW4avxs2E7U41fKSfv"
 	t.Log("Begin wallet ticket test")
 
-	strCfg, err := ioutil.ReadFile("./chain33.toml")
+	strCfg, err := ioutil.ReadFile("./chain.toml")
 	if err != nil {
 		t.Error(err)
 		return

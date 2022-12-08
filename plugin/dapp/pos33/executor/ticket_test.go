@@ -19,7 +19,7 @@ import (
 var mock33 *testnode.ChainMock
 
 func TestMain(m *testing.M) {
-	mock33 = testnode.New("testdata/chain33.pos33.toml", nil)
+	mock33 = testnode.New("testdata/chain.pos33.toml", nil)
 	mock33.Listen()
 	m.Run()
 	mock33.Close()
