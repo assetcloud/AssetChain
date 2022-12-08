@@ -88,16 +88,16 @@ poolCacheSize = 1024000
 name="pos33"
 minerstart=true
 genesisBlockTime=1652797628
-genesis="0x94e67ceba77c19c683db4e24675b1f5c29e0226a"
+genesis="0x86b1d9da6b2f1eef1a8c06107f76ec03923cbc2c"
 minerExecs=["pos33"]
 
 [consensus.sub.pos33]
 onlyVoter = false
 
 [[consensus.sub.pos33.genesis]]
-minerAddr="0xc0fabb98bfc363e98bd57075c1e4604ea6294086"
-returnAddr="0x94e67ceba77c19c683db4e24675b1f5c29e0226a"
-blsAddr="0xf96781cff585f534475500215e0e5a10b2d33cbf"# gen from consensus.genesis.minerAddr.privkey
+minerAddr="0x06e798218b1cbd5a7fdcdff2d582d4413163a0a8"
+returnAddr="0x86b1d9da6b2f1eef1a8c06107f76ec03923cbc2c"
+blsAddr="0x2dc9fdd083dba3e453e4e4373611a4041f329549"# gen from consensus.genesis.minerAddr.privkey
 count=1000
 
 [mver.consensus]
@@ -185,9 +185,8 @@ genesis="0x01f0ddbaf9c73510b23ba51c81e931f7488f2422"
 
 [exec.sub.manage]
 superManager=[
-    "0xfde1e130268184de2da955302bb3ce271c5738d8", 
-    "0x14e92e09bf973dc2d842b042609173003878ab3d", 
-    "0xa3d3da443260436f32b37a0fd29f1eaf0094e06b",
+    "0x06e798218b1cbd5a7fdcdff2d582d4413163a0a8", 
+    "0x86b1d9da6b2f1eef1a8c06107f76ec03923cbc2c",
 ]
 
 [exec.sub.paracross]
