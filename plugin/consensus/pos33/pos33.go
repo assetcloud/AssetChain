@@ -187,8 +187,8 @@ func (c *Client) updateTicketCount(b *types.Block) {
 			}
 		}
 	}
-	chain33Cfg := c.GetAPI().GetConfig()
-	if pt.GetPos33MineParam(chain33Cfg, height).ChangeTicketPrice() {
+	chainCfg := c.GetAPI().GetConfig()
+	if pt.GetPos33MineParam(chainCfg, height).ChangeTicketPrice() {
 		plog.Debug("update ticket count because price changed", "height", height)
 		c.queryAllPos33Count(height)
 		for k := range c.tcMap[height-1] {

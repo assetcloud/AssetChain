@@ -50,7 +50,7 @@ var maxacc = flag.Int("a", 10000, "max account")
 var maxaccF = flag.Int("m", 1000000, "max account in a file")
 
 // var rn = flag.Int("r", 3000, "sleep in Microsecond")
-var conf = flag.String("c", "assetchain.toml", "chain33 config file")
+var conf = flag.String("c", "assetchain.toml", "chain config file")
 var useGrpc = flag.Bool("G", false, "if use grpc")
 var sign = flag.Bool("s", true, "signature tx")
 var accFile = flag.String("f", "acc.dat", "acc file")
