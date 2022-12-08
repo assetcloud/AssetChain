@@ -29,13 +29,6 @@ function init() {
     fi
 
 
-    sleep 1
-    echo "=========== # create new key for mining ============="
-    result=$(./assetchain-cli --rpc_laddr=${main_jrpc} account create -t 2 -l mining | jq ".acc")
-    echo "${result}"
-    if [ -z "${result}" ]; then
-        exit 1
-    fi
 
     echo "=========== # end set wallet 1 ============="
 
