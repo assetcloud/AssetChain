@@ -3,8 +3,8 @@ module github.com/assetcloud/assetchain
 go 1.15
 
 require (
-	github.com/assetcloud/chain v0.0.0-20221027103303-5dd175a4e293
-	github.com/assetcloud/plugin v0.0.0-20221031035911-f46d827dc6d8
+	github.com/assetcloud/chain v0.0.0-20221219074036-eab0613fd112
+	github.com/assetcloud/plugin v0.0.0-20221219083113-5968bdfb7037
 	github.com/btcsuite/btcd v0.22.1
 	github.com/golang/protobuf v1.5.2
 	github.com/libp2p/go-libp2p v0.15.0
