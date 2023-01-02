@@ -88,7 +88,7 @@ poolCacheSize = 1024000
 name="pos33"
 minerstart=true
 genesisBlockTime=1652797628
-genesis="0x94e67ceba77c19c683db4e24675b1f5c29e0226a"
+genesis="0x301780f5168f1a96c5d17b625fe6ca63dc955fde"
 minerExecs=["pos33"]
 
 [consensus.sub.pos33]
@@ -96,13 +96,13 @@ onlyVoter = false
 
 [[consensus.sub.pos33.genesis]]
 minerAddr="0xc0fabb98bfc363e98bd57075c1e4604ea6294086"
-returnAddr="0x94e67ceba77c19c683db4e24675b1f5c29e0226a"
+returnAddr="0x301780f5168f1a96c5d17b625fe6ca63dc955fde"
 blsAddr="0xf96781cff585f534475500215e0e5a10b2d33cbf"# gen from consensus.genesis.minerAddr.privkey
 count=1000
 
 [mver.consensus]
 addWalletTx = false
-fundKeyAddr = "0xfde1e130268184de2da955302bb3ce271c5738d8"
+fundKeyAddr = "0x301780f5168f1a96c5d17b625fe6ca63dc955fde"
 powLimitBits = "0x1f00ffff"
 
 [mver.consensus.pos33]
@@ -147,7 +147,7 @@ pruneMavlHeight = 10000
 tkCloseCacheLen = 200000
 
 [crypto]
-enableTypes = ["secp256k1", "none", "bls", "secp256k1eth"]
+enableTypes = ["secp256k1", "bls", "secp256k1eth"]
 
 [crypto.sub.secp256k1eth]
 evmChainID=898
@@ -179,15 +179,15 @@ addressDriver="eth"
 [exec.sub.token]
 saveTokenTxList = false
 #配置一个空值，防止配置文件被覆盖
-tokenApprs=["0xd09d60dbc1d572cf01f58ffb87866c1fee0b4394"]
+tokenApprs=["0x0e5d3e5ded30270d056c343b0767919b67856a8e"]
 [exec.sub.relay]
-genesis="0x01f0ddbaf9c73510b23ba51c81e931f7488f2422"
+genesis="0x297ef47ff2dbce34079440aee21227f91bc6fd6e"
 
 [exec.sub.manage]
 superManager=[
-    "0xfde1e130268184de2da955302bb3ce271c5738d8", 
-    "0x14e92e09bf973dc2d842b042609173003878ab3d", 
-    "0xa3d3da443260436f32b37a0fd29f1eaf0094e06b",
+    "0x6e74338122938a724d2d12d5a0a101c59e78833e", 
+    "0x5c6842b161e2ea08709329e383ba8754816e6451", 
+    "0x378bb72d4c26d0c2c68868c736670a97603e7323",
 ]
 
 [exec.sub.paracross]
@@ -196,7 +196,7 @@ nodeGroupFrozenCoins=0
 paraConsensusStopBlocks=30000
 
 [exec.sub.autonomy]
-total="0x36e041f189753673079191f91568c3c5f9ad7c26"
+total="0x815e1fd20ec42677e8b6dd149158f92b9e0e28f9"
 useBalance=false
 
 [mver.autonomy]
