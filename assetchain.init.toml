@@ -36,7 +36,7 @@ grpcLogFile = "grpc33.log"
 
 [p2p.sub.dht]
 # 分组通道, 同一个网络的channel必须相同
-channel = 10005
+channel = 10015
 # p2p服务端口
 port = 13801
 #可以自定义设置连接节点
@@ -69,7 +69,7 @@ wsApi = ["eth", "web3", "personal", "admin", "net"]
 [consensus.sub.pos33]
 bootPeers = []
 # ["/ip4/183.131.3.8/tcp/10901/p2p/16Uiu2HAmDu5ubvVncWYQ9C9ih5SK5WHVtULzmqSs9ZZqxdM1DQ6p"]
-issueTotal = 10000000000
+issueTotal = 202005201314
 listenPort = 10901
 
 [mver.consensus]
