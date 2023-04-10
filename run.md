@@ -1,4 +1,4 @@
-# pos33 运行
+# assetchain 运行
 
 ## 运行节点
 	$ ./assetchain 
