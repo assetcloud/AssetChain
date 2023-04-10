@@ -366,6 +366,11 @@ ForkParaRootHash=0
 ForkParaSupervision=0
 ForkParaAutonomySuperGroup = -1
 ForkParaFreeRegister = 0
+#主链paracross合约fork后执行自己的checkTx检查，代替drivebase的检查
+ForkParaCheckTx=0
+
+[fork.sub.rollup]
+Enable=-1
 
 [fork.sub.multisig]
 Enable=0
