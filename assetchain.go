@@ -151,6 +151,7 @@ enableTypes = ["secp256k1", "bls", "secp256k1eth"]
 
 [crypto.sub.secp256k1eth]
 evmChainID=898
+coinsPrecision=1e4
 
 [wallet]
 dbCache = 16
@@ -176,12 +177,19 @@ ethMapFromSymbol="AS"
 addressDriver="eth"
 evmGasLimit=100000000
 
+# 预编译合约配置管理员
+[exec.sub.evm.preCompile]
+# 激活合token-erc20 的合约管理地址，必须配置管理员地址
+superManager=["0xd09d60dbc1d572cf01f58ffb87866c1fee0b4394","0xc0fabb98bfc363e98bd57075c1e4604ea6294086"]
+
+
 [exec.sub.token]
 saveTokenTxList = false
 #配置一个空值，防止配置文件被覆盖
 tokenApprs=["0xd09d60dbc1d572cf01f58ffb87866c1fee0b4394"]
 [exec.sub.relay]
 genesis="0x01f0ddbaf9c73510b23ba51c81e931f7488f2422"
+friendExecer=["evm"]
 
 [exec.sub.manage]
 superManager=[
@@ -333,6 +341,8 @@ ForkBadTokenSymbol=0
 ForkTokenPrice=300000
 ForkTokenSymbolWithNumber=0
 ForkTokenCheck=0
+ForkTokenEvm=0
+
 
 [fork.sub.trade]
 Enable=0
@@ -373,6 +383,11 @@ ForkEVMFrozen=0
 ForkEVMKVHash=0
 ForkEVMYoloV1=0
 ForkEVMTxGroup=0
+# EVM 兼容 base58 及 16 进制地址混合调用处理
+ForkEVMMixAddress=0
+# EVM gas 计算调整
+ForkIntrinsicGas=0
+ForkEVMAddressInit=0
 
 [fork.sub.unfreeze]
 Enable=0
