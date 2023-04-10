@@ -3,7 +3,6 @@ package pos33
 import (
 	"errors"
 	"fmt"
-	"os"
 	"sort"
 	"sync"
 	"time"
@@ -43,31 +42,11 @@ type committee struct {
 }
 
 func writeVotes(file string, bvmp map[string][]*pt.Pos33VoteMsg) error {
-	var vs pt.Pos33Votes
-	for _, v := range bvmp {
-		vs.Vs = append(vs.Vs, v...)
-	}
-	err := os.WriteFile(file, types.Encode(&vs), 0666)
-	if err != nil {
-		return err
-	}
 	return nil
 }
 
 func readVotes(file string) (map[string][]*pt.Pos33VoteMsg, error) {
-	data, err := os.ReadFile(file)
-	if err != nil {
-		return nil, err
-	}
-	var vs pt.Pos33Votes
-	err = types.Decode(data, &vs)
-	if err != nil {
-		return nil, err
-	}
 	mp := make(map[string][]*pt.Pos33VoteMsg)
-	for _, v := range vs.Vs {
-		mp[string(v.Hash)] = append(mp[string(v.Hash)], v)
-	}
 	return mp, nil
 }
 

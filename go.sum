@@ -113,6 +113,7 @@ github.com/NebulousLabs/merkletree v0.0.0-20181203152040-08d5d54b07f5 h1:pk9SclN
 github.com/NebulousLabs/merkletree v0.0.0-20181203152040-08d5d54b07f5/go.mod h1:Cn056wBLKay+uIS9LJn7ymwhgC5mqbOtG6iOhEvyy4M=
 github.com/OneOfOne/xxhash v1.2.2 h1:KMrpdQIwFcEqXDklaen+P1axHaj9BSKzvpUUfnHldSE=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
+github.com/OneOfOne/xxhash v1.2.5/go.mod h1:eZbhyaAYD41SGSSsnmcpxVoRiQ/MPUTjUdIIOT9Um7Q=
 github.com/PuerkitoBio/purell v1.0.0/go.mod h1:c11w/QuzBsJSee3cPx9rAFu61PvFxuPbtSwDGJws/X0=
 github.com/PuerkitoBio/purell v1.1.0/go.mod h1:c11w/QuzBsJSee3cPx9rAFu61PvFxuPbtSwDGJws/X0=
 github.com/PuerkitoBio/purell v1.1.1/go.mod h1:c11w/QuzBsJSee3cPx9rAFu61PvFxuPbtSwDGJws/X0=
@@ -166,8 +167,12 @@ github.com/asaskevich/govalidator v0.0.0-20190424111038-f61b66f89f4a/go.mod h1:l
 github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496/go.mod h1:oGkLhpf+kjZl6xBf758TQhh5XrAeiJv/7FRz/2spLIg=
 github.com/assetcloud/chain v0.0.0-20221219074036-eab0613fd112 h1:IehEZHj5cRkOwWPKlXt8Ufd9tRmVEbOGF6m+8ROHYNo=
 github.com/assetcloud/chain v0.0.0-20221219074036-eab0613fd112/go.mod h1:kKcE3CW2lQ24LyAKzB82M0CZ7SVLPwEVGsNgS5b6RdM=
+github.com/assetcloud/chain v0.0.0-20230410073959-a48ccea448d6 h1:0SNgZUHilADq2JOHsY+PU3F4pSqizl5pPQtQDfbHC+A=
+github.com/assetcloud/chain v0.0.0-20230410073959-a48ccea448d6/go.mod h1:kKcE3CW2lQ24LyAKzB82M0CZ7SVLPwEVGsNgS5b6RdM=
 github.com/assetcloud/plugin v0.0.0-20221219083113-5968bdfb7037 h1:apMwgyuDiQIF6uDNBwwVXcoQSbOSZVGqGiMFFafXs8w=
 github.com/assetcloud/plugin v0.0.0-20221219083113-5968bdfb7037/go.mod h1:N2/LZ/x6+CrWDoo6BBKYOntDLnOIROpwZ+lxAuL4efU=
+github.com/assetcloud/plugin v0.0.0-20230410080410-c7f90405aaee h1:dD6OC3SQmhcPd/2FEzdnuoAq9uAqJmZgBfTZk4umdQI=
+github.com/assetcloud/plugin v0.0.0-20230410080410-c7f90405aaee/go.mod h1:mTMeddve3MREVS0S6QCUc7ZQ5PgDx3Fkc8wKZ1WR6cs=
 github.com/aws/aws-lambda-go v1.13.3/go.mod h1:4UKl9IzQMoD+QF79YdCuzCwp8VbmG4VAQwij/eHl5CU=
 github.com/aws/aws-sdk-go v1.27.0/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
 github.com/aws/aws-sdk-go v1.29.16/go.mod h1:1KvfttTE3SPKMpo8g2c6jL3ZKfXtFvKscTgahTma5Xg=

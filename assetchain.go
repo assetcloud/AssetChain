@@ -67,9 +67,9 @@ eth=0
 
 [mempool]
 minTxFeeRate = 10
-maxTxFeeRate = 100000
+maxTxFeeRate = 10000000
 isLevelFee = false
-maxTxFee=100000
+maxTxFee=10000000
 name = "price"
 enableEthCheck=true
 
@@ -147,10 +147,11 @@ pruneMavlHeight = 10000
 tkCloseCacheLen = 200000
 
 [crypto]
-enableTypes = ["secp256k1", "none", "bls", "secp256k1eth"]
+enableTypes = ["secp256k1", "bls", "secp256k1eth"]
 
 [crypto.sub.secp256k1eth]
 evmChainID=898
+coinsPrecision=1e4
 
 [wallet]
 dbCache = 16
@@ -174,6 +175,12 @@ friendExecer=["evm"]
 ethMapFromExecutor="coins"
 ethMapFromSymbol="AS"
 addressDriver="eth"
+evmGasLimit=100000000
+
+# 预编译合约配置管理员
+[exec.sub.evm.preCompile]
+# 激活合token-erc20 的合约管理地址，必须配置管理员地址
+superManager=["0xd09d60dbc1d572cf01f58ffb87866c1fee0b4394","0xc0fabb98bfc363e98bd57075c1e4604ea6294086"]
 
 
 [exec.sub.token]
@@ -182,6 +189,7 @@ saveTokenTxList = false
 tokenApprs=["0xd09d60dbc1d572cf01f58ffb87866c1fee0b4394"]
 [exec.sub.relay]
 genesis="0x01f0ddbaf9c73510b23ba51c81e931f7488f2422"
+friendExecer=["evm"]
 
 [exec.sub.manage]
 superManager=[
@@ -333,6 +341,8 @@ ForkBadTokenSymbol=0
 ForkTokenPrice=300000
 ForkTokenSymbolWithNumber=0
 ForkTokenCheck=0
+ForkTokenEvm=0
+
 
 [fork.sub.trade]
 Enable=0
@@ -356,6 +366,11 @@ ForkParaRootHash=0
 ForkParaSupervision=0
 ForkParaAutonomySuperGroup = -1
 ForkParaFreeRegister = 0
+#主链paracross合约fork后执行自己的checkTx检查，代替drivebase的检查
+ForkParaCheckTx=0
+
+[fork.sub.rollup]
+Enable=-1
 
 [fork.sub.multisig]
 Enable=0
@@ -373,6 +388,11 @@ ForkEVMFrozen=0
 ForkEVMKVHash=0
 ForkEVMYoloV1=0
 ForkEVMTxGroup=0
+# EVM 兼容 base58 及 16 进制地址混合调用处理
+ForkEVMMixAddress=0
+# EVM gas 计算调整
+ForkIntrinsicGas=0
+ForkEVMAddressInit=0
 
 [fork.sub.unfreeze]
 Enable=0
