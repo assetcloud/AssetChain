@@ -67,9 +67,9 @@ eth=0
 
 [mempool]
 minTxFeeRate = 10
-maxTxFeeRate = 100000
+maxTxFeeRate = 10000000
 isLevelFee = false
-maxTxFee=100000
+maxTxFee=10000000
 name = "price"
 enableEthCheck=true
 
@@ -147,7 +147,7 @@ pruneMavlHeight = 10000
 tkCloseCacheLen = 200000
 
 [crypto]
-enableTypes = ["secp256k1", "none", "bls", "secp256k1eth"]
+enableTypes = ["secp256k1", "bls", "secp256k1eth"]
 
 [crypto.sub.secp256k1eth]
 evmChainID=898
@@ -174,7 +174,7 @@ friendExecer=["evm"]
 ethMapFromExecutor="coins"
 ethMapFromSymbol="AS"
 addressDriver="eth"
-
+evmGasLimit=100000000
 
 [exec.sub.token]
 saveTokenTxList = false
