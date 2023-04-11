@@ -88,21 +88,21 @@ poolCacheSize = 1024000
 name="pos33"
 minerstart=true
 genesisBlockTime=1652797628
-genesis="0x94e67ceba77c19c683db4e24675b1f5c29e0226a"
+genesis="0x8387505d1571ee2b2d7339addb3f5dcf9f32c389"
 minerExecs=["pos33"]
 
 [consensus.sub.pos33]
 onlyVoter = false
 
 [[consensus.sub.pos33.genesis]]
-minerAddr="0xc0fabb98bfc363e98bd57075c1e4604ea6294086"
-returnAddr="0x94e67ceba77c19c683db4e24675b1f5c29e0226a"
+minerAddr="0xdd0d9a7c47ebf1b02e1095a7f443b3ab61abfc6b"
+returnAddr="0x8387505d1571ee2b2d7339addb3f5dcf9f32c389"
 blsAddr="0xf96781cff585f534475500215e0e5a10b2d33cbf"# gen from consensus.genesis.minerAddr.privkey
 count=1000
 
 [mver.consensus]
 addWalletTx = false
-fundKeyAddr = "0xfde1e130268184de2da955302bb3ce271c5738d8"
+fundKeyAddr = "0x2cb1656b4cc952975b5cd4efdaead4e3a68003c4"
 powLimitBits = "0x1f00ffff"
 
 [mver.consensus.pos33]
@@ -180,22 +180,22 @@ evmGasLimit=100000000
 # 预编译合约配置管理员
 [exec.sub.evm.preCompile]
 # 激活合token-erc20 的合约管理地址，必须配置管理员地址
-superManager=["0xd09d60dbc1d572cf01f58ffb87866c1fee0b4394","0xc0fabb98bfc363e98bd57075c1e4604ea6294086"]
+superManager=["0x5e44c5d6380bde65368181e66c023334098c249d","0x8387505d1571ee2b2d7339addb3f5dcf9f32c389", "0xdd0d9a7c47ebf1b02e1095a7f443b3ab61abfc6b"]
 
 
 [exec.sub.token]
 saveTokenTxList = false
 #配置一个空值，防止配置文件被覆盖
-tokenApprs=["0xd09d60dbc1d572cf01f58ffb87866c1fee0b4394"]
+tokenApprs=["0x8387505d1571ee2b2d7339addb3f5dcf9f32c389","0x5e44c5d6380bde65368181e66c023334098c249d", "0xdd0d9a7c47ebf1b02e1095a7f443b3ab61abfc6b" ]
 [exec.sub.relay]
-genesis="0x01f0ddbaf9c73510b23ba51c81e931f7488f2422"
+genesis="0x8387505d1571ee2b2d7339addb3f5dcf9f32c389"
 friendExecer=["evm"]
 
 [exec.sub.manage]
 superManager=[
-    "0xfde1e130268184de2da955302bb3ce271c5738d8", 
-    "0x14e92e09bf973dc2d842b042609173003878ab3d", 
-    "0xa3d3da443260436f32b37a0fd29f1eaf0094e06b",
+    "0x8387505d1571ee2b2d7339addb3f5dcf9f32c389", 
+    "0x5e44c5d6380bde65368181e66c023334098c249d", 
+    "0xdd0d9a7c47ebf1b02e1095a7f443b3ab61abfc6b",
 ]
 
 [exec.sub.paracross]
@@ -204,7 +204,7 @@ nodeGroupFrozenCoins=0
 paraConsensusStopBlocks=30000
 
 [exec.sub.autonomy]
-total="0x36e041f189753673079191f91568c3c5f9ad7c26"
+total="0xdd0d9a7c47ebf1b02e1095a7f443b3ab61abfc6b"
 useBalance=false
 
 [mver.autonomy]
