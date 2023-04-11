@@ -1,4 +1,4 @@
-ChainID = 898
+ChainID = 1898
 CoinPrecision = 10000
 CoinSymbol = "AS"
 Title = "Assetchain"
@@ -24,7 +24,7 @@ enableReduceLocaldb = false
 enableTxQuickIndex = true
 isParaChain = false
 isRecordBlockSequence = true
-singleMode = false
+singleMode = true
 
 [mempool]
 maxTxNumPerAccount = 100000
@@ -36,11 +36,11 @@ grpcLogFile = "grpc33.log"
 
 [p2p.sub.dht]
 # 分组通道, 同一个网络的channel必须相同
-channel = 10005
+channel = 10065
 # p2p服务端口
 port = 13801
 #可以自定义设置连接节点
-seeds = ["/ip4/183.131.3.8/tcp/13801/p2p/16Uiu2HAkwi5xVpTAxkqt1pJZGpqk8reYCL7xsswDZ7SV2cUkCKqp", "/ip4/124.71.221.14/tcp/13801/p2p/16Uiu2HAm1DVL7S7xJss4UFAvKArDSQzn5JEMDGmZ9xgULSaLFJ1j"]
+seeds = []
 
 
 [p2p.sub.dht.broadcast]
@@ -66,7 +66,7 @@ wsAddr = "localhost:8548"
 wsApi = ["eth", "web3", "personal", "admin", "net"]
 
 [consensus.sub.pos33]
-bootPeers = ["/ip4/183.131.3.8/tcp/10901/p2p/16Uiu2HAmDu5ubvVncWYQ9C9ih5SK5WHVtULzmqSs9ZZqxdM1DQ6p"]
+bootPeers = []
 issueTotal = 10000000000
 listenPort = 10901
 

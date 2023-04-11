@@ -150,7 +150,7 @@ tkCloseCacheLen = 200000
 enableTypes = ["secp256k1", "bls", "secp256k1eth"]
 
 [crypto.sub.secp256k1eth]
-evmChainID=898
+evmChainID=1898
 coinsPrecision=1e4
 
 [wallet]
