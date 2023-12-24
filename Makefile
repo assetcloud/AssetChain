@@ -1,16 +1,16 @@
 
 export GO111MODULE=on
-export CHAIN33_PATH=$(shell go list -f {{.Dir}} github.com/33cn/chain33)
-export PLUGIN_PATH=$(shell go list -f {{.Dir}} github.com/33cn/plugin)
+export CHAIN_PATH=$(shell go list -f {{.Dir}} github.com/assetcloud/chain)
+export PLUGIN_PATH=$(shell go list -f {{.Dir}} github.com/assetcloud/plugin)
 PKG_LIST_VET := `go list ./... | grep -v "vendor" | grep -v plugin/dapp/evm/executor/vm/common/crypto/bn256`
 PKG_LIST_INEFFASSIGN= `go list -f {{.Dir}} ./... | grep -v "vendor"`
 LDFLAGS := ' -w -s'
 BUILDTIME:=$(shell date +"%Y-%m-%d %H:%M:%S %A")
 VERSION=$(shell git describe --tags || git rev-parse --short=8 HEAD)
 GitCommit=$(shell git rev-parse --short=8 HEAD)
-BUILD_FLAGS := -ldflags '-X "github.com/bityuan/bityuan/version.GitCommit=$(GitCommit)" \
-                         -X "github.com/33cn/chain33/common/version.GitCommit=$(GitCommit)" \
-                         -X "github.com/bityuan/bityuan/version.BuildTime=$(BUILDTIME)"'
+BUILD_FLAGS := -ldflags '-X "github.com/assetcloud/assetchain/version.GitCommit=$(GitCommit)" \
+                         -X "github.com/assetcloud/chain/common/version.GitCommit=$(GitCommit)" \
+                         -X "github.com/assetcloud/assetchain/version.BuildTime=$(BUILDTIME)"'
 
 .PHONY: default build
 
@@ -20,7 +20,7 @@ all:  build
 
 build: toolimport
 	CGO_ENABLED=1 go build ${BUILD_FLAGS} -v  -o bityuan
-	CGO_ENABLED=1 go build ${BUILD_FLAGS} -v  -o bityuan-cli github.com/bityuan/bityuan/cli
+	CGO_ENABLED=1 go build ${BUILD_FLAGS} -v  -o bityuan-cli github.com/assetcloud/assetchain/cli
 
 
 PLATFORM_LIST = \
@@ -30,7 +30,7 @@ PLATFORM_LIST = \
 WINDOWS_ARCH_LIST = \
 	windows-amd64
 
-GOBUILD=CGO_ENABLED=1 go build $(BUILD_FLAGS)' -X "github.com/bityuan/bityuan/version.Version=$(VERSION)"  -w -s'
+GOBUILD=CGO_ENABLED=1 go build $(BUILD_FLAGS)' -X "github.com/assetcloud/assetchain/version.Version=$(VERSION)"  -w -s'
 SRC_CLI := ./cli
 SRC := ./
 APP := bityuan
@@ -61,20 +61,20 @@ windows-amd64:
 	#zip -j build/$(APP)-$@.zip $(APP)-$@.exe  $(CLI)-$@.exe CHANGELOG.md bityuan-fullnode.toml bityuan.toml
 
 #make updateplugin version=xxx
-#单独更新plugin或chain33, version可以是tag或者commit哈希(tag必须是--vMajor.Minor.Patch--规范格式)
+#单独更新plugin或chain, version可以是tag或者commit哈希(tag必须是--vMajor.Minor.Patch--规范格式)
 updateplugin:
 	@if [ -n "$(version)" ]; then   \
-    go get -d github.com/33cn/plugin@${version}; \
+    go get -d github.com/assetcloud/plugin@${version}; \
     else \
-    go get -d github.com/33cn/plugin@master;fi
-updatechain33:
+    go get -d github.com/assetcloud/plugin@master;fi
+updatechain:
 	@if [ -n "$(version)" ]; then   \
-	go get -d github.com/33cn/chain33@${version}; \
+	go get -d github.com/assetcloud/chain@${version}; \
 	else \
-	go get -d github.com/33cn/chain33@master;fi
+	go get -d github.com/assetcloud/chain@master;fi
 
-#make update version=xxx, 同时更新chain33和plugin, 两个项目必须有相同的tag(tag必须是--vMajor.Minor.Patch--规范格式)
-update:updatechain33 updateplugin
+#make update version=xxx, 同时更新chain和plugin, 两个项目必须有相同的tag(tag必须是--vMajor.Minor.Patch--规范格式)
+update:updatechain updateplugin
 
 vet:
 	@go vet ${PKG_LIST_VET}
@@ -114,11 +114,11 @@ autotest: ## build autotest binary
 	@if [ -n "$(dapp)" ]; then \
 		cd build/autotest && bash ./run.sh local $(dapp) && cd ../../; fi
 
-buildtool: ## chain33 tool
-	@go build  -o tool `go list -f {{.Dir}} github.com/33cn/chain33`/cmd/tools
+buildtool: ## chain tool
+	@go build  -o tool `go list -f {{.Dir}} github.com/assetcloud/chain`/cmd/tools
 
 toolimport: buildtool ## update plugin import
-	@./tool import --path "plugin" --packname "github.com/bityuan/bityuan/plugin" --conf "plugin/plugin.toml"
+	@./tool import --path "plugin" --packname "github.com/assetcloud/assetchain/plugin" --conf "plugin/plugin.toml"
 
 clean:
 	@rm -rf datadir

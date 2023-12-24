@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/bityuan/bityuan/version"
+	"github.com/assetcloud/assetchain/version"
 )
 
 var bityuan = fmt.Sprintf(`
@@ -299,7 +299,7 @@ ethMapFromSymbol="bty"
 evmGasLimit=2000000
 
 
-#系统中所有的fork,默认用chain33的测试网络的
+#系统中所有的fork,默认用chain的测试网络的
 #但是我们可以替换
 [fork.system]
 ForkChainParamV1= 0

@@ -1,12 +1,12 @@
-Title="bityuan"
-FixTime=false
+Title = "bityuan"
+FixTime = false
 
 [log]
 # 日志级别，支持debug(dbug)/info/warn/error(eror)/crit
 loglevel = "debug"
 logConsoleLevel = "info"
 # 日志文件名，可带目录，所有生成的日志文件都放到此目录下
-logFile = "logs/chain33.log"
+logFile = "logs/chain.log"
 # 单个日志文件的最大值（单位：兆）
 maxFileSize = 300
 # 最多保存的历史日志文件个数
@@ -23,132 +23,158 @@ callerFile = false
 callerFunction = false
 
 [blockchain]
-dbPath="datadir"
-dbCache=64
-batchsync=false
-isRecordBlockSequence=true
-enableTxQuickIndex=true
+dbPath = "datadir"
+dbCache = 64
+batchsync = false
+isRecordBlockSequence = true
+enableTxQuickIndex = true
 # 升级storedb是否重新执行localdb，bityuan主链升级不需要开启，平行链升级需要开启
-enableReExecLocal=false
+enableReExecLocal = false
 # 使能精简localdb
-enableReduceLocaldb=false
+enableReduceLocaldb = false
 # 是否禁止分片功能，默认开启分片功能
-disableShard=false
+disableShard = false
 # 使能从P2pStore中获取数据
-enableFetchP2pstore=true
+enableFetchP2pstore = true
 
 [p2p]
-types=["dht"]
-dbPath="datadir/addrbook"
-dbCache=4
-grpcLogFile="grpc33.log"
+types = ["dht"]
+dbPath = "datadir/addrbook"
+dbCache = 4
+grpcLogFile = "grpc33.log"
 #waitPid 等待seed导入
-waitPid=false
+waitPid = false
 
 [p2p.sub.gossip]
-port=13802
-seeds=[]
-isSeed=false
-innerSeedEnable=true
-useGithub=true
-innerBounds=300
+port = 13802
+seeds = []
+isSeed = false
+innerSeedEnable = true
+useGithub = true
+innerBounds = 300
 
 [p2p.sub.dht]
 #可以自定义设置连接节点
-seeds=[]
-port=13803
-maxConnectNum=300
+seeds = []
+port = 13803
+maxConnectNum = 300
 # 是否配置为全节点模式，全节点保存所有分片数据，种子节点应配置为true
-isFullNode=true
-verLimit="6.8.9"
+isFullNode = true
+verLimit = "6.8.9"
 
 [p2p.sub.dht.pubsub]
-gossipSubDlo=7
-gossipSubD=10
-gossipSubDhi=20
-gossipSubHeartbeatInterval=900
-gossipSubHistoryGossip=2
-gossipSubHistoryLength=7
+gossipSubDlo = 7
+gossipSubD = 10
+gossipSubDhi = 20
+gossipSubHeartbeatInterval = 900
+gossipSubHistoryGossip = 2
+gossipSubHistoryLength = 7
 
 
 [rpc]
-jrpcBindAddr="localhost:8801"
-grpcBindAddr="localhost:8802"
-whitelist=["127.0.0.1"]
-jrpcFuncBlacklist=["SendToAddress","Lock","UnLock","SetPasswd","NewAccount","GetAccounts","MergeBalance","ImportPrivKey","WalletTransactionList","DumpPrivkey","SaveSeed","GetSeed"]
-grpcFuncBlacklist=["SendToAddress","Lock","UnLock","SetPasswd","NewAccount","GetAccounts","MergeBalance","ImportPrivKey","WalletTransactionList","DumpPrivkey","SaveSeed","GetSeed"]
-enableTLS=false
-certFile="cert.pem"
-keyFile="key.pem"
+jrpcBindAddr = "localhost:8801"
+grpcBindAddr = "localhost:8802"
+whitelist = ["127.0.0.1"]
+jrpcFuncBlacklist = [
+  "SendToAddress",
+  "Lock",
+  "UnLock",
+  "SetPasswd",
+  "NewAccount",
+  "GetAccounts",
+  "MergeBalance",
+  "ImportPrivKey",
+  "WalletTransactionList",
+  "DumpPrivkey",
+  "SaveSeed",
+  "GetSeed",
+]
+grpcFuncBlacklist = [
+  "SendToAddress",
+  "Lock",
+  "UnLock",
+  "SetPasswd",
+  "NewAccount",
+  "GetAccounts",
+  "MergeBalance",
+  "ImportPrivKey",
+  "WalletTransactionList",
+  "DumpPrivkey",
+  "SaveSeed",
+  "GetSeed",
+]
+enableTLS = false
+certFile = "cert.pem"
+keyFile = "key.pem"
 
 [rpc.sub.eth]
-enable=true
-httpAddr="localhost:8546"
-httpApi=["eth","web3","personal","admin","net"]
+enable = true
+httpAddr = "localhost:8546"
+httpApi = ["eth", "web3", "personal", "admin", "net"]
 # websocket 绑定地址
-wsAddr="localhost:8547"
-wsApi=["eth","web3","personal","admin","net"]
+wsAddr = "localhost:8547"
+wsApi = ["eth", "web3", "personal", "admin", "net"]
 #兼容交易返回eth 哈希
-enableRlpTxHash=true
+enableRlpTxHash = true
 #启动快速估算gas
-disableQuickGas=false
+disableQuickGas = false
 
 [mempool]
-maxTxNumPerAccount=100
+maxTxNumPerAccount = 100
 
 [store]
-dbPath="datadir/mavltree"
-dbCache=128
+dbPath = "datadir/mavltree"
+dbCache = 128
 
 [store.sub.mavl]
-enableMavlPrefix=true
-enableMVCC=false
-enableMavlPrune=true
-pruneHeight=10000
-enableMemTree=true
-enableMemVal=true
+enableMavlPrefix = true
+enableMVCC = false
+enableMavlPrune = true
+pruneHeight = 10000
+enableMemTree = true
+enableMemVal = true
 # 缓存close ticket数目，该缓存越大同步速度越快，最大设置到1500000,默认200000
-tkCloseCacheLen=200000
+tkCloseCacheLen = 200000
 
 [store.sub.kvmvccmavl]
-enableMVCCIter=true
-enableMavlPrefix=true
-enableMVCC=false
-enableMavlPrune=true
-pruneMavlHeight=10000
-enableMVCCPrune=false
-pruneMVCCHeight=10000
-enableMemTree=true
-enableMemVal=true
+enableMVCCIter = true
+enableMavlPrefix = true
+enableMVCC = false
+enableMavlPrune = true
+pruneMavlHeight = 10000
+enableMVCCPrune = false
+pruneMVCCHeight = 10000
+enableMemTree = true
+enableMemVal = true
 # 缓存close ticket数目，该缓存越大同步速度越快，最大设置到1500000,默认200000
-tkCloseCacheLen=200000
+tkCloseCacheLen = 200000
 
 [wallet]
-dbPath="wallet"
-dbCache=16
+dbPath = "wallet"
+dbCache = 16
 
 [wallet.sub.ticket]
-minerdisable=false
-minerwhitelist=["*"]
+minerdisable = false
+minerwhitelist = ["*"]
 
 [exec]
-enableStat=false
-enableMVCC=false
+enableStat = false
+enableMVCC = false
 
 [exec.sub.token]
-saveTokenTxList=false
+saveTokenTxList = false
 
 [metrics]
 #是否使能发送metrics数据的发送
-enableMetrics=false
+enableMetrics = false
 #数据保存模式
-dataEmitMode="influxdb"
+dataEmitMode = "influxdb"
 
 [metrics.sub.influxdb]
 #以纳秒为单位的发送间隔
-duration=1000000000
-url="http://influxdb:8086"
-database="chain33metrics"
-username=""
-password=""
-namespace=""
+duration = 1000000000
+url = "http://influxdb:8086"
+database = "chainmetrics"
+username = ""
+password = ""
+namespace = ""

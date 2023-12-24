@@ -1,5 +1,5 @@
 package init
 
 import (
-	_ "github.com/33cn/plugin/plugin/store/kvmvccmavl" //auto gen
+	_ "github.com/assetcloud/plugin/plugin/store/kvmvccmavl" //auto gen
 )

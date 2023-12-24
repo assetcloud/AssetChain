@@ -27,7 +27,7 @@ install:
   - dir C:\mingw-w64\
   - dir C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\
   - dir C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64
-#  - choco install bzr
+  #  - choco install bzr
   - set Path=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;C:\Program Files (x86)\Bazaar\;C:\Program Files\Mercurial\;%Path%
   - gcc --version
   - set path
@@ -38,4 +38,4 @@ deploy: false
 test_script:
   - go env -w CGO_ENABLED=1
   - go build -buildmode=exe -o bityuan.exe
-  - go build -buildmode=exe -o bityuan-cli.exe github.com/bityuan/bityuan/cli
+  - go build -buildmode=exe -o bityuan-cli.exe github.com/assetcloud/assetchain/cli

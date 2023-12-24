@@ -1,5 +1,5 @@
 language: go
-go_import_path: github.com/bityuan/bityuan
+go_import_path: github.com/assetcloud/assetchain
 os: linux
 dist: xenial
 
@@ -21,7 +21,6 @@ jobs:
         - make checkgofmt && make fmt
         - make linter
 
-
     - stage: build
       go: "1.16.x"
       env:
@@ -30,6 +29,3 @@ jobs:
       before_script: make
       script:
         - make clean
-
-
-

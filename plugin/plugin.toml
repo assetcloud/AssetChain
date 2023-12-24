@@ -1,45 +1,45 @@
 # type字段仅支持 consensus  dapp store
 [dapp-ticket]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/ticket"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/ticket"
 
 [consensus-ticket]
-gitrepo = "github.com/33cn/plugin/plugin/consensus/ticket"
+gitrepo = "github.com/assetcloud/plugin/plugin/consensus/ticket"
 
 [dapp-retrieve]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/retrieve"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/retrieve"
 
 [dapp-hashlock]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/hashlock"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/hashlock"
 
 [dapp-token]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/token"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/token"
 
 [dapp-trade]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/trade"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/trade"
 
 [dapp-paracross]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/paracross"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/paracross"
 
 [dapp-multisig]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/multisig"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/multisig"
 
 [dapp-unfreeze]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/unfreeze"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/unfreeze"
 
 [dapp-autonomy]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/autonomy"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/autonomy"
 
 [dapp-rollup]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/rollup"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/rollup"
 
 [mempool-score]
-gitrepo = "github.com/33cn/plugin/plugin/mempool/score"
+gitrepo = "github.com/assetcloud/plugin/plugin/mempool/score"
 
 [mempool-price]
-gitrepo = "github.com/33cn/plugin/plugin/mempool/price"
+gitrepo = "github.com/assetcloud/plugin/plugin/mempool/price"
 
 [store-kvmvccmavl]
-gitrepo = "github.com/33cn/plugin/plugin/store/kvmvccmavl"
+gitrepo = "github.com/assetcloud/plugin/plugin/store/kvmvccmavl"
 
 [dapp-evm]
-gitrepo = "github.com/33cn/plugin/plugin/dapp/evm"
+gitrepo = "github.com/assetcloud/plugin/plugin/dapp/evm"

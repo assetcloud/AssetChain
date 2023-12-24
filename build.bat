@@ -5,8 +5,8 @@ echo %BUILDTIME%
 
 for /F "delims=" %%i in ('git rev-parse --short HEAD') do ( set commitid=%%i)
 
-set BUILD_FLAGS="-X github.com/bityuan/bityuan/version.GitCommit=%commitid%  -X github.com/33cn/chain33/common/version.GitCommit=%commitid% -X github.com/bityuan/bityuan/version.BuildTime=%BUILDTIME% -w -s"
+set BUILD_FLAGS="-X github.com/assetcloud/assetchain/version.GitCommit=%commitid%  -X github.com/assetcloud/chain/common/version.GitCommit=%commitid% -X github.com/assetcloud/assetchain/version.BuildTime=%BUILDTIME% -w -s"
 
 go env -w CGO_ENABLED=1
-go build  -ldflags  %BUILD_FLAGS% -v -o bityuan.exe github.com/bityuan/bityuan
-go build  -ldflags  %BUILD_FLAGS% -v -o bityuan-cli.exe github.com/bityuan/bityuan/cli
+go build  -ldflags  %BUILD_FLAGS% -v -o bityuan.exe github.com/assetcloud/assetchain
+go build  -ldflags  %BUILD_FLAGS% -v -o bityuan-cli.exe github.com/assetcloud/assetchain/cli

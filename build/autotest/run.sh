@@ -12,37 +12,37 @@ if [ "$(uname)" == "Darwin" ]; then
     sedfix=".bak"
 fi
 
-## get chain33 path
-CHAIN33_PATH=$(go list -f "{{.Dir}}" github.com/33cn/chain33)
-PlUGIN_PATH=$(go list -f "{{.Dir}}" github.com/33cn/plugin)
+## get chain path
+CHAIN_PATH=$(go list -f "{{.Dir}}" github.com/assetcloud/chain)
+PlUGIN_PATH=$(go list -f "{{.Dir}}" github.com/assetcloud/plugin)
 
 function build_auto_test() {
 
     trap "rm -f ../autotest/main.go" INT TERM EXIT
-    cp ../../bityuan ../chain33
-    cp ../../bityuan-cli ../chain33-cli
-    cp ../../bityuan.toml ../chain33.toml
-    local AutoTestMain="${CHAIN33_PATH}/cmd/autotest/main.go"
+    cp ../../bityuan ../chain
+    cp ../../bityuan-cli ../chain-cli
+    cp ../../bityuan.toml ../chain.toml
+    local AutoTestMain="${CHAIN_PATH}/cmd/autotest/main.go"
     cp "${AutoTestMain}" ./
-    sed -i $sedfix '/^package/a import _ \"github.com\/33cn\/plugin\/plugin\"' main.go
+    sed -i $sedfix '/^package/a import _ \"github.com\/assetcloud\/plugin\/plugin\"' main.go
     go build -v -i -o autotest
 }
 
 function copyAutoTestConfig() {
 
-    declare -a Chain33AutoTestDirs=("${CHAIN33_PATH}/system" "$PlUGIN_PATH/plugin")
+    declare -a ChainAutoTestDirs=("${CHAIN_PATH}/system" "$PlUGIN_PATH/plugin")
     echo "#copy auto test config to path \"$1\""
     local AutoTestConfigFile="$1/autotest.toml"
 
     #pre config auto test
     {
 
-        echo 'cliCmd="./chain33-cli"'
+        echo 'cliCmd="./chain-cli"'
         echo "checkTimeout=60"
     } >"${AutoTestConfigFile}"
 
     #copy all the dapp test case config file
-    for rootDir in "${Chain33AutoTestDirs[@]}"; do
+    for rootDir in "${ChainAutoTestDirs[@]}"; do
 
         if [[ ! -d ${rootDir} ]]; then
             continue
@@ -73,11 +73,11 @@ function copyAutoTestConfig() {
     done
 }
 
-function copyChain33() {
+function copyChain() {
 
-    echo "# copy chain33 bin to path \"$1\", make sure build chain33"
-    cp ../chain33 ../chain33-cli ../chain33.toml "$1"
-    cp "${CHAIN33_PATH}"/cmd/chain33/chain33.test.toml "$1"
+    echo "# copy chain bin to path \"$1\", make sure build chain"
+    cp ../chain ../chain-cli ../chain.toml "$1"
+    cp "${CHAIN_PATH}"/cmd/chain/chain.test.toml "$1"
 }
 
 function copyAll() {
@@ -89,7 +89,7 @@ function copyAll() {
     fi
     cp autotest "${dir}"
     copyAutoTestConfig "${dir}"
-    copyChain33 "${dir}"
+    copyChain "${dir}"
     echo "# all copy have done!"
 }
 
@@ -101,7 +101,7 @@ function main() {
         dir="$1"
         echo "$dir"
         rm -rf ../autotest/"$dir" && mkdir "$dir"
-        cp -r "$CHAIN33_PATH"/build/autotest/"$dir"/* ./"$dir"/ && copyAll "$dir"
+        cp -r "$CHAIN_PATH"/build/autotest/"$dir"/* ./"$dir"/ && copyAll "$dir"
         chmod -R 755 "$dir" && cd "$dir" && ./autotest.sh "${@:2}" && cd ../
     fi
 }

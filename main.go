@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"runtime/debug"
 
-	_ "github.com/33cn/chain33/system"
-	_ "github.com/bityuan/bityuan/plugin"
-	"github.com/bityuan/bityuan/version"
+	_ "github.com/assetcloud/assetchain/plugin"
+	"github.com/assetcloud/assetchain/version"
+	_ "github.com/assetcloud/chain/system"
 
-	frameVersion "github.com/33cn/chain33/common/version"
-	"github.com/33cn/chain33/util/cli"
-	pluginVersion "github.com/33cn/plugin/version"
+	frameVersion "github.com/assetcloud/chain/common/version"
+	"github.com/assetcloud/chain/util/cli"
+	pluginVersion "github.com/assetcloud/plugin/version"
 )
 
 var (
@@ -26,8 +26,8 @@ func main() {
 		fmt.Printf("System version: %s", version.Platform)
 		fmt.Printf("Golang version: %s", version.GoVersion)
 		fmt.Printf("Bityuan version: %s", version.GetVersion())
-		fmt.Printf("Chain33 frame version: %s", frameVersion.GetVersion())
-		fmt.Printf("Chain33 plugin version: %s", pluginVersion.GetVersion())
+		fmt.Printf("Chain frame version: %s", frameVersion.GetVersion())
+		fmt.Printf("Chain plugin version: %s", pluginVersion.GetVersion())
 		return
 	}
 	if *percent < 0 || *percent > 100 {
@@ -36,5 +36,5 @@ func main() {
 	if *percent > 0 {
 		debug.SetGCPercent(*percent)
 	}
-	cli.RunChain33("bityuan", bityuan)
+	cli.RunChain("bityuan", bityuan)
 }
