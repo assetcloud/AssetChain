@@ -9,7 +9,7 @@ import (
 var assetchain = fmt.Sprintf(`
 TestNet=false
 version="%s"
-CoinSymbol="bty"
+CoinSymbol="AS"
 
 [crypto]
 enableTypes=[]    #设置启用的加密插件名称，不配置启用所有
@@ -294,7 +294,7 @@ itemWaitBlockNumber=40000
 addressDriver="eth"
 ethMapFromExecutor="coins"
 #title的币种名称
-ethMapFromSymbol="bty" 
+ethMapFromSymbol="AS" 
 #当前最大为200万
 evmGasLimit=2000000
 
