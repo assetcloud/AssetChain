@@ -3,7 +3,7 @@
 [![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/assetcloud/assetchain?svg=true&branch=master&passingText=Windows%20-%20OK&failingText=Windows%20-%20failed&pendingText=Windows%20-%20pending)](https://ci.appveyor.com/project/assetcloud/assetchain)
 [![Macos Build Status](https://github.com/assetcloud/assetchain/actions/workflows/MacOS.yml/badge.svg)](https://github.com/assetcloud/assetchain/actions/workflows/MacOS.yml)
 
-# 基于 chain 区块链开发 框架 开发的 bityuan 系统（v6.8.16）
+# 基于 chain 区块链开发 框架 开发的 assetchain 系统（v6.8.16）
 
 ```
 注意: master 分支不是 发布版本, 不要用于生产环境

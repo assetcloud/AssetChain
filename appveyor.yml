@@ -4,7 +4,7 @@ version: "{build}"
 
 os: Visual Studio 2019
 
-clone_folder: c:\gopath\src\github.com\bityuan\bityuan
+clone_folder: c:\gopath\src\github.com\assetchain\assetchain
 
 # Build host
 
@@ -37,5 +37,5 @@ deploy: false
 
 test_script:
   - go env -w CGO_ENABLED=1
-  - go build -buildmode=exe -o bityuan.exe
-  - go build -buildmode=exe -o bityuan-cli.exe github.com/assetcloud/assetchain/cli
+  - go build -buildmode=exe -o assetchain.exe
+  - go build -buildmode=exe -o assetchain-cli.exe github.com/assetcloud/assetchain/cli

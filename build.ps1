@@ -1,4 +1,4 @@
-echo "building bityuan.exe bityuan-cli.exe"
+echo "building assetchain.exe assetchain-cli.exe"
 $commitid = git rev-parse --short=8 HEAD
 echo $commitid
 
@@ -10,7 +10,7 @@ echo $BUILD_FLAGS
 
 
 go env -w CGO_ENABLED=1
-go build  -ldflags  $BUILD_FLAGS  -v -o bityuan.exe github.com/assetcloud/assetchain
-go build  -ldflags  $BUILD_FLAGS  -v -o bityuan-cli.exe github.com/assetcloud/assetchain/cli
+go build  -ldflags  $BUILD_FLAGS  -v -o assetchain.exe github.com/assetcloud/assetchain
+go build  -ldflags  $BUILD_FLAGS  -v -o assetchain-cli.exe github.com/assetcloud/assetchain/cli
 
 echo "build end"

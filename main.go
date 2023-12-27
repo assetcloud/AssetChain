@@ -16,7 +16,7 @@ import (
 
 var (
 	percent    = flag.Int("p", 0, "SetGCPercent")
-	versionCmd = flag.Bool("version", false, "bityuan detail version")
+	versionCmd = flag.Bool("version", false, "assetchain detail version")
 )
 
 func main() {
@@ -25,7 +25,7 @@ func main() {
 		fmt.Printf("Build time: %s", version.BuildTime)
 		fmt.Printf("System version: %s", version.Platform)
 		fmt.Printf("Golang version: %s", version.GoVersion)
-		fmt.Printf("Bityuan version: %s", version.GetVersion())
+		fmt.Printf("assetchain version: %s", version.GetVersion())
 		fmt.Printf("Chain frame version: %s", frameVersion.GetVersion())
 		fmt.Printf("Chain plugin version: %s", pluginVersion.GetVersion())
 		return
@@ -36,5 +36,5 @@ func main() {
 	if *percent > 0 {
 		debug.SetGCPercent(*percent)
 	}
-	cli.RunChain("bityuan", bityuan)
+	cli.RunChain("assetchain", assetchain)
 }

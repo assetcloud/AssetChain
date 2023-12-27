@@ -1,4 +1,4 @@
-Title = "bityuan"
+Title = "assetchain"
 FixTime = false
 
 [log]
@@ -28,7 +28,7 @@ dbCache = 64
 batchsync = false
 isRecordBlockSequence = true
 enableTxQuickIndex = true
-# 升级storedb是否重新执行localdb，bityuan主链升级不需要开启，平行链升级需要开启
+# 升级storedb是否重新执行localdb，assetchain主链升级不需要开启，平行链升级需要开启
 enableReExecLocal = false
 # 使能精简localdb
 enableReduceLocaldb = false

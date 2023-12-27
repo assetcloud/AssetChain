@@ -19,8 +19,8 @@ default: build
 all:  build
 
 build: toolimport
-	CGO_ENABLED=1 go build ${BUILD_FLAGS} -v  -o bityuan
-	CGO_ENABLED=1 go build ${BUILD_FLAGS} -v  -o bityuan-cli github.com/assetcloud/assetchain/cli
+	CGO_ENABLED=1 go build ${BUILD_FLAGS} -v  -o assetchain
+	CGO_ENABLED=1 go build ${BUILD_FLAGS} -v  -o assetchain-cli github.com/assetcloud/assetchain/cli
 
 
 PLATFORM_LIST = \
@@ -33,32 +33,32 @@ WINDOWS_ARCH_LIST = \
 GOBUILD=CGO_ENABLED=1 go build $(BUILD_FLAGS)' -X "github.com/assetcloud/assetchain/version.Version=$(VERSION)"  -w -s'
 SRC_CLI := ./cli
 SRC := ./
-APP := bityuan
-CLI := bityuan-cli
+APP := assetchain
+CLI := assetchain-cli
 
 linux-action-amd64:
 	GOARCH=amd64 GOOS=linux $(GOBUILD) -o $(APP)-linux-amd64 $(SRC)
 	GOARCH=amd64 GOOS=linux $(GOBUILD) -o $(CLI)-linux-amd64 $(SRC_CLI)
 	chmod +x $(APP)-linux-amd64 $(CLI)-linux-amd64
-	tar -zcvf build/$(APP)-linux-amd64.tar.gz $(APP)-linux-amd64  $(CLI)-linux-amd64 CHANGELOG.md bityuan-fullnode.toml bityuan.toml
+	tar -zcvf build/$(APP)-linux-amd64.tar.gz $(APP)-linux-amd64  $(CLI)-linux-amd64 CHANGELOG.md assetchain-fullnode.toml assetchain.toml
 
 _GOBUILD := CGO_ENABLED=1 go build $(BUILD_FLAGS)' -w -s'
 linux-amd64:
 	GOARCH=amd64 GOOS=linux $(_GOBUILD) -o $(APP)-$@ $(SRC)
 	GOARCH=amd64 GOOS=linux $(_GOBUILD) -o $(CLI)-$@ $(SRC_CLI)
 	chmod +x $(APP)-$@ $(CLI)-$@
-	tar -zcvf build/$(APP)-$@.tar.gz $(APP)-$@  $(CLI)-$@ CHANGELOG.md bityuan-fullnode.toml bityuan.toml
+	tar -zcvf build/$(APP)-$@.tar.gz $(APP)-$@  $(CLI)-$@ CHANGELOG.md assetchain-fullnode.toml assetchain.toml
 
 darwin-amd64:
 	GOARCH=amd64 GOOS=darwin $(_GOBUILD) -o $(APP)-$@ $(SRC)
 	GOARCH=amd64 GOOS=darwin $(_GOBUILD) -o $(CLI)-$@ $(SRC_CLI)
 	chmod +x $(APP)-$@ $(CLI)-$@
-	tar -zcvf build/$(APP)-$@.tar.gz $(APP)-$@  $(CLI)-$@ CHANGELOG.md bityuan-fullnode.toml bityuan.toml
+	tar -zcvf build/$(APP)-$@.tar.gz $(APP)-$@  $(CLI)-$@ CHANGELOG.md assetchain-fullnode.toml assetchain.toml
 
 windows-amd64:
 	GOARCH=amd64 GOOS=windows $(_GOBUILD) -o $(APP)-$@.exe $(SRC)
 	GOARCH=amd64 GOOS=windows $(_GOBUILD) -o $(CLI)-$@.exe $(SRC_CLI)
-	#zip -j build/$(APP)-$@.zip $(APP)-$@.exe  $(CLI)-$@.exe CHANGELOG.md bityuan-fullnode.toml bityuan.toml
+	#zip -j build/$(APP)-$@.zip $(APP)-$@.exe  $(CLI)-$@.exe CHANGELOG.md assetchain-fullnode.toml assetchain.toml
 
 #make updateplugin version=xxx
 #单独更新plugin或chain, version可以是tag或者commit哈希(tag必须是--vMajor.Minor.Patch--规范格式)
@@ -125,6 +125,6 @@ clean:
 	@rm -rf logs
 	@rm -rf wallet
 	@rm -rf grpc33.log
-	@rm -rf bityuan
-	@rm -rf bityuan-cli
+	@rm -rf assetchain
+	@rm -rf assetchain-cli
 	@rm -rf tool

@@ -15,5 +15,5 @@ func main() {
 	if buildflags.RPCAddr == "" {
 		buildflags.RPCAddr = "http://localhost:8801"
 	}
-	cli.Run(buildflags.RPCAddr, buildflags.ParaName, "bityuan")
+	cli.Run(buildflags.RPCAddr, buildflags.ParaName, "assetchain")
 }

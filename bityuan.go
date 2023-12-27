@@ -6,7 +6,7 @@ import (
 	"github.com/assetcloud/assetchain/version"
 )
 
-var bityuan = fmt.Sprintf(`
+var assetchain = fmt.Sprintf(`
 TestNet=false
 version="%s"
 CoinSymbol="bty"

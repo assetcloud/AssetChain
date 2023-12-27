@@ -19,9 +19,9 @@ PlUGIN_PATH=$(go list -f "{{.Dir}}" github.com/assetcloud/plugin)
 function build_auto_test() {
 
     trap "rm -f ../autotest/main.go" INT TERM EXIT
-    cp ../../bityuan ../chain
-    cp ../../bityuan-cli ../chain-cli
-    cp ../../bityuan.toml ../chain.toml
+    cp ../../assetchain ../chain
+    cp ../../assetchain-cli ../chain-cli
+    cp ../../assetchain.toml ../chain.toml
     local AutoTestMain="${CHAIN_PATH}/cmd/autotest/main.go"
     cp "${AutoTestMain}" ./
     sed -i $sedfix '/^package/a import _ \"github.com\/assetcloud\/plugin\/plugin\"' main.go
