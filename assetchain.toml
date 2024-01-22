@@ -26,7 +26,7 @@ callerFile = false
 callerFunction = false
 
 [blockchain]
-dbPath = "datadir"
+dbPath = "datadir" # TODO.dir.1
 dbCache = 64
 batchsync = false
 isRecordBlockSequence = true
@@ -44,14 +44,14 @@ enablePushSubscribe = true
 
 [p2p]
 types = ["dht"]
-dbPath = "datadir/addrbook"
+dbPath = "datadir/addrbook" # TODO.dir.2
 dbCache = 4
 grpcLogFile = "grpc33.log"
 #waitPid 等待seed导入
 waitPid = false
 
 [p2p.sub.gossip]
-port = 13802
+port = 13801 # TODO.port.p2p.rpc
 seeds = []
 isSeed = false
 innerSeedEnable = true
@@ -61,8 +61,10 @@ innerBounds = 300
 
 [p2p.sub.dht]
 #可以自定义设置连接节点
-seeds = []
-port = 13803
+seeds = [] # TODO.seed
+#bootstraps是内置不能修改的引导节点
+bootstraps=[] # TODO.seed
+port = 13801 #TODO.port.p2p.rpc
 maxConnectNum = 300
 # 是否配置为全节点模式，全节点保存所有分片数据，种子节点应配置为true
 isFullNode = true
@@ -79,8 +81,8 @@ gossipSubHistoryLength = 7
 
 
 [rpc]
-jrpcBindAddr = "localhost:8801"
-grpcBindAddr = "localhost:8802"
+jrpcBindAddr = "localhost:8801" # TODO.port.rpc
+grpcBindAddr = "localhost:8802" # TODO.port.rpc
 whitelist = ["127.0.0.1"]
 jrpcFuncBlacklist = [
   "SendToAddress",
@@ -116,10 +118,10 @@ keyFile = "key.pem"
 
 [rpc.sub.eth]
 enable = true
-httpAddr = "localhost:8546"
+httpAddr = "localhost:8546" # TODO.port.rpc
 httpApi = ["eth", "web3", "personal", "admin", "net"]
 # websocket 绑定地址
-wsAddr = "localhost:8547"
+wsAddr = "localhost:8547" # TODO.port.rpc
 wsApi = ["eth", "web3", "personal", "admin", "net"]
 #兼容交易返回eth 哈希
 enableRlpTxHash = true
@@ -130,7 +132,7 @@ disableQuickGas = false
 maxTxNumPerAccount = 10000
 
 [store]
-dbPath = "datadir/mavltree"
+dbPath = "datadir/mavltree" # TODO.dir.3
 dbCache = 128
 
 [store.sub.mavl]
@@ -157,7 +159,7 @@ enableMemVal = true
 tkCloseCacheLen = 200000
 
 [wallet]
-dbPath = "wallet"
+dbPath = "wallet" # TODO.dir.4
 coinType = "AS"
 dbCache = 16
 
@@ -166,7 +168,7 @@ minerdisable = false
 minerwhitelist = ["*"]
 
 [health]
-listenAddr = "localhost:8809"
+listenAddr = "localhost:8809" # TODO.port.rpc
 
 [exec]
 enableStat = false
