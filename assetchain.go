@@ -16,8 +16,10 @@ enableTypes=[]    #设置启用的加密插件名称，不配置启用所有
 [crypto.enableHeight]  #配置已启用插件的启用高度，不配置采用默认高度0， 负数表示不启用
 bls=0
 btcscript=0
+
 [crypto.sub.secp256k1eth] 
 evmChainID=898
+coinsPrecision=1e4
 
 [address]
 defaultDriver="eth"
@@ -62,13 +64,13 @@ disableLtBlock=true
 [mempool]
 name="price"
 poolCacheSize=102400
-minTxFeeRate=100000
+minTxFeeRate=1
 maxTxFee=1000000000
 isLevelFee=true
 
 [mempool.sub.score]
 poolCacheSize=102400
-minTxFee=100000
+minTxFee=1
 maxTxNumPerAccount=100
 timeParam=1      #时间占价格比例
 priceConstant=1544  #手续费相对于时间的一个合适的常量,取当前unxi时间戳前四位数,排序时手续费高1e-5~=快1s
@@ -171,7 +173,7 @@ driver="leveldb"
 storedbVersion="2.0.0"
 
 [wallet]
-minFee=10000000
+minFee=1
 driver="leveldb"
 signType="secp256k1"
 
@@ -279,6 +281,10 @@ ethMapFromSymbol="AS"
 #当前最大为200万
 evmGasLimit=200000000
 
+[exec.sub.evm.preCompile]
+# 激活合token-erc20 的合约管理地址，必须配置管理员地址
+superManager=["0xd09d60dbc1d572cf01f58ffb87866c1fee0b4394","0xc0fabb98bfc363e98bd57075c1e4604ea6294086"]
+
 
 #系统中所有的fork,默认用chain的测试网络的
 #但是我们可以替换
@@ -294,7 +300,7 @@ ForkResetTx0= 0
 ForkWithdraw= 0
 ForkExecRollback= 0
 ForkCheckBlockTime=0
-ForkTxHeight= -1
+ForkTxHeight= 0
 ForkTxGroupPara= 0
 ForkChainParamV2= 0
 ForkMultiSignAddress=0
@@ -311,6 +317,7 @@ ForkRootHash=0
 ForkFormatAddressKey=0
 ForkCheckEthTxSort=0
 ForkProxyExec=0
+
 [fork.sub.evm]
 Enable=0
 ForkEVMABI=0
@@ -324,6 +331,7 @@ ForkIntrinsicGas=0
 ForkEVMAddressInit=0
 ForkEvmExecNonce=0
 ForkEvmExecNonceV2=0
+
 [fork.sub.rollup]
 Enable=0
 
@@ -361,7 +369,8 @@ ForkBadTokenSymbol= 0
 ForkTokenPrice= 300000
 ForkTokenSymbolWithNumber=0
 ForkTokenCheck= 0
-ForkTokenEvm=-1
+ForkTokenEvm=0
+
 [fork.sub.trade]
 Enable=0
 ForkTradeBuyLimit= 0
@@ -401,4 +410,9 @@ ForkUnfreezeIDX= 0
 
 [fork.sub.store-kvmvccmavl]
 ForkKvmvccmavl=0
+
+[health]
+checkInterval=1
+unSyncMaxTimes=2
+
 `, version.Version)

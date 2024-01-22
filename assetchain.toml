@@ -2,6 +2,7 @@ Title = "assetchain"
 FixTime = false
 ChainID = 898
 CoinPrecision = 10000
+CoinSymbol = "AS"
 
 [log]
 # 日志级别，支持debug(dbug)/info/warn/error(eror)/crit
@@ -35,9 +36,11 @@ enableReExecLocal = false
 # 使能精简localdb
 enableReduceLocaldb = false
 # 是否禁止分片功能，默认开启分片功能
-disableShard = false
+disableShard = true
 # 使能从P2pStore中获取数据
 enableFetchP2pstore = true
+enablePushSubscribe = true
+
 
 [p2p]
 types = ["dht"]
@@ -55,6 +58,7 @@ innerSeedEnable = true
 useGithub = true
 innerBounds = 300
 
+
 [p2p.sub.dht]
 #可以自定义设置连接节点
 seeds = []
@@ -63,6 +67,7 @@ maxConnectNum = 300
 # 是否配置为全节点模式，全节点保存所有分片数据，种子节点应配置为true
 isFullNode = true
 verLimit = "6.8.9"
+channel = 10005
 
 [p2p.sub.dht.pubsub]
 gossipSubDlo = 7
@@ -122,7 +127,8 @@ enableRlpTxHash = true
 disableQuickGas = false
 
 [mempool]
-maxTxNumPerAccount = 100
+maxTxNumPerAccount = 10000
+poolCacheSize = 20240
 
 [store]
 dbPath = "datadir/mavltree"
@@ -153,11 +159,15 @@ tkCloseCacheLen = 200000
 
 [wallet]
 dbPath = "wallet"
+coinType = "AS"
 dbCache = 16
 
 [wallet.sub.ticket]
 minerdisable = false
 minerwhitelist = ["*"]
+
+[health]
+listenAddr = "localhost:8809"
 
 [exec]
 enableStat = false
