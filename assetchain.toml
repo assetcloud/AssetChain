@@ -1,5 +1,7 @@
 Title = "assetchain"
 FixTime = false
+ChainID = 898
+CoinPrecision = 10000
 
 [log]
 # 日志级别，支持debug(dbug)/info/warn/error(eror)/crit
