@@ -128,7 +128,6 @@ disableQuickGas = false
 
 [mempool]
 maxTxNumPerAccount = 10000
-poolCacheSize = 20240
 
 [store]
 dbPath = "datadir/mavltree"

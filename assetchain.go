@@ -9,7 +9,6 @@ import (
 var assetchain = fmt.Sprintf(`
 TestNet=false
 version="%s"
-CoinSymbol="AS"
 
 [crypto]
 enableTypes=[]    #设置启用的加密插件名称，不配置启用所有
