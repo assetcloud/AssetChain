@@ -24,6 +24,7 @@ coinsPrecision=1e4
 defaultDriver="eth"
 [address.enableHeight]
 eth=0
+btc=0
 btcMultiSign=0
 
 [blockchain]
@@ -33,7 +34,6 @@ timeoutSeconds=5
 batchBlockNum=128
 driver="leveldb"
 isStrongConsistency=false
-singleMode=false
 # 分片存储中每个大块包含的区块数，固定参数
 chunkblockNum=1000
 # blockchain模块保留的区块数，指定最新的reservedBlockNum个区块不参与分片
@@ -81,12 +81,13 @@ poolCacheSize=102400
 name="ticket"
 minerstart=true
 genesisBlockTime=1703667518
-genesis="14KEKbYtKKQm4wMthSK9J4La4nAiidGozt" # TODO.address.1
+genesis="0x94e67ceba77c19c683db4e24675b1f5c29e0226a" # TODO.address.1 genesis
+genesisAmount=202005201314
 minerExecs=["ticket", "autonomy"]
 enableBestBlockCmp=true
 
 [mver.consensus]
-fundKeyAddr = "1JmFaA6unrCFYEWPGRi7uuXY1KthTJxJEP" # TODO.address.1
+fundKeyAddr = "0xabb92bbb064e57463c7032ceb5a4372ad208a047" # TODO.address.1 user1_addr
 powLimitBits = "0x1f00ffff"
 maxTxNumber = 1500
 
@@ -110,59 +111,25 @@ targetTimePerBlock = 5
 ticketPrice = 3000
 
 [mver.consensus.ForkTicketFundAddrV1]
-fundKeyAddr = "1Ji3W12KGScCM7C2p8bg635sNkayDM8MGY" # TODO.address.1
+fundKeyAddr = "0xabb92bbb064e57463c7032ceb5a4372ad208a047" # TODO.address.1 user1_addr
 
 [consensus.sub.ticket] 
 genesisBlockTime=1703667518
 
 [[consensus.sub.ticket.genesis]]
-minerAddr="184wj4nsgVxKyz2NhM3Yb5RK5Ap6AFRFq2" # TODO.address.1
-returnAddr="1FB8L3DykVF7Y78bRfUrRcMZwesKue7CyR" # TODO.address.1
-count=3000
+minerAddr="0xbd75dfb9315199d6bb40db35e482007837a5e068" # TODO.address.1 user9_addr
+returnAddr="0x0422121d85ac44609e83f343b696a96fce176f3b" # TODO.address.1 user8_addr
+count=20000
+
+ 
+[[consensus.sub.ticket.genesis]]
+minerAddr="0xdd51224232045bf9e85686ae4e91695740d86ae8" # TODO.address.1 user4_addr
+returnAddr="0x1fcb4ce2c94e883009b5ba29a8bbfa3b221ebb4e" # TODO.address.1   user5_addr 
+count=3000 
 
 [[consensus.sub.ticket.genesis]]
-minerAddr="1M4ns1eGHdHak3SNc2UTQB75vnXyJQd91s" # TODO.address.1
-returnAddr="1Lw6QLShKVbKM6QvMaCQwTh5Uhmy4644CG" # TODO.address.1
-count=3000
-
-[[consensus.sub.ticket.genesis]]
-minerAddr="19ozyoUGPAQ9spsFiz9CJfnUCFeszpaFuF" # TODO.address.1
-returnAddr="1PSYYfCbtSeT1vJTvSKmQvhz8y6VhtddWi"# TODO.address.1
-count=3000
-
-[[consensus.sub.ticket.genesis]]
-minerAddr="1MoEnCDhXZ6Qv5fNDGYoW6MVEBTBK62HP2"  # TODO.address.1
-returnAddr="1BG9ZoKtgU5bhKLpcsrncZ6xdzFCgjrZud" # TODO.address.1
-count=3000
-
-[[consensus.sub.ticket.genesis]]
-minerAddr="1FjKcxY7vpmMH6iB5kxNYLvJkdkQXddfrp" # TODO.address.1
-returnAddr="1G7s64AgX1ySDcUdSW5vDa8jTYQMnZktCd" # TODO.address.1
-count=3000
-
-[[consensus.sub.ticket.genesis]]
-minerAddr="12T8QfKbCRBhQdRfnAfFbUwdnH7TDTm4vx" # TODO.address.1
-returnAddr="1FiDC6XWHLe7fDMhof8wJ3dty24f6aKKjK" # TODO.address.1
-count=3000
-
-[[consensus.sub.ticket.genesis]]
-minerAddr="1bgg6HwQretMiVcSWvayPRvVtwjyKfz1J" # TODO.address.1
-returnAddr="1AMvuuQ7V7FPQ4hkvHQdgNWy8wVL4d4hmp" # TODO.address.1
-count=3000
-
-[[consensus.sub.ticket.genesis]]
-minerAddr="1EwkKd9iU1pL2ZwmRAC5RrBoqFD1aMrQ2" # TODO.address.1
-returnAddr="1ExRRLoJXa8LzXdNxnJvBkVNZpVw3QWMi4" # TODO.address.1
-count=3000
-
-[[consensus.sub.ticket.genesis]]
-minerAddr="1HFUhgxarjC7JLru1FLEY6aJbQvCSL58CB" # TODO.address.1
-returnAddr="1KNGHukhbBnbWWnMYxu1C7YMoCj45Z3amm" # TODO.address.1
-count=3000
-
-[[consensus.sub.ticket.genesis]]
-minerAddr="1C9M1RCv2e9b4GThN9ddBgyxAphqMgh5zq" # TODO.address.1
-returnAddr="1AH9HRd4WBJ824h9PP1jYpvRZ4BSA4oN6Y" # TODO.address.1
+minerAddr="0xb2ee80a1cc031a0ec4291491aacf89c74dae2c4b" # TODO.address.1  user6_addr
+returnAddr="0x077081f846a96d0d6bb9e9cf3c47ff8cd708f3d9" # TODO.address.1 user7_addr
 count=4733
 
 [store]
@@ -183,14 +150,17 @@ friendExecer=["evm"]
 
 [exec.sub.token]
 #配置一个空值，防止配置文件被覆盖
-tokenApprs = []
+tokenApprs = ["0xd09d60dbc1d572cf01f58ffb87866c1fee0b4394", "0xc6a307aa74f71a3796f2240c13fe7670eeed7a42"] # TODO.address.1 tokanManage manager3_addr
 
 [exec.sub.relay]
-genesis="14KEKbYtKKQm4wMthSK9J4La4nAiidGozt" # TODO.address.1
+genesis="0x01f0ddbaf9c73510b23ba51c81e931f7488f2422" # TODO.address.1 relayManage
 
 [exec.sub.manage]
 superManager=[
-    "1JmFaA6unrCFYEWPGRi7uuXY1KthTJxJEP",  # TODO.address.1
+    "0xfde1e130268184de2da955302bb3ce271c5738d8",  # TODO.address.1 manager1
+	"0x14e92e09bf973dc2d842b042609173003878ab3d", # manager2
+	"0xa3d3da443260436f32b37a0fd29f1eaf0094e06b", # manager3
+	"0x94bb77a68cfff2706a19b580c46734b862b464f7", # 辅助manager1
 ]
 #自治合约执行器名字
 autonomyExec="autonomy"
@@ -206,12 +176,12 @@ paraCrossAssetTxHeightList=[]
 
 
 [exec.sub.autonomy]
-total="16htvcBNSEA7fZhAdLJphDwQRQJaHpyHTp" # TODO.address.1
+total="0x36e041f189753673079191f91568c3c5f9ad7c26" # TODO.address.1 autonomyManage
 useBalance=false
 
 [mver.autonomy]
 #最小委员会数量
-minBoards=20
+minBoards=3
 #最大委员会数量
 maxBoards=40
 #公示一周时间，以区块高度计算
@@ -281,7 +251,7 @@ evmGasLimit=200000000
 
 [exec.sub.evm.preCompile]
 # 激活合token-erc20 的合约管理地址，必须配置管理员地址
-superManager=["0xd09d60dbc1d572cf01f58ffb87866c1fee0b4394","0xc0fabb98bfc363e98bd57075c1e4604ea6294086"] # TODO.address.1
+superManager=["0xfde1e130268184de2da955302bb3ce271c5738d8","0x93b8a430152d390eaa8683909b3ae0745b1b5e24"] # TODO.address.1 manager1 manager2_addr
 
 
 #系统中所有的fork,默认用chain的测试网络的

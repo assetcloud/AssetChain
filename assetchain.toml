@@ -40,6 +40,7 @@ disableShard = true
 # 使能从P2pStore中获取数据
 enableFetchP2pstore = true
 enablePushSubscribe = true
+singleMode=false
 
 
 [p2p]
@@ -54,8 +55,8 @@ waitPid = false
 port = 13801 # TODO.port.p2p.rpc
 seeds = []
 isSeed = false
-innerSeedEnable = true
-useGithub = true
+innerSeedEnable = false
+useGithub = false
 innerBounds = 300
 
 
@@ -68,7 +69,7 @@ port = 13801 #TODO.port.p2p.rpc
 maxConnectNum = 300
 # 是否配置为全节点模式，全节点保存所有分片数据，种子节点应配置为true
 isFullNode = true
-verLimit = "6.8.9"
+verLimit = "1.0.0"
 channel = 10005
 
 [p2p.sub.dht.pubsub]
