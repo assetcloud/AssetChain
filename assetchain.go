@@ -278,7 +278,7 @@ ForkBlockCheck=0
 ForkBase58AddressCheck=0
 ForkEnableParaRegExec=0
 ForkCacheDriver=0
-ForkTicketFundAddrV1=0
+ForkTicketFundAddrV1=-1
 #fork for 6.4
 ForkRootHash=0 
 #eth address key format fork

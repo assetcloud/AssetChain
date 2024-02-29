@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/assetcloud/chain v0.0.0-20231224052254-3c905e5ef12b
-	github.com/assetcloud/plugin v0.0.0-20231224055940-443c5de65e81
+	github.com/assetcloud/plugin v0.0.0-20240229083705-b770cea7a574
 )
 
 require (
